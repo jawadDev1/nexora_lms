@@ -11,7 +11,7 @@ const HeroSection = () => {
       <div>
         <Subheading>Unlock Your Potential with Nexora</Subheading>
         <Content className="mt-2 mb-3">
-          Welcome to Byway, where learning knows no bounds. We believe that
+          Welcome to Nexora, where learning knows no bounds. We believe that
           education is the key to personal and professional growth, and we're
           here to guide you on your journey to success.{" "}
         </Content>

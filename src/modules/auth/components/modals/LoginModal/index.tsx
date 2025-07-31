@@ -6,10 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputWithLabel from "@/components/form/formFields/InputWithLabel";
 import Link from "next/link";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
-import Title from "@/components/ui/typography/Title";
+import { signIn } from "next-auth/react";
 import SectionTitle from "@/components/ui/typography/SectionTitle";
 import { CgClose } from "react-icons/cg";
 import { IAuthModals } from "@/modules/auth/UserNav";
+import { notifyError, notifySuccess } from "@/utils/toast";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -31,11 +32,34 @@ const LoginModal = ({
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (data: LoginFormData) => {};
+  const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true);
+    const response = await signIn("credentials", {
+      redirect: false,
+      ...data,
+    });
+
+    setIsLoading(false);
+    if (response && response?.error?.includes("E401")) {
+      handleModal("verify");
+      return;
+    }
+
+    if (response && response.error && response.status === 401) {
+      notifyError(response.error);
+      return;
+    }
+
+    notifySuccess("Logged in successfully");
+    handleCloseModal();
+  };
 
   return (
     <ModalWrapper isOpen={isOpen} className="py-5 relative md:py-8 px-5 ">
-      <span onClick={handleCloseModal} className="absolute cursor-pointer right-7 top-8">
+      <span
+        onClick={handleCloseModal}
+        className="absolute cursor-pointer right-7 top-8"
+      >
         <CgClose size={27} />
       </span>
       <SectionTitle className="mb-8 text-center">Login</SectionTitle>

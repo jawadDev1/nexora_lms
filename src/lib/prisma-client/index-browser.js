@@ -128,8 +128,10 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar',
   role: 'role',
   verified: 'verified',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  otp: 'otp',
+  otp_expiry: 'otp_expiry',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {
@@ -137,8 +139,8 @@ exports.Prisma.CourseScalarFieldEnum = {
   title: 'title',
   slug: 'slug',
   createdById: 'createdById',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.EnrollmentScalarFieldEnum = {
@@ -146,8 +148,8 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
   userId: 'userId',
   courseId: 'courseId',
   progress: 'progress',
-  joinedAt: 'joinedAt',
-  updatedAt: 'updatedAt',
+  joined_at: 'joined_at',
+  updated_at: 'updated_at',
   status: 'status'
 };
 

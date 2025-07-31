@@ -1170,8 +1170,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    otp: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    otp: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1182,8 +1192,10 @@ export namespace Prisma {
     avatar: string | null
     role: $Enums.Role | null
     verified: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    otp: number | null
+    otp_expiry: Date | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1194,8 +1206,10 @@ export namespace Prisma {
     avatar: string | null
     role: $Enums.Role | null
     verified: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    otp: number | null
+    otp_expiry: Date | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1206,11 +1220,21 @@ export namespace Prisma {
     avatar: number
     role: number
     verified: number
-    createdAt: number
-    updatedAt: number
+    otp: number
+    otp_expiry: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    otp?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    otp?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1220,8 +1244,10 @@ export namespace Prisma {
     avatar?: true
     role?: true
     verified?: true
-    createdAt?: true
-    updatedAt?: true
+    otp?: true
+    otp_expiry?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1232,8 +1258,10 @@ export namespace Prisma {
     avatar?: true
     role?: true
     verified?: true
-    createdAt?: true
-    updatedAt?: true
+    otp?: true
+    otp_expiry?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1244,8 +1272,10 @@ export namespace Prisma {
     avatar?: true
     role?: true
     verified?: true
-    createdAt?: true
-    updatedAt?: true
+    otp?: true
+    otp_expiry?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -1287,6 +1317,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1317,6 +1359,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -1329,9 +1373,13 @@ export namespace Prisma {
     avatar: string
     role: $Enums.Role
     verified: boolean
-    createdAt: Date
-    updatedAt: Date
+    otp: number | null
+    otp_expiry: Date | null
+    created_at: Date
+    updated_at: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1358,8 +1406,10 @@ export namespace Prisma {
     avatar?: boolean
     role?: boolean
     verified?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    otp?: boolean
+    otp_expiry?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     courses?: boolean | User$coursesArgs<ExtArgs>
     enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1373,8 +1423,10 @@ export namespace Prisma {
     avatar?: boolean
     role?: boolean
     verified?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    otp?: boolean
+    otp_expiry?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1385,8 +1437,10 @@ export namespace Prisma {
     avatar?: boolean
     role?: boolean
     verified?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    otp?: boolean
+    otp_expiry?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1397,11 +1451,13 @@ export namespace Prisma {
     avatar?: boolean
     role?: boolean
     verified?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    otp?: boolean
+    otp_expiry?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatar" | "role" | "verified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatar" | "role" | "verified" | "otp" | "otp_expiry" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     courses?: boolean | User$coursesArgs<ExtArgs>
     enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
@@ -1424,8 +1480,10 @@ export namespace Prisma {
       avatar: string
       role: $Enums.Role
       verified: boolean
-      createdAt: Date
-      updatedAt: Date
+      otp: number | null
+      otp_expiry: Date | null
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1858,8 +1916,10 @@ export namespace Prisma {
     readonly avatar: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly verified: FieldRef<"User", 'Boolean'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly otp: FieldRef<"User", 'Int'>
+    readonly otp_expiry: FieldRef<"User", 'DateTime'>
+    readonly created_at: FieldRef<"User", 'DateTime'>
+    readonly updated_at: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2329,8 +2389,8 @@ export namespace Prisma {
     title: string | null
     slug: string | null
     createdById: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CourseMaxAggregateOutputType = {
@@ -2338,8 +2398,8 @@ export namespace Prisma {
     title: string | null
     slug: string | null
     createdById: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CourseCountAggregateOutputType = {
@@ -2347,8 +2407,8 @@ export namespace Prisma {
     title: number
     slug: number
     createdById: number
-    createdAt: number
-    updatedAt: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -2358,8 +2418,8 @@ export namespace Prisma {
     title?: true
     slug?: true
     createdById?: true
-    createdAt?: true
-    updatedAt?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CourseMaxAggregateInputType = {
@@ -2367,8 +2427,8 @@ export namespace Prisma {
     title?: true
     slug?: true
     createdById?: true
-    createdAt?: true
-    updatedAt?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CourseCountAggregateInputType = {
@@ -2376,8 +2436,8 @@ export namespace Prisma {
     title?: true
     slug?: true
     createdById?: true
-    createdAt?: true
-    updatedAt?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -2458,8 +2518,8 @@ export namespace Prisma {
     title: string
     slug: string
     createdById: string
-    createdAt: Date
-    updatedAt: Date
+    created_at: Date
+    updated_at: Date
     _count: CourseCountAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
@@ -2484,8 +2544,8 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     createdById?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -2496,8 +2556,8 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     createdById?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -2506,8 +2566,8 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     createdById?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -2516,11 +2576,11 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     createdById?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "createdById" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
@@ -2544,8 +2604,8 @@ export namespace Prisma {
       title: string
       slug: string
       createdById: string
-      createdAt: Date
-      updatedAt: Date
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["course"]>
     composites: {}
   }
@@ -2975,8 +3035,8 @@ export namespace Prisma {
     readonly title: FieldRef<"Course", 'String'>
     readonly slug: FieldRef<"Course", 'String'>
     readonly createdById: FieldRef<"Course", 'String'>
-    readonly createdAt: FieldRef<"Course", 'DateTime'>
-    readonly updatedAt: FieldRef<"Course", 'DateTime'>
+    readonly created_at: FieldRef<"Course", 'DateTime'>
+    readonly updated_at: FieldRef<"Course", 'DateTime'>
   }
     
 
@@ -3440,8 +3500,8 @@ export namespace Prisma {
     userId: string | null
     courseId: string | null
     progress: number | null
-    joinedAt: Date | null
-    updatedAt: Date | null
+    joined_at: Date | null
+    updated_at: Date | null
     status: $Enums.EnrollmentStatus | null
   }
 
@@ -3450,8 +3510,8 @@ export namespace Prisma {
     userId: string | null
     courseId: string | null
     progress: number | null
-    joinedAt: Date | null
-    updatedAt: Date | null
+    joined_at: Date | null
+    updated_at: Date | null
     status: $Enums.EnrollmentStatus | null
   }
 
@@ -3460,8 +3520,8 @@ export namespace Prisma {
     userId: number
     courseId: number
     progress: number
-    joinedAt: number
-    updatedAt: number
+    joined_at: number
+    updated_at: number
     status: number
     _all: number
   }
@@ -3480,8 +3540,8 @@ export namespace Prisma {
     userId?: true
     courseId?: true
     progress?: true
-    joinedAt?: true
-    updatedAt?: true
+    joined_at?: true
+    updated_at?: true
     status?: true
   }
 
@@ -3490,8 +3550,8 @@ export namespace Prisma {
     userId?: true
     courseId?: true
     progress?: true
-    joinedAt?: true
-    updatedAt?: true
+    joined_at?: true
+    updated_at?: true
     status?: true
   }
 
@@ -3500,8 +3560,8 @@ export namespace Prisma {
     userId?: true
     courseId?: true
     progress?: true
-    joinedAt?: true
-    updatedAt?: true
+    joined_at?: true
+    updated_at?: true
     status?: true
     _all?: true
   }
@@ -3597,8 +3657,8 @@ export namespace Prisma {
     userId: string
     courseId: string | null
     progress: number
-    joinedAt: Date
-    updatedAt: Date
+    joined_at: Date
+    updated_at: Date
     status: $Enums.EnrollmentStatus
     _count: EnrollmentCountAggregateOutputType | null
     _avg: EnrollmentAvgAggregateOutputType | null
@@ -3626,8 +3686,8 @@ export namespace Prisma {
     userId?: boolean
     courseId?: boolean
     progress?: boolean
-    joinedAt?: boolean
-    updatedAt?: boolean
+    joined_at?: boolean
+    updated_at?: boolean
     status?: boolean
     User?: boolean | Enrollment$UserArgs<ExtArgs>
     Course?: boolean | Enrollment$CourseArgs<ExtArgs>
@@ -3638,8 +3698,8 @@ export namespace Prisma {
     userId?: boolean
     courseId?: boolean
     progress?: boolean
-    joinedAt?: boolean
-    updatedAt?: boolean
+    joined_at?: boolean
+    updated_at?: boolean
     status?: boolean
     User?: boolean | Enrollment$UserArgs<ExtArgs>
     Course?: boolean | Enrollment$CourseArgs<ExtArgs>
@@ -3650,8 +3710,8 @@ export namespace Prisma {
     userId?: boolean
     courseId?: boolean
     progress?: boolean
-    joinedAt?: boolean
-    updatedAt?: boolean
+    joined_at?: boolean
+    updated_at?: boolean
     status?: boolean
     User?: boolean | Enrollment$UserArgs<ExtArgs>
     Course?: boolean | Enrollment$CourseArgs<ExtArgs>
@@ -3662,12 +3722,12 @@ export namespace Prisma {
     userId?: boolean
     courseId?: boolean
     progress?: boolean
-    joinedAt?: boolean
-    updatedAt?: boolean
+    joined_at?: boolean
+    updated_at?: boolean
     status?: boolean
   }
 
-  export type EnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "progress" | "joinedAt" | "updatedAt" | "status", ExtArgs["result"]["enrollment"]>
+  export type EnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "progress" | "joined_at" | "updated_at" | "status", ExtArgs["result"]["enrollment"]>
   export type EnrollmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | Enrollment$UserArgs<ExtArgs>
     Course?: boolean | Enrollment$CourseArgs<ExtArgs>
@@ -3692,8 +3752,8 @@ export namespace Prisma {
       userId: string
       courseId: string | null
       progress: number
-      joinedAt: Date
-      updatedAt: Date
+      joined_at: Date
+      updated_at: Date
       status: $Enums.EnrollmentStatus
     }, ExtArgs["result"]["enrollment"]>
     composites: {}
@@ -4124,8 +4184,8 @@ export namespace Prisma {
     readonly userId: FieldRef<"Enrollment", 'String'>
     readonly courseId: FieldRef<"Enrollment", 'String'>
     readonly progress: FieldRef<"Enrollment", 'Float'>
-    readonly joinedAt: FieldRef<"Enrollment", 'DateTime'>
-    readonly updatedAt: FieldRef<"Enrollment", 'DateTime'>
+    readonly joined_at: FieldRef<"Enrollment", 'DateTime'>
+    readonly updated_at: FieldRef<"Enrollment", 'DateTime'>
     readonly status: FieldRef<"Enrollment", 'EnrollmentStatus'>
   }
     
@@ -4601,8 +4661,10 @@ export namespace Prisma {
     avatar: 'avatar',
     role: 'role',
     verified: 'verified',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    otp: 'otp',
+    otp_expiry: 'otp_expiry',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4613,8 +4675,8 @@ export namespace Prisma {
     title: 'title',
     slug: 'slug',
     createdById: 'createdById',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -4625,8 +4687,8 @@ export namespace Prisma {
     userId: 'userId',
     courseId: 'courseId',
     progress: 'progress',
-    joinedAt: 'joinedAt',
-    updatedAt: 'updatedAt',
+    joined_at: 'joined_at',
+    updated_at: 'updated_at',
     status: 'status'
   };
 
@@ -4698,6 +4760,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4737,20 +4813,6 @@ export namespace Prisma {
    */
   export type ListEnumEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EnrollmentStatus[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
   /**
    * Deep Input Types
    */
@@ -4767,8 +4829,10 @@ export namespace Prisma {
     avatar?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
+    otp?: IntNullableFilter<"User"> | number | null
+    otp_expiry?: DateTimeNullableFilter<"User"> | Date | string | null
+    created_at?: DateTimeFilter<"User"> | Date | string
+    updated_at?: DateTimeFilter<"User"> | Date | string
     courses?: CourseListRelationFilter
     enrollments?: EnrollmentListRelationFilter
   }
@@ -4781,8 +4845,10 @@ export namespace Prisma {
     avatar?: SortOrder
     role?: SortOrder
     verified?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    otp_expiry?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     courses?: CourseOrderByRelationAggregateInput
     enrollments?: EnrollmentOrderByRelationAggregateInput
   }
@@ -4798,8 +4864,10 @@ export namespace Prisma {
     avatar?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
+    otp?: IntNullableFilter<"User"> | number | null
+    otp_expiry?: DateTimeNullableFilter<"User"> | Date | string | null
+    created_at?: DateTimeFilter<"User"> | Date | string
+    updated_at?: DateTimeFilter<"User"> | Date | string
     courses?: CourseListRelationFilter
     enrollments?: EnrollmentListRelationFilter
   }, "id" | "email">
@@ -4812,11 +4880,15 @@ export namespace Prisma {
     avatar?: SortOrder
     role?: SortOrder
     verified?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    otp_expiry?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -4830,8 +4902,10 @@ export namespace Prisma {
     avatar?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     verified?: BoolWithAggregatesFilter<"User"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    otp?: IntNullableWithAggregatesFilter<"User"> | number | null
+    otp_expiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type CourseWhereInput = {
@@ -4842,8 +4916,8 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     createdById?: StringFilter<"Course"> | string
-    createdAt?: DateTimeFilter<"Course"> | Date | string
-    updatedAt?: DateTimeFilter<"Course"> | Date | string
+    created_at?: DateTimeFilter<"Course"> | Date | string
+    updated_at?: DateTimeFilter<"Course"> | Date | string
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     enrollments?: EnrollmentListRelationFilter
   }
@@ -4853,8 +4927,8 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     createdById?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     createdBy?: UserOrderByWithRelationInput
     enrollments?: EnrollmentOrderByRelationAggregateInput
   }
@@ -4867,8 +4941,8 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     title?: StringFilter<"Course"> | string
     createdById?: StringFilter<"Course"> | string
-    createdAt?: DateTimeFilter<"Course"> | Date | string
-    updatedAt?: DateTimeFilter<"Course"> | Date | string
+    created_at?: DateTimeFilter<"Course"> | Date | string
+    updated_at?: DateTimeFilter<"Course"> | Date | string
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     enrollments?: EnrollmentListRelationFilter
   }, "id" | "slug">
@@ -4878,8 +4952,8 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     createdById?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: CourseCountOrderByAggregateInput
     _max?: CourseMaxOrderByAggregateInput
     _min?: CourseMinOrderByAggregateInput
@@ -4893,8 +4967,8 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Course"> | string
     slug?: StringWithAggregatesFilter<"Course"> | string
     createdById?: StringWithAggregatesFilter<"Course"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"Course"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Course"> | Date | string
   }
 
   export type EnrollmentWhereInput = {
@@ -4905,8 +4979,8 @@ export namespace Prisma {
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringNullableFilter<"Enrollment"> | string | null
     progress?: FloatFilter<"Enrollment"> | number
-    joinedAt?: DateTimeFilter<"Enrollment"> | Date | string
-    updatedAt?: DateTimeFilter<"Enrollment"> | Date | string
+    joined_at?: DateTimeFilter<"Enrollment"> | Date | string
+    updated_at?: DateTimeFilter<"Enrollment"> | Date | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
@@ -4917,8 +4991,8 @@ export namespace Prisma {
     userId?: SortOrder
     courseId?: SortOrderInput | SortOrder
     progress?: SortOrder
-    joinedAt?: SortOrder
-    updatedAt?: SortOrder
+    joined_at?: SortOrder
+    updated_at?: SortOrder
     status?: SortOrder
     User?: UserOrderByWithRelationInput
     Course?: CourseOrderByWithRelationInput
@@ -4933,8 +5007,8 @@ export namespace Prisma {
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringNullableFilter<"Enrollment"> | string | null
     progress?: FloatFilter<"Enrollment"> | number
-    joinedAt?: DateTimeFilter<"Enrollment"> | Date | string
-    updatedAt?: DateTimeFilter<"Enrollment"> | Date | string
+    joined_at?: DateTimeFilter<"Enrollment"> | Date | string
+    updated_at?: DateTimeFilter<"Enrollment"> | Date | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
@@ -4945,8 +5019,8 @@ export namespace Prisma {
     userId?: SortOrder
     courseId?: SortOrderInput | SortOrder
     progress?: SortOrder
-    joinedAt?: SortOrder
-    updatedAt?: SortOrder
+    joined_at?: SortOrder
+    updated_at?: SortOrder
     status?: SortOrder
     _count?: EnrollmentCountOrderByAggregateInput
     _avg?: EnrollmentAvgOrderByAggregateInput
@@ -4963,8 +5037,8 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Enrollment"> | string
     courseId?: StringNullableWithAggregatesFilter<"Enrollment"> | string | null
     progress?: FloatWithAggregatesFilter<"Enrollment"> | number
-    joinedAt?: DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
+    joined_at?: DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
     status?: EnumEnrollmentStatusWithAggregatesFilter<"Enrollment"> | $Enums.EnrollmentStatus
   }
 
@@ -4976,8 +5050,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     courses?: CourseCreateNestedManyWithoutCreatedByInput
     enrollments?: EnrollmentCreateNestedManyWithoutUserInput
   }
@@ -4990,8 +5066,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     courses?: CourseUncheckedCreateNestedManyWithoutCreatedByInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
   }
@@ -5004,8 +5082,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courses?: CourseUpdateManyWithoutCreatedByNestedInput
     enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
   }
@@ -5018,8 +5098,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courses?: CourseUncheckedUpdateManyWithoutCreatedByNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -5032,8 +5114,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -5044,8 +5128,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -5056,16 +5142,18 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CourseCreateInput = {
     id?: string
     title: string
     slug: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     createdBy: UserCreateNestedOneWithoutCoursesInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
   }
@@ -5075,8 +5163,8 @@ export namespace Prisma {
     title: string
     slug: string
     createdById: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   }
 
@@ -5084,8 +5172,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutCoursesNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
   }
@@ -5095,8 +5183,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   }
 
@@ -5105,16 +5193,16 @@ export namespace Prisma {
     title: string
     slug: string
     createdById: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CourseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CourseUncheckedUpdateManyInput = {
@@ -5122,15 +5210,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EnrollmentCreateInput = {
     id?: string
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
     User?: UserCreateNestedOneWithoutEnrollmentsInput
     Course?: CourseCreateNestedOneWithoutEnrollmentsInput
@@ -5141,16 +5229,16 @@ export namespace Prisma {
     userId: string
     courseId?: string | null
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     User?: UserUpdateOneWithoutEnrollmentsNestedInput
     Course?: CourseUpdateOneWithoutEnrollmentsNestedInput
@@ -5161,8 +5249,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -5171,16 +5259,16 @@ export namespace Prisma {
     userId: string
     courseId?: string | null
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -5189,8 +5277,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -5221,6 +5309,28 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5244,6 +5354,11 @@ export namespace Prisma {
     none?: EnrollmentWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type CourseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -5260,8 +5375,14 @@ export namespace Prisma {
     avatar?: SortOrder
     role?: SortOrder
     verified?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    otp?: SortOrder
+    otp_expiry?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    otp?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -5272,8 +5393,10 @@ export namespace Prisma {
     avatar?: SortOrder
     role?: SortOrder
     verified?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    otp?: SortOrder
+    otp_expiry?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -5284,8 +5407,14 @@ export namespace Prisma {
     avatar?: SortOrder
     role?: SortOrder
     verified?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    otp?: SortOrder
+    otp_expiry?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    otp?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5324,6 +5453,36 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5348,8 +5507,8 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     createdById?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CourseMaxOrderByAggregateInput = {
@@ -5357,8 +5516,8 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     createdById?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CourseMinOrderByAggregateInput = {
@@ -5366,8 +5525,8 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     createdById?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -5413,11 +5572,6 @@ export namespace Prisma {
     isNot?: CourseWhereInput | null
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type EnrollmentUserIdCourseIdCompoundUniqueInput = {
     userId: string
     courseId: string
@@ -5428,8 +5582,8 @@ export namespace Prisma {
     userId?: SortOrder
     courseId?: SortOrder
     progress?: SortOrder
-    joinedAt?: SortOrder
-    updatedAt?: SortOrder
+    joined_at?: SortOrder
+    updated_at?: SortOrder
     status?: SortOrder
   }
 
@@ -5442,8 +5596,8 @@ export namespace Prisma {
     userId?: SortOrder
     courseId?: SortOrder
     progress?: SortOrder
-    joinedAt?: SortOrder
-    updatedAt?: SortOrder
+    joined_at?: SortOrder
+    updated_at?: SortOrder
     status?: SortOrder
   }
 
@@ -5452,8 +5606,8 @@ export namespace Prisma {
     userId?: SortOrder
     courseId?: SortOrder
     progress?: SortOrder
-    joinedAt?: SortOrder
-    updatedAt?: SortOrder
+    joined_at?: SortOrder
+    updated_at?: SortOrder
     status?: SortOrder
   }
 
@@ -5543,6 +5697,18 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -5735,6 +5901,28 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5790,6 +5978,47 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5855,17 +6084,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -5896,8 +6114,8 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
   }
 
@@ -5905,8 +6123,8 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   }
 
@@ -5923,8 +6141,8 @@ export namespace Prisma {
   export type EnrollmentCreateWithoutUserInput = {
     id?: string
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
     Course?: CourseCreateNestedOneWithoutEnrollmentsInput
   }
@@ -5933,8 +6151,8 @@ export namespace Prisma {
     id?: string
     courseId?: string | null
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -5972,8 +6190,8 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     createdById?: StringFilter<"Course"> | string
-    createdAt?: DateTimeFilter<"Course"> | Date | string
-    updatedAt?: DateTimeFilter<"Course"> | Date | string
+    created_at?: DateTimeFilter<"Course"> | Date | string
+    updated_at?: DateTimeFilter<"Course"> | Date | string
   }
 
   export type EnrollmentUpsertWithWhereUniqueWithoutUserInput = {
@@ -6000,8 +6218,8 @@ export namespace Prisma {
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringNullableFilter<"Enrollment"> | string | null
     progress?: FloatFilter<"Enrollment"> | number
-    joinedAt?: DateTimeFilter<"Enrollment"> | Date | string
-    updatedAt?: DateTimeFilter<"Enrollment"> | Date | string
+    joined_at?: DateTimeFilter<"Enrollment"> | Date | string
+    updated_at?: DateTimeFilter<"Enrollment"> | Date | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
   }
 
@@ -6013,8 +6231,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     enrollments?: EnrollmentCreateNestedManyWithoutUserInput
   }
 
@@ -6026,8 +6246,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -6039,8 +6261,8 @@ export namespace Prisma {
   export type EnrollmentCreateWithoutCourseInput = {
     id?: string
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
     User?: UserCreateNestedOneWithoutEnrollmentsInput
   }
@@ -6049,8 +6271,8 @@ export namespace Prisma {
     id?: string
     userId: string
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -6083,8 +6305,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
   }
 
@@ -6096,8 +6320,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -6125,8 +6351,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     courses?: CourseCreateNestedManyWithoutCreatedByInput
   }
 
@@ -6138,8 +6366,10 @@ export namespace Prisma {
     avatar: string
     role?: $Enums.Role
     verified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    otp?: number | null
+    otp_expiry?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     courses?: CourseUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
@@ -6152,8 +6382,8 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     createdBy: UserCreateNestedOneWithoutCoursesInput
   }
 
@@ -6162,8 +6392,8 @@ export namespace Prisma {
     title: string
     slug: string
     createdById: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -6190,8 +6420,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courses?: CourseUpdateManyWithoutCreatedByNestedInput
   }
 
@@ -6203,8 +6435,10 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    otp?: NullableIntFieldUpdateOperationsInput | number | null
+    otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courses?: CourseUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
@@ -6223,8 +6457,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutCoursesNestedInput
   }
 
@@ -6233,24 +6467,24 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CourseCreateManyCreatedByInput = {
     id?: string
     title: string
     slug: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type EnrollmentCreateManyUserInput = {
     id?: string
     courseId?: string | null
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -6258,8 +6492,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
   }
 
@@ -6267,8 +6501,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   }
 
@@ -6276,15 +6510,15 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EnrollmentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     Course?: CourseUpdateOneWithoutEnrollmentsNestedInput
   }
@@ -6293,8 +6527,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -6302,8 +6536,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -6311,16 +6545,16 @@ export namespace Prisma {
     id?: string
     userId: string
     progress?: number
-    joinedAt?: Date | string
-    updatedAt?: Date | string
+    joined_at?: Date | string
+    updated_at?: Date | string
     status?: $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     User?: UserUpdateOneWithoutEnrollmentsNestedInput
   }
@@ -6329,8 +6563,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -6338,8 +6572,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     progress?: FloatFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 

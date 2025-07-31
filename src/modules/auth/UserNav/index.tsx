@@ -4,6 +4,9 @@ import LoginModal from "@/modules/auth/components/modals/LoginModal";
 import SignupModal from "@/modules/auth/components/modals/SignupModal";
 import ActivateAccountModal from "@/modules/auth/components/modals/ActivateAccountModal";
 import Button from "@/components/ui/buttons/Button";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import NextImage from "@/components/ui/common/NextImage";
 
 export type IAuthModals = "login" | "signup" | "verify";
 
@@ -14,6 +17,8 @@ const modals = {
 };
 
 const UserNav = () => {
+  const { data } = useSession();
+  const user = data?.user;
   const [currentModal, setCurrentModal] = useState<IAuthModals>("login");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -30,31 +35,35 @@ const UserNav = () => {
         handleCloseModal={() => setIsModalOpen(!isModalOpen)}
         handleModal={handleModal}
       />
-      <div className="flex items-center gap-3">
-        <Button
-          onClick={() => {
-            handleModal('login');
-            setIsModalOpen(true);
-          }}
-          varient="outline"
-          className="max-w-[200px]"
-        >
-          Login
-        </Button>
-        <Button
-          onClick={() => {
-            handleModal("signup");
-            setIsModalOpen(true);
-          }}
-          className="max-w-[200px]"
-        >
-          Signup
-        </Button>
 
-        {/* <Link href={"/login"}>
-        <CgProfile className="size-[26px] lg:size-7" color="white" />
-      </Link> */}
-      </div>
+      {user && user.avatar && (
+        <Link href={"/login"} className="size-9 md:size-12 rounded-full overflow-hidden">
+          <NextImage src={user.avatar} />
+        </Link>
+      )}
+      {!user && (
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => {
+              handleModal("login");
+              setIsModalOpen(true);
+            }}
+            varient="outline"
+            className="max-w-[200px]"
+          >
+            Login
+          </Button>
+          <Button
+            onClick={() => {
+              handleModal("signup");
+              setIsModalOpen(true);
+            }}
+            className="max-w-[200px]"
+          >
+            Signup
+          </Button>
+        </div>
+      )}
     </>
   );
 };

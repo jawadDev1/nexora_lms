@@ -3,14 +3,15 @@ import ModalWrapper from "../../../../../components/modals/ModalWrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputWithLabel from "@/components/form/formFields/InputWithLabel";
-import Link from "next/link";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
-import Title from "@/components/ui/typography/Title";
 import SectionTitle from "@/components/ui/typography/SectionTitle";
 import { CgClose } from "react-icons/cg";
 import { SignupFormData, signupSchema } from "@/schemas/signup.schema";
 import FileInputWithPreview from "@/components/form/formFields/FileInputWithPreview";
 import { IAuthModals } from "@/modules/auth/UserNav";
+import { uploadImageToAppwrite } from "@/utils/uploadFile";
+import { SIGNUP } from "@/modules/auth/actions";
+import { notifyError, notifySuccess } from "@/utils/toast";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -33,7 +34,24 @@ const SignupModal = ({
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (data: SignupFormData) => {};
+  const onSubmit = async (data: SignupFormData) => {
+    setIsLoading(true);
+    const img = await uploadImageToAppwrite(data.profile);
+    if (!img) {
+      notifyError("Failed to upload image");
+      return;
+    }
+    const result = await SIGNUP({ ...data, avatar: img });
+
+    setIsLoading(false);
+    if (!result?.success) {
+      notifyError(result.message);
+      return;
+    }
+
+    notifySuccess(result.message);
+    handleModal('verify');
+  };
 
   return (
     <ModalWrapper isOpen={isOpen} className="py-5 relative md:py-8 px-5 ">

@@ -27,10 +27,12 @@ model User {
   avatar      String
   role        Role         @default(User)
   verified    Boolean      @default(false)
+  otp         Int?
+  otp_expiry  DateTime?
   courses     Course[]
   enrollments Enrollment[]
-  createdAt   DateTime     @default(now())
-  updatedAt DateTime @updatedAt
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
 }
 
 model Course {
@@ -42,8 +44,9 @@ model Course {
   createdBy   User   @relation(fields: [createdById], references: [id])
 
   enrollments Enrollment[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  created_at  DateTime     @default(now())
+
+  updated_at DateTime @updatedAt
 }
 
 model Enrollment {
@@ -55,9 +58,9 @@ model Enrollment {
   courseId String?
   progress Float   @default(0.0)
 
-  joinedAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  status EnrollmentStatus @default(ENROLLED)
+  joined_at  DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+  status     EnrollmentStatus @default(ENROLLED)
 
   @@unique([userId, courseId])
 }

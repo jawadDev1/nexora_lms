@@ -16,6 +16,7 @@ const NextImage = ({
   height = 500,
   ...props
 }: ImageProps) => {
+  
   return (
     src && (
       <Image

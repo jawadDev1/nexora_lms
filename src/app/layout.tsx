@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
+import AuthProvider from "@/modules/auth/providers/AuthProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,7 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}  antialiased bg-bg text-white `}>{children}</body>
+      <body className={`${inter.className}  antialiased bg-bg text-white `}>
+        <NextTopLoader
+          color="#FF8A65"
+          height={3}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+        />
+        <Toaster closeButton={true} richColors={true} position="top-right" />
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
