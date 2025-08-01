@@ -138,9 +138,47 @@ exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   slug: 'slug',
-  createdById: 'createdById',
+  description: 'description',
+  price: 'price',
+  discount: 'discount',
+  thumbnail: 'thumbnail',
+  level: 'level',
+  demo_url: 'demo_url',
+  benefits: 'benefits',
+  prerequisitest: 'prerequisitest',
+  ratings: 'ratings',
+  purchased: 'purchased',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CourseDataScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  videoUrl: 'videoUrl',
+  videoThumbnail: 'videoThumbnail',
+  videoSection: 'videoSection',
+  videoLength: 'videoLength',
+  videoPlayer: 'videoPlayer',
+  suggestions: 'suggestions',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  courseId: 'courseId'
+};
+
+exports.Prisma.QuestionScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  userId: 'userId',
+  courseDataId: 'courseDataId'
+};
+
+exports.Prisma.LinksScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  url: 'url',
+  courseDataId: 'courseDataId'
 };
 
 exports.Prisma.EnrollmentScalarFieldEnum = {
@@ -151,6 +189,20 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
   joined_at: 'joined_at',
   updated_at: 'updated_at',
   status: 'status'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  userId: 'userId',
+  courseId: 'courseId'
+};
+
+exports.Prisma.ReplyScalarFieldEnum = {
+  id: 'id',
+  comment: 'comment',
+  reviewId: 'reviewId'
 };
 
 exports.Prisma.SortOrder = {
@@ -172,6 +224,12 @@ exports.Role = exports.$Enums.Role = {
   Admin: 'Admin'
 };
 
+exports.CourseLevel = exports.$Enums.CourseLevel = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advance: 'Advance'
+};
+
 exports.EnrollmentStatus = exports.$Enums.EnrollmentStatus = {
   ENROLLED: 'ENROLLED',
   COMPLETED: 'COMPLETED',
@@ -181,7 +239,12 @@ exports.EnrollmentStatus = exports.$Enums.EnrollmentStatus = {
 exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
-  Enrollment: 'Enrollment'
+  CourseData: 'CourseData',
+  Question: 'Question',
+  Links: 'Links',
+  Enrollment: 'Enrollment',
+  Review: 'Review',
+  Reply: 'Reply'
 };
 
 /**

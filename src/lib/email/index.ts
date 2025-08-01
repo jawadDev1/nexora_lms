@@ -25,7 +25,7 @@ export default async function sendMail({
   const mailOptions = {
     from,
     replyTo: from,
-    to: 'darkjoker0t@gmail.com',
+    to: "darkjoker0t@gmail.com",
     // to,
     subject,
     template,

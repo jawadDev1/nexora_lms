@@ -1,7 +1,10 @@
-import { encode, decode, Secret, JWT } from "next-auth/jwt";
+import { encode, decode, JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   NEXT_AUTH_SECRET,
@@ -12,40 +15,23 @@ import {
   resendEmail,
 } from "@/modules/auth/services";
 import { comparePassword } from "@/utils/hash";
-import { Session, User } from "next-auth";
+import { AuthOptions, Session, User } from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   secret: NEXT_AUTH_SECRET,
   session: {
-    strategy: "jwt" as Secret,
+    strategy: "jwt",
   },
   jwt: { encode, decode },
 
   providers: [
-    GoogleProvider({
-      clientId: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
+    GithubProvider({
+      clientId: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
       async profile(profile) {
-        const googleProfile = {
-          ...profile,
-          image: profile.picture,
-          name: profile.name,
-        };
-        const response = await getLoginUser({ email: profile.email });
-
-        if (!response.success) {
-          throw new Error(response.message);
-        }
-
-        const user = response.data;
-
-        if (!user?.email) {
-          const response = await GoogleSignup({
-            name: profile.name,
-            email: profile.email,
-            avatar: profile.picture,
-          });
-
+        console.log("runned ======> ", profile);
+        try {
+          const response = await getLoginUser({ email: profile.email });
           const user = response.data;
           return {
             name: user.name,
@@ -55,17 +41,59 @@ export const authOptions = {
             id: user.id,
             joined_at: user.created_at.toISOString(),
           };
-        }
+        } catch (error) {
+          const response = await GoogleSignup({
+            name: profile.name,
+            email: profile.email,
+            avatar: profile.avatar_url,
+          });
 
-        return {
-          name: user.name,
-          email: user.email,
-          avatar: user.avatar,
-          role: "USER",
-          id: user.id,
-          joined_at: user.created_at.toISOString(),
-        };
+          const updatedUser = response.data;
+          return {
+            name: updatedUser.name,
+            email: updatedUser.email,
+            avatar: updatedUser.avatar,
+            role: "USER",
+            id: updatedUser.id,
+            joined_at: updatedUser.created_at.toISOString(),
+          };
+        }
       },
+    }),
+    GoogleProvider({
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      // async profile(profile) {
+      //   console.log("runned ======> ", profile?.name);
+      //   try {
+      //     const response = await getLoginUser({ email: profile.email });
+      //     const user = response.data;
+      //     return {
+      //       name: user.name,
+      //       email: user.email,
+      //       avatar: user.avatar,
+      //       role: "USER",
+      //       id: user.id,
+      //       joined_at: user.created_at.toISOString(),
+      //     };
+      //   } catch (error) {
+      //     const response = await GoogleSignup({
+      //       name: profile.name,
+      //       email: profile.email,
+      //       avatar: profile.picture,
+      //     });
+
+      //     const updatedUser = response.data;
+      //     return {
+      //       name: updatedUser.name,
+      //       email: updatedUser.email,
+      //       avatar: updatedUser.avatar,
+      //       role: "USER",
+      //       id: updatedUser.id,
+      //       joined_at: updatedUser.created_at.toISOString(),
+      //     };
+      //   }
+      // },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -101,7 +129,7 @@ export const authOptions = {
 
         const passwordValidity = await comparePassword(
           credentials.password,
-          user.password
+          user.password!
         );
 
         if (!user || !passwordValidity) {
@@ -137,7 +165,7 @@ export const authOptions = {
         token.role = user.role;
         token.id = user.id;
         token.joined_at = user.joined_at;
-        token.avatar  = user.avatar;
+        token.avatar = user.avatar;
       }
       return token;
     },
@@ -146,7 +174,7 @@ export const authOptions = {
         session.user.role = token.role;
         session.user.id = token.id;
         session.user.joined_at = token.joined_at;
-        session.user.avatar = token.avatar
+        session.user.avatar = token.avatar;
       }
       return session;
     },

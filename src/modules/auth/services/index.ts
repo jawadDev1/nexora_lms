@@ -1,11 +1,8 @@
 import { db } from "@/lib/db";
-import { IGoogleSignup, ILogin, ISignup } from "../types";
+import { IGoogleSignup, ISignup } from "../types";
 import { validateNoNulls } from "@/utils/service";
-import bcrypt from "bcrypt";
-import { NextResponse } from "next/server";
 import { generateActivationCode } from "@/utils";
 import sendMail from "@/lib/email";
-import { PrismaClientValidationError } from "@/lib/prisma-client/runtime/library";
 import { asyncHandler } from "@/utils/asyncHandler";
 import { hashPassword } from "@/utils/hash";
 
@@ -36,7 +33,7 @@ export const Signup = asyncHandler(async (body: ISignup) => {
     to: user.email,
     subject: "Verify Email",
     template: "verify-email",
-    context: { name: user.name, otpCode: user.otp },
+    context: { name: user.name, otpCode: otp },
   });
 
   return {
@@ -110,10 +107,12 @@ export const VerifyEmail = asyncHandler(async (otp: string) => {
 
 export const getLoginUser = asyncHandler(
   async ({ email }: { email: string }) => {
+    console.log("runned =======>")
     const user = await db.user.findFirst({
       where: { email },
     });
 
+    console.log("user =======> ", email, user);
     if (!user) {
       throw new Error("Invalid Credentials");
     }

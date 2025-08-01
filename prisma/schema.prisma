@@ -19,36 +19,93 @@ enum Role {
   Admin
 }
 
+// ===== User =====
 model User {
   id          String       @id @default(uuid())
   name        String
   email       String       @unique
-  password    String
+  password    String?
   avatar      String
   role        Role         @default(User)
   verified    Boolean      @default(false)
   otp         Int?
   otp_expiry  DateTime?
-  courses     Course[]
+  reviews     Review[]
+  orders      Order[]      @relation("UserOrders")
   enrollments Enrollment[]
+  questions   Question[]
   created_at  DateTime     @default(now())
   updated_at  DateTime     @updatedAt
 }
 
+// ===== Course =====
+
+enum CourseLevel {
+  Beginner
+  Intermediate
+  Advance
+}
+
 model Course {
-  id    String @id @default(ulid())
-  title String
-  slug  String @unique
-
-  createdById String
-  createdBy   User   @relation(fields: [createdById], references: [id])
-
-  enrollments Enrollment[]
-  created_at  DateTime     @default(now())
+  id             String       @id @default(ulid())
+  title          String
+  slug           String       @unique
+  description    String
+  price          Float
+  discount       Float?       @default(0.0)
+  thumbnail      String
+  level          CourseLevel
+  demo_url       String
+  benefits       String[]
+  prerequisitest String[]
+  reviews        Review[]
+  orders         Order[]      @relation("CourseOrders")
+  enrollments    Enrollment[]
+  ratings        Int?         @default(0)
+  purchased      Int?         @default(0)
+  course_data    CourseData[]
+  created_at     DateTime     @default(now())
 
   updated_at DateTime @updatedAt
 }
 
+model CourseData {
+  id             String     @id @default(ulid())
+  title          String
+  description    String
+  videoUrl       String
+  videoThumbnail String
+  videoSection   String
+  videoLength    Int
+  videoPlayer    String
+  links          Links[]
+  suggestions    String
+  questions      Question[]
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
+  Course         Course?    @relation(fields: [courseId], references: [id])
+  courseId       String?
+}
+
+model Question {
+  id       String @id @default(uuid())
+  question String
+
+  User         User?       @relation(fields: [userId], references: [id])
+  userId       String?
+  CourseData   CourseData? @relation(fields: [courseDataId], references: [id])
+  courseDataId String?
+}
+
+model Links {
+  id           String      @id @default(uuid())
+  title        String
+  url          String
+  CourseData   CourseData? @relation(fields: [courseDataId], references: [id])
+  courseDataId String?
+}
+
+// ===== Enrollment =====
 model Enrollment {
   id String @id @default(uuid())
 
@@ -69,4 +126,75 @@ enum EnrollmentStatus {
   ENROLLED
   COMPLETED
   DROPPED
+}
+
+// ===== Review =====
+
+model Review {
+  id       String  @id @default(ulid())
+  rating   Int
+  comment  String
+  userId   String
+  replies  Reply[]
+  User     User    @relation(fields: [userId], references: [id])
+  Course   Course? @relation(fields: [courseId], references: [id])
+  courseId String?
+}
+
+model Reply {
+  id      String @id @default(ulid())
+  comment String
+
+  Review   Review? @relation(fields: [reviewId], references: [id])
+  reviewId String?
+}
+
+// ===== Order =====
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  payment_status PaymentStatus @default(PENDING)
+  payment_id     String
+  created_at     DateTime      @default(now())
+  update_at      DateTime      @updatedAt
+
+  userId   String
+  User     User   @relation(fields: [userId], references: [id], name: "UserOrders")
+  courseId String
+  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders")
+
+  @@unique([userId, courseId])
+}
+
+// ===== Notifications =====
+
+enum NotificationStatus {
+  READ
+  UNREAD
+}
+
+model Notification {
+  id          String             @id @default(uuid())
+  title       String
+  description String
+  status      NotificationStatus
+}
+
+
+
+// ===== Faq =====
+
+model Faq {
+  id String @id @default(uuid())
+  question String
+  answer String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

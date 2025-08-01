@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         poppins: ["Inter", "sans-serif"],
       },
+      boxShadow: {
+        "glow-gold": "0 0 10px #FFDE00, 0 0 20px #FFDE00",
+      },
       backgroundImage: {
         "gold-fade":
           "linear-gradient(90deg,rgba(255, 222, 0, 1) 0%, rgba(188, 164, 0, 0.16) 31%, rgba(153, 133, 0, 0) 100%)",

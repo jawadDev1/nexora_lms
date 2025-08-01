@@ -26,7 +26,6 @@ const OTPVerificationModal = ({
     control,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
     watch,
   } = useForm<OTPFormData>({
@@ -130,7 +129,7 @@ const OTPVerificationModal = ({
         </div>
         <SectionTitle className="mb-2">Verify Your Email</SectionTitle>
         <p className="text-light-gray text-sm">
-          We've sent a 6-digit verification code.
+          We&apos;ve sent a 6-digit verification code.
         </p>
       </div>
 
@@ -139,7 +138,7 @@ const OTPVerificationModal = ({
           <Controller
             name="otp"
             control={control}
-            render={({ field }) => (
+            render={() => (
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-center text-white mb-3">
                   Enter Verification Code

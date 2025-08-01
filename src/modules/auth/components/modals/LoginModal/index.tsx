@@ -11,6 +11,7 @@ import SectionTitle from "@/components/ui/typography/SectionTitle";
 import { CgClose } from "react-icons/cg";
 import { IAuthModals } from "@/modules/auth/UserNav";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import SocialLogin from "../../SocialLogin";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -117,6 +118,9 @@ const LoginModal = ({
             Sign up
           </span>
         </p>
+      </div>
+      <div className="flex justify-center gap-3 items-center mt-5">
+      <SocialLogin />
       </div>
     </ModalWrapper>
   );

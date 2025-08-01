@@ -1,7 +1,4 @@
-export function validateNoNulls<T extends Record<string, any>>(
-  obj: T,
-  excludeKeys: string[] = []
-): void {
+export function validateNoNulls<T>(obj: T, excludeKeys: string[] = []): void {
   for (const key in obj) {
     if (excludeKeys.includes(key)) continue;
 

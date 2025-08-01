@@ -19,6 +19,7 @@ const modals = {
 const UserNav = () => {
   const { data } = useSession();
   const user = data?.user;
+  console.log("user =======> ", user)
   const [currentModal, setCurrentModal] = useState<IAuthModals>("login");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

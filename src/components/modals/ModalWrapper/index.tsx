@@ -35,7 +35,7 @@ const ModalWrapper = ({
     >
       <div
         className={cn(
-          "w-full max-h-[90vh] h-full mt-[10vh] lg:mt-0 lg:max-w-[700px] lg:max-h-[600px] bg-dark-brown rounded-md",
+          "w-full max-h-[90vh] h-full mt-[10vh] lg:mt-0 lg:max-w-[700px] lg:max-h-[600px] bg-dark-brown/40 rounded-2xl border border-primary hover:shadow-glow-gold transition-shadow duration-300 ",
           className
         )}
         {...props}
