@@ -13,6 +13,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
 import Label from "@/components/form/formInputs/Label";
 import Input from "@/components/form/formInputs/Input";
+import ProfilePageWrapper from "../../components/ProfileSectionWrapper";
 
 const ProfileInfoPage = () => {
   const { data: session, status, update } = useSession();
@@ -68,7 +69,7 @@ const ProfileInfoPage = () => {
   }, [session?.user]);
 
   return (
-    <div className="bg-card  rounded-xl py-5 px-5">
+    <ProfilePageWrapper className="bg-card rounded-xl py-5 px-5">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px] mx-auto">
         <div>
           <ImageInputWithPreview
@@ -108,7 +109,7 @@ const ProfileInfoPage = () => {
           </SpinnerButton>
         </div>
       </form>
-    </div>
+    </ProfilePageWrapper>
   );
 };
 

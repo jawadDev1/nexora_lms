@@ -21,7 +21,7 @@ const ProfileSidebar = () => {
             className={cn("py-1 px-3 hover:bg-gold-fade  inline-block", {
               "bg-gold-fade": pathname === item.slug,
             })}
-            href={`/profile/${item.slug}`}
+            href={`${item.slug}`}
             key={item.slug}
           >
             <Subtitle2>{item.title}</Subtitle2>
