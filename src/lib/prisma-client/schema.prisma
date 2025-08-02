@@ -31,6 +31,7 @@ model User {
   otp         Int?
   otp_expiry  DateTime?
   reviews     Review[]
+  orders      Order[]      @relation("UserOrders")
   enrollments Enrollment[]
   questions   Question[]
   created_at  DateTime     @default(now())
@@ -58,6 +59,7 @@ model Course {
   benefits       String[]
   prerequisitest String[]
   reviews        Review[]
+  orders         Order[]      @relation("CourseOrders")
   enrollments    Enrollment[]
   ratings        Int?         @default(0)
   purchased      Int?         @default(0)
@@ -145,4 +147,52 @@ model Reply {
 
   Review   Review? @relation(fields: [reviewId], references: [id])
   reviewId String?
+}
+
+// ===== Order =====
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  payment_status PaymentStatus @default(PENDING)
+  payment_id     String
+  created_at     DateTime      @default(now())
+  update_at      DateTime      @updatedAt
+
+  userId   String
+  User     User   @relation(fields: [userId], references: [id], name: "UserOrders")
+  courseId String
+  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders")
+
+  @@unique([userId, courseId])
+}
+
+// ===== Notifications =====
+
+enum NotificationStatus {
+  READ
+  UNREAD
+}
+
+model Notification {
+  id          String             @id @default(uuid())
+  title       String
+  description String
+  status      NotificationStatus
+}
+
+// ===== Faq =====
+
+model Faq {
+  id         String   @id @default(uuid())
+  question   String
+  answer     String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

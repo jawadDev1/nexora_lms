@@ -205,6 +205,31 @@ exports.Prisma.ReplyScalarFieldEnum = {
   reviewId: 'reviewId'
 };
 
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  payment_status: 'payment_status',
+  payment_id: 'payment_id',
+  created_at: 'created_at',
+  update_at: 'update_at',
+  userId: 'userId',
+  courseId: 'courseId'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status'
+};
+
+exports.Prisma.FaqScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -236,6 +261,17 @@ exports.EnrollmentStatus = exports.$Enums.EnrollmentStatus = {
   DROPPED: 'DROPPED'
 };
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED'
+};
+
+exports.NotificationStatus = exports.$Enums.NotificationStatus = {
+  READ: 'READ',
+  UNREAD: 'UNREAD'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
@@ -244,7 +280,10 @@ exports.Prisma.ModelName = {
   Links: 'Links',
   Enrollment: 'Enrollment',
   Review: 'Review',
-  Reply: 'Reply'
+  Reply: 'Reply',
+  Order: 'Order',
+  Notification: 'Notification',
+  Faq: 'Faq'
 };
 
 /**

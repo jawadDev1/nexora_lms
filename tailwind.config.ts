@@ -17,7 +17,7 @@ export default {
       },
       backgroundImage: {
         "gold-fade":
-          "linear-gradient(90deg,rgba(255, 222, 0, 1) 0%, rgba(188, 164, 0, 0.16) 31%, rgba(153, 133, 0, 0) 100%)",
+          "linear-gradient(90deg,rgba(255, 222, 0, 1) 0%, rgba(188, 164, 0, 0.06) 3%, rgba(153, 133, 0, 0) 100%)",
       },
       colors: {
         bg: "#1E1E1E",

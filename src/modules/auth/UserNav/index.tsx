@@ -19,7 +19,6 @@ const modals = {
 const UserNav = () => {
   const { data } = useSession();
   const user = data?.user;
-  console.log("user =======> ", user)
   const [currentModal, setCurrentModal] = useState<IAuthModals>("login");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -38,7 +37,7 @@ const UserNav = () => {
       />
 
       {user && user.avatar && (
-        <Link href={"/login"} className="size-9 md:size-12 rounded-full overflow-hidden">
+        <Link href={"/profile/info"} className="size-9 md:size-12 rounded-full overflow-hidden">
           <NextImage src={user.avatar} />
         </Link>
       )}

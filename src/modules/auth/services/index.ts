@@ -107,12 +107,10 @@ export const VerifyEmail = asyncHandler(async (otp: string) => {
 
 export const getLoginUser = asyncHandler(
   async ({ email }: { email: string }) => {
-    console.log("runned =======>")
     const user = await db.user.findFirst({
       where: { email },
     });
 
-    console.log("user =======> ", email, user);
     if (!user) {
       throw new Error("Invalid Credentials");
     }

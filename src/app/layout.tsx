@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}  antialiased bg-bg text-white `}>
         <NextTopLoader
-          color="#FF8A65"
+          color="#FFDE00"
           height={3}
           showSpinner={false}
           easing="ease"

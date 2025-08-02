@@ -1,4 +1,4 @@
-import { encode, decode, JWT } from "next-auth/jwt";
+import { encode, decode, JWT, JWTOptions } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -63,37 +63,36 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      // async profile(profile) {
-      //   console.log("runned ======> ", profile?.name);
-      //   try {
-      //     const response = await getLoginUser({ email: profile.email });
-      //     const user = response.data;
-      //     return {
-      //       name: user.name,
-      //       email: user.email,
-      //       avatar: user.avatar,
-      //       role: "USER",
-      //       id: user.id,
-      //       joined_at: user.created_at.toISOString(),
-      //     };
-      //   } catch (error) {
-      //     const response = await GoogleSignup({
-      //       name: profile.name,
-      //       email: profile.email,
-      //       avatar: profile.picture,
-      //     });
+      async profile(profile) {
+        try {
+          const response = await getLoginUser({ email: profile.email });
+          const user = response.data;
+          return {
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+            role: "USER",
+            id: user.id,
+            joined_at: user.created_at.toISOString(),
+          };
+        } catch (error) {
+          const response = await GoogleSignup({
+            name: profile.name,
+            email: profile.email,
+            avatar: profile.picture,
+          });
 
-      //     const updatedUser = response.data;
-      //     return {
-      //       name: updatedUser.name,
-      //       email: updatedUser.email,
-      //       avatar: updatedUser.avatar,
-      //       role: "USER",
-      //       id: updatedUser.id,
-      //       joined_at: updatedUser.created_at.toISOString(),
-      //     };
-      //   }
-      // },
+          const updatedUser = response.data;
+          return {
+            name: updatedUser.name,
+            email: updatedUser.email,
+            avatar: updatedUser.avatar,
+            role: "USER",
+            id: updatedUser.id,
+            joined_at: updatedUser.created_at.toISOString(),
+          };
+        }
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -160,12 +159,26 @@ export const authOptions: AuthOptions = {
       }
       return false;
     },
-    jwt({ token, user }: { token: JWT; user?: User }) {
+    jwt({
+      token,
+      user,
+      trigger,
+      session,
+    }: {
+      token: JWT;
+      user?: User;
+      trigger?: "signIn" | "signUp" | "update";
+      session?: any;
+    }) {
       if (user) {
         token.role = user.role;
         token.id = user.id;
         token.joined_at = user.joined_at;
         token.avatar = user.avatar;
+      }
+      if (trigger === "update" && session?.user) {
+        token.name = session.user.name ?? token.name;
+        token.avatar = session.user.avatar ?? token.avatar;
       }
       return token;
     },
