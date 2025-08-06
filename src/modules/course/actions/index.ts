@@ -1,14 +1,21 @@
 "use server";
 
 import { validateNoNulls } from "@/utils/service";
-import { ICourseBody, IUpdateCourseBody } from "../types";
-import { createCourse, updateCourse } from "../services";
+import { ICourseBody, ICourseDataBody, IUpdateCourseBody } from "../types";
+import { createCourse, generateVideoUrl, updateCourse } from "../services";
 
-export const CREATE_COURSE = async (data: ICourseBody) => {
+export const CREATE_COURSE = async ({
+  course,
+  course_data,
+}: {
+  course: ICourseBody;
+  course_data: ICourseDataBody[];
+}) => {
   try {
-    validateNoNulls(data);
+    validateNoNulls(course);
+    validateNoNulls(course_data);
 
-    const result = await createCourse(data);
+    const result = await createCourse({ course, course_data });
 
     return result;
   } catch (error) {
@@ -19,7 +26,6 @@ export const CREATE_COURSE = async (data: ICourseBody) => {
     return { success: false, message: "Something went wrong" };
   }
 };
-
 
 export const UPDATE_COURSE = async (data: IUpdateCourseBody) => {
   try {
@@ -37,4 +43,24 @@ export const UPDATE_COURSE = async (data: IUpdateCourseBody) => {
   }
 };
 
+export const GENERATE_VIDEO_URL = async <T>({
+  videoId,
+}: {
+  videoId: string;
+}): Promise<{
+  success: boolean;
+  message: string;
+  data: { otp: string; playbackInfo: string } | null;
+}> => {
+  try {
+    const result = await generateVideoUrl({ videoId });
 
+    return result;
+  } catch (error) {
+    console.log("Error in GENERATE_VIDEO_URL :: ", error);
+    if (error instanceof Error) {
+      return { success: false, message: error.message, data: null };
+    }
+    return { success: false, message: "Something went wrong", data: null };
+  }
+};

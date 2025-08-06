@@ -13,6 +13,7 @@ const SpinnerButton = ({ isLoading, className, children, ...props }: Props) => {
         "w-full py-2 px-4 bg-primary focus:outline-none text-card rounded-md",
         className
       )}
+      disabled={isLoading}
       {...props}
     >
       {isLoading ? <Spinner className="border-white" /> : children}

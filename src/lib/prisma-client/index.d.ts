@@ -34,11 +34,6 @@ export type CourseData = $Result.DefaultSelection<Prisma.$CourseDataPayload>
  */
 export type Question = $Result.DefaultSelection<Prisma.$QuestionPayload>
 /**
- * Model Links
- * 
- */
-export type Links = $Result.DefaultSelection<Prisma.$LinksPayload>
-/**
  * Model Enrollment
  * 
  */
@@ -301,16 +296,6 @@ export class PrismaClient<
     * ```
     */
   get question(): Prisma.QuestionDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.links`: Exposes CRUD operations for the **Links** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Links
-    * const links = await prisma.links.findMany()
-    * ```
-    */
-  get links(): Prisma.LinksDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.enrollment`: Exposes CRUD operations for the **Enrollment** model.
@@ -815,7 +800,6 @@ export namespace Prisma {
     Course: 'Course',
     CourseData: 'CourseData',
     Question: 'Question',
-    Links: 'Links',
     Enrollment: 'Enrollment',
     Review: 'Review',
     Reply: 'Reply',
@@ -840,7 +824,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "courseData" | "question" | "links" | "enrollment" | "review" | "reply" | "order" | "notification" | "faq"
+      modelProps: "user" | "course" | "courseData" | "question" | "enrollment" | "review" | "reply" | "order" | "notification" | "faq"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1137,80 +1121,6 @@ export namespace Prisma {
           count: {
             args: Prisma.QuestionCountArgs<ExtArgs>
             result: $Utils.Optional<QuestionCountAggregateOutputType> | number
-          }
-        }
-      }
-      Links: {
-        payload: Prisma.$LinksPayload<ExtArgs>
-        fields: Prisma.LinksFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.LinksFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.LinksFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          findFirst: {
-            args: Prisma.LinksFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.LinksFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          findMany: {
-            args: Prisma.LinksFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>[]
-          }
-          create: {
-            args: Prisma.LinksCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          createMany: {
-            args: Prisma.LinksCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.LinksCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>[]
-          }
-          delete: {
-            args: Prisma.LinksDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          update: {
-            args: Prisma.LinksUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          deleteMany: {
-            args: Prisma.LinksDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.LinksUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.LinksUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>[]
-          }
-          upsert: {
-            args: Prisma.LinksUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LinksPayload>
-          }
-          aggregate: {
-            args: Prisma.LinksAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateLinks>
-          }
-          groupBy: {
-            args: Prisma.LinksGroupByArgs<ExtArgs>
-            result: $Utils.Optional<LinksGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.LinksCountArgs<ExtArgs>
-            result: $Utils.Optional<LinksCountAggregateOutputType> | number
           }
         }
       }
@@ -1754,7 +1664,6 @@ export namespace Prisma {
     course?: CourseOmit
     courseData?: CourseDataOmit
     question?: QuestionOmit
-    links?: LinksOmit
     enrollment?: EnrollmentOmit
     review?: ReviewOmit
     reply?: ReplyOmit
@@ -1976,12 +1885,10 @@ export namespace Prisma {
    */
 
   export type CourseDataCountOutputType = {
-    links: number
     questions: number
   }
 
   export type CourseDataCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    links?: boolean | CourseDataCountOutputTypeCountLinksArgs
     questions?: boolean | CourseDataCountOutputTypeCountQuestionsArgs
   }
 
@@ -1994,13 +1901,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the CourseDataCountOutputType
      */
     select?: CourseDataCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CourseDataCountOutputType without action
-   */
-  export type CourseDataCountOutputTypeCountLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LinksWhereInput
   }
 
   /**
@@ -3381,7 +3281,7 @@ export namespace Prisma {
     level: number
     demo_url: number
     benefits: number
-    prerequisitest: number
+    prerequisites: number
     ratings: number
     purchased: number
     created_at: number
@@ -3447,7 +3347,7 @@ export namespace Prisma {
     level?: true
     demo_url?: true
     benefits?: true
-    prerequisitest?: true
+    prerequisites?: true
     ratings?: true
     purchased?: true
     created_at?: true
@@ -3552,7 +3452,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits: string[]
-    prerequisitest: string[]
+    prerequisites: string[]
     ratings: number | null
     purchased: number | null
     created_at: Date
@@ -3589,7 +3489,7 @@ export namespace Prisma {
     level?: boolean
     demo_url?: boolean
     benefits?: boolean
-    prerequisitest?: boolean
+    prerequisites?: boolean
     ratings?: boolean
     purchased?: boolean
     created_at?: boolean
@@ -3612,7 +3512,7 @@ export namespace Prisma {
     level?: boolean
     demo_url?: boolean
     benefits?: boolean
-    prerequisitest?: boolean
+    prerequisites?: boolean
     ratings?: boolean
     purchased?: boolean
     created_at?: boolean
@@ -3630,7 +3530,7 @@ export namespace Prisma {
     level?: boolean
     demo_url?: boolean
     benefits?: boolean
-    prerequisitest?: boolean
+    prerequisites?: boolean
     ratings?: boolean
     purchased?: boolean
     created_at?: boolean
@@ -3648,14 +3548,14 @@ export namespace Prisma {
     level?: boolean
     demo_url?: boolean
     benefits?: boolean
-    prerequisitest?: boolean
+    prerequisites?: boolean
     ratings?: boolean
     purchased?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "price" | "discount" | "thumbnail" | "level" | "demo_url" | "benefits" | "prerequisitest" | "ratings" | "purchased" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "price" | "discount" | "thumbnail" | "level" | "demo_url" | "benefits" | "prerequisites" | "ratings" | "purchased" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Course$reviewsArgs<ExtArgs>
     orders?: boolean | Course$ordersArgs<ExtArgs>
@@ -3685,7 +3585,7 @@ export namespace Prisma {
       level: $Enums.CourseLevel
       demo_url: string
       benefits: string[]
-      prerequisitest: string[]
+      prerequisites: string[]
       ratings: number | null
       purchased: number | null
       created_at: Date
@@ -4127,7 +4027,7 @@ export namespace Prisma {
     readonly level: FieldRef<"Course", 'CourseLevel'>
     readonly demo_url: FieldRef<"Course", 'String'>
     readonly benefits: FieldRef<"Course", 'String[]'>
-    readonly prerequisitest: FieldRef<"Course", 'String[]'>
+    readonly prerequisites: FieldRef<"Course", 'String[]'>
     readonly ratings: FieldRef<"Course", 'Int'>
     readonly purchased: FieldRef<"Course", 'Int'>
     readonly created_at: FieldRef<"Course", 'DateTime'>
@@ -4640,29 +4540,18 @@ export namespace Prisma {
 
   export type AggregateCourseData = {
     _count: CourseDataCountAggregateOutputType | null
-    _avg: CourseDataAvgAggregateOutputType | null
-    _sum: CourseDataSumAggregateOutputType | null
     _min: CourseDataMinAggregateOutputType | null
     _max: CourseDataMaxAggregateOutputType | null
   }
 
-  export type CourseDataAvgAggregateOutputType = {
-    videoLength: number | null
-  }
-
-  export type CourseDataSumAggregateOutputType = {
-    videoLength: number | null
-  }
-
   export type CourseDataMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    videoUrl: string | null
-    videoThumbnail: string | null
-    videoSection: string | null
-    videoLength: number | null
-    videoPlayer: string | null
+    video_title: string | null
+    video_description: string | null
+    video_url: string | null
+    video_section: string | null
+    video_link_title: string | null
+    video_link_url: string | null
     suggestions: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -4671,13 +4560,12 @@ export namespace Prisma {
 
   export type CourseDataMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    videoUrl: string | null
-    videoThumbnail: string | null
-    videoSection: string | null
-    videoLength: number | null
-    videoPlayer: string | null
+    video_title: string | null
+    video_description: string | null
+    video_url: string | null
+    video_section: string | null
+    video_link_title: string | null
+    video_link_url: string | null
     suggestions: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -4686,13 +4574,12 @@ export namespace Prisma {
 
   export type CourseDataCountAggregateOutputType = {
     id: number
-    title: number
-    description: number
-    videoUrl: number
-    videoThumbnail: number
-    videoSection: number
-    videoLength: number
-    videoPlayer: number
+    video_title: number
+    video_description: number
+    video_url: number
+    video_section: number
+    video_link_title: number
+    video_link_url: number
     suggestions: number
     created_at: number
     updated_at: number
@@ -4701,23 +4588,14 @@ export namespace Prisma {
   }
 
 
-  export type CourseDataAvgAggregateInputType = {
-    videoLength?: true
-  }
-
-  export type CourseDataSumAggregateInputType = {
-    videoLength?: true
-  }
-
   export type CourseDataMinAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    videoUrl?: true
-    videoThumbnail?: true
-    videoSection?: true
-    videoLength?: true
-    videoPlayer?: true
+    video_title?: true
+    video_description?: true
+    video_url?: true
+    video_section?: true
+    video_link_title?: true
+    video_link_url?: true
     suggestions?: true
     created_at?: true
     updated_at?: true
@@ -4726,13 +4604,12 @@ export namespace Prisma {
 
   export type CourseDataMaxAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    videoUrl?: true
-    videoThumbnail?: true
-    videoSection?: true
-    videoLength?: true
-    videoPlayer?: true
+    video_title?: true
+    video_description?: true
+    video_url?: true
+    video_section?: true
+    video_link_title?: true
+    video_link_url?: true
     suggestions?: true
     created_at?: true
     updated_at?: true
@@ -4741,13 +4618,12 @@ export namespace Prisma {
 
   export type CourseDataCountAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    videoUrl?: true
-    videoThumbnail?: true
-    videoSection?: true
-    videoLength?: true
-    videoPlayer?: true
+    video_title?: true
+    video_description?: true
+    video_url?: true
+    video_section?: true
+    video_link_title?: true
+    video_link_url?: true
     suggestions?: true
     created_at?: true
     updated_at?: true
@@ -4793,18 +4669,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CourseDataAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CourseDataSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CourseDataMinAggregateInputType
@@ -4835,28 +4699,23 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CourseDataCountAggregateInputType | true
-    _avg?: CourseDataAvgAggregateInputType
-    _sum?: CourseDataSumAggregateInputType
     _min?: CourseDataMinAggregateInputType
     _max?: CourseDataMaxAggregateInputType
   }
 
   export type CourseDataGroupByOutputType = {
     id: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title: string | null
+    video_link_url: string | null
+    suggestions: string | null
     created_at: Date
     updated_at: Date
     courseId: string | null
     _count: CourseDataCountAggregateOutputType | null
-    _avg: CourseDataAvgAggregateOutputType | null
-    _sum: CourseDataSumAggregateOutputType | null
     _min: CourseDataMinAggregateOutputType | null
     _max: CourseDataMaxAggregateOutputType | null
   }
@@ -4877,18 +4736,16 @@ export namespace Prisma {
 
   export type CourseDataSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    videoUrl?: boolean
-    videoThumbnail?: boolean
-    videoSection?: boolean
-    videoLength?: boolean
-    videoPlayer?: boolean
+    video_title?: boolean
+    video_description?: boolean
+    video_url?: boolean
+    video_section?: boolean
+    video_link_title?: boolean
+    video_link_url?: boolean
     suggestions?: boolean
     created_at?: boolean
     updated_at?: boolean
     courseId?: boolean
-    links?: boolean | CourseData$linksArgs<ExtArgs>
     questions?: boolean | CourseData$questionsArgs<ExtArgs>
     Course?: boolean | CourseData$CourseArgs<ExtArgs>
     _count?: boolean | CourseDataCountOutputTypeDefaultArgs<ExtArgs>
@@ -4896,13 +4753,12 @@ export namespace Prisma {
 
   export type CourseDataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    videoUrl?: boolean
-    videoThumbnail?: boolean
-    videoSection?: boolean
-    videoLength?: boolean
-    videoPlayer?: boolean
+    video_title?: boolean
+    video_description?: boolean
+    video_url?: boolean
+    video_section?: boolean
+    video_link_title?: boolean
+    video_link_url?: boolean
     suggestions?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -4912,13 +4768,12 @@ export namespace Prisma {
 
   export type CourseDataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    videoUrl?: boolean
-    videoThumbnail?: boolean
-    videoSection?: boolean
-    videoLength?: boolean
-    videoPlayer?: boolean
+    video_title?: boolean
+    video_description?: boolean
+    video_url?: boolean
+    video_section?: boolean
+    video_link_title?: boolean
+    video_link_url?: boolean
     suggestions?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -4928,22 +4783,20 @@ export namespace Prisma {
 
   export type CourseDataSelectScalar = {
     id?: boolean
-    title?: boolean
-    description?: boolean
-    videoUrl?: boolean
-    videoThumbnail?: boolean
-    videoSection?: boolean
-    videoLength?: boolean
-    videoPlayer?: boolean
+    video_title?: boolean
+    video_description?: boolean
+    video_url?: boolean
+    video_section?: boolean
+    video_link_title?: boolean
+    video_link_url?: boolean
     suggestions?: boolean
     created_at?: boolean
     updated_at?: boolean
     courseId?: boolean
   }
 
-  export type CourseDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "videoUrl" | "videoThumbnail" | "videoSection" | "videoLength" | "videoPlayer" | "suggestions" | "created_at" | "updated_at" | "courseId", ExtArgs["result"]["courseData"]>
+  export type CourseDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "video_title" | "video_description" | "video_url" | "video_section" | "video_link_title" | "video_link_url" | "suggestions" | "created_at" | "updated_at" | "courseId", ExtArgs["result"]["courseData"]>
   export type CourseDataInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    links?: boolean | CourseData$linksArgs<ExtArgs>
     questions?: boolean | CourseData$questionsArgs<ExtArgs>
     Course?: boolean | CourseData$CourseArgs<ExtArgs>
     _count?: boolean | CourseDataCountOutputTypeDefaultArgs<ExtArgs>
@@ -4958,20 +4811,18 @@ export namespace Prisma {
   export type $CourseDataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CourseData"
     objects: {
-      links: Prisma.$LinksPayload<ExtArgs>[]
       questions: Prisma.$QuestionPayload<ExtArgs>[]
       Course: Prisma.$CoursePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
-      description: string
-      videoUrl: string
-      videoThumbnail: string
-      videoSection: string
-      videoLength: number
-      videoPlayer: string
-      suggestions: string
+      video_title: string
+      video_description: string
+      video_url: string
+      video_section: string
+      video_link_title: string | null
+      video_link_url: string | null
+      suggestions: string | null
       created_at: Date
       updated_at: Date
       courseId: string | null
@@ -5369,7 +5220,6 @@ export namespace Prisma {
    */
   export interface Prisma__CourseDataClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    links<T extends CourseData$linksArgs<ExtArgs> = {}>(args?: Subset<T, CourseData$linksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questions<T extends CourseData$questionsArgs<ExtArgs> = {}>(args?: Subset<T, CourseData$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Course<T extends CourseData$CourseArgs<ExtArgs> = {}>(args?: Subset<T, CourseData$CourseArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -5402,13 +5252,12 @@ export namespace Prisma {
    */
   interface CourseDataFieldRefs {
     readonly id: FieldRef<"CourseData", 'String'>
-    readonly title: FieldRef<"CourseData", 'String'>
-    readonly description: FieldRef<"CourseData", 'String'>
-    readonly videoUrl: FieldRef<"CourseData", 'String'>
-    readonly videoThumbnail: FieldRef<"CourseData", 'String'>
-    readonly videoSection: FieldRef<"CourseData", 'String'>
-    readonly videoLength: FieldRef<"CourseData", 'Int'>
-    readonly videoPlayer: FieldRef<"CourseData", 'String'>
+    readonly video_title: FieldRef<"CourseData", 'String'>
+    readonly video_description: FieldRef<"CourseData", 'String'>
+    readonly video_url: FieldRef<"CourseData", 'String'>
+    readonly video_section: FieldRef<"CourseData", 'String'>
+    readonly video_link_title: FieldRef<"CourseData", 'String'>
+    readonly video_link_url: FieldRef<"CourseData", 'String'>
     readonly suggestions: FieldRef<"CourseData", 'String'>
     readonly created_at: FieldRef<"CourseData", 'DateTime'>
     readonly updated_at: FieldRef<"CourseData", 'DateTime'>
@@ -5806,30 +5655,6 @@ export namespace Prisma {
      * Limit how many CourseData to delete.
      */
     limit?: number
-  }
-
-  /**
-   * CourseData.links
-   */
-  export type CourseData$linksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    where?: LinksWhereInput
-    orderBy?: LinksOrderByWithRelationInput | LinksOrderByWithRelationInput[]
-    cursor?: LinksWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LinksScalarFieldEnum | LinksScalarFieldEnum[]
   }
 
   /**
@@ -6982,1070 +6807,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: QuestionInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Links
-   */
-
-  export type AggregateLinks = {
-    _count: LinksCountAggregateOutputType | null
-    _min: LinksMinAggregateOutputType | null
-    _max: LinksMaxAggregateOutputType | null
-  }
-
-  export type LinksMinAggregateOutputType = {
-    id: string | null
-    title: string | null
-    url: string | null
-    courseDataId: string | null
-  }
-
-  export type LinksMaxAggregateOutputType = {
-    id: string | null
-    title: string | null
-    url: string | null
-    courseDataId: string | null
-  }
-
-  export type LinksCountAggregateOutputType = {
-    id: number
-    title: number
-    url: number
-    courseDataId: number
-    _all: number
-  }
-
-
-  export type LinksMinAggregateInputType = {
-    id?: true
-    title?: true
-    url?: true
-    courseDataId?: true
-  }
-
-  export type LinksMaxAggregateInputType = {
-    id?: true
-    title?: true
-    url?: true
-    courseDataId?: true
-  }
-
-  export type LinksCountAggregateInputType = {
-    id?: true
-    title?: true
-    url?: true
-    courseDataId?: true
-    _all?: true
-  }
-
-  export type LinksAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Links to aggregate.
-     */
-    where?: LinksWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Links to fetch.
-     */
-    orderBy?: LinksOrderByWithRelationInput | LinksOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: LinksWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Links from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Links.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Links
-    **/
-    _count?: true | LinksCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: LinksMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: LinksMaxAggregateInputType
-  }
-
-  export type GetLinksAggregateType<T extends LinksAggregateArgs> = {
-        [P in keyof T & keyof AggregateLinks]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLinks[P]>
-      : GetScalarType<T[P], AggregateLinks[P]>
-  }
-
-
-
-
-  export type LinksGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LinksWhereInput
-    orderBy?: LinksOrderByWithAggregationInput | LinksOrderByWithAggregationInput[]
-    by: LinksScalarFieldEnum[] | LinksScalarFieldEnum
-    having?: LinksScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LinksCountAggregateInputType | true
-    _min?: LinksMinAggregateInputType
-    _max?: LinksMaxAggregateInputType
-  }
-
-  export type LinksGroupByOutputType = {
-    id: string
-    title: string
-    url: string
-    courseDataId: string | null
-    _count: LinksCountAggregateOutputType | null
-    _min: LinksMinAggregateOutputType | null
-    _max: LinksMaxAggregateOutputType | null
-  }
-
-  type GetLinksGroupByPayload<T extends LinksGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<LinksGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LinksGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LinksGroupByOutputType[P]>
-            : GetScalarType<T[P], LinksGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type LinksSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    url?: boolean
-    courseDataId?: boolean
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }, ExtArgs["result"]["links"]>
-
-  export type LinksSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    url?: boolean
-    courseDataId?: boolean
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }, ExtArgs["result"]["links"]>
-
-  export type LinksSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    url?: boolean
-    courseDataId?: boolean
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }, ExtArgs["result"]["links"]>
-
-  export type LinksSelectScalar = {
-    id?: boolean
-    title?: boolean
-    url?: boolean
-    courseDataId?: boolean
-  }
-
-  export type LinksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "url" | "courseDataId", ExtArgs["result"]["links"]>
-  export type LinksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }
-  export type LinksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }
-  export type LinksIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    CourseData?: boolean | Links$CourseDataArgs<ExtArgs>
-  }
-
-  export type $LinksPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Links"
-    objects: {
-      CourseData: Prisma.$CourseDataPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      title: string
-      url: string
-      courseDataId: string | null
-    }, ExtArgs["result"]["links"]>
-    composites: {}
-  }
-
-  type LinksGetPayload<S extends boolean | null | undefined | LinksDefaultArgs> = $Result.GetResult<Prisma.$LinksPayload, S>
-
-  type LinksCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<LinksFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: LinksCountAggregateInputType | true
-    }
-
-  export interface LinksDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Links'], meta: { name: 'Links' } }
-    /**
-     * Find zero or one Links that matches the filter.
-     * @param {LinksFindUniqueArgs} args - Arguments to find a Links
-     * @example
-     * // Get one Links
-     * const links = await prisma.links.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends LinksFindUniqueArgs>(args: SelectSubset<T, LinksFindUniqueArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Links that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {LinksFindUniqueOrThrowArgs} args - Arguments to find a Links
-     * @example
-     * // Get one Links
-     * const links = await prisma.links.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends LinksFindUniqueOrThrowArgs>(args: SelectSubset<T, LinksFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Links that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksFindFirstArgs} args - Arguments to find a Links
-     * @example
-     * // Get one Links
-     * const links = await prisma.links.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends LinksFindFirstArgs>(args?: SelectSubset<T, LinksFindFirstArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Links that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksFindFirstOrThrowArgs} args - Arguments to find a Links
-     * @example
-     * // Get one Links
-     * const links = await prisma.links.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends LinksFindFirstOrThrowArgs>(args?: SelectSubset<T, LinksFindFirstOrThrowArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Links that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Links
-     * const links = await prisma.links.findMany()
-     * 
-     * // Get first 10 Links
-     * const links = await prisma.links.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const linksWithIdOnly = await prisma.links.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends LinksFindManyArgs>(args?: SelectSubset<T, LinksFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Links.
-     * @param {LinksCreateArgs} args - Arguments to create a Links.
-     * @example
-     * // Create one Links
-     * const Links = await prisma.links.create({
-     *   data: {
-     *     // ... data to create a Links
-     *   }
-     * })
-     * 
-     */
-    create<T extends LinksCreateArgs>(args: SelectSubset<T, LinksCreateArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Links.
-     * @param {LinksCreateManyArgs} args - Arguments to create many Links.
-     * @example
-     * // Create many Links
-     * const links = await prisma.links.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends LinksCreateManyArgs>(args?: SelectSubset<T, LinksCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Links and returns the data saved in the database.
-     * @param {LinksCreateManyAndReturnArgs} args - Arguments to create many Links.
-     * @example
-     * // Create many Links
-     * const links = await prisma.links.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Links and only return the `id`
-     * const linksWithIdOnly = await prisma.links.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends LinksCreateManyAndReturnArgs>(args?: SelectSubset<T, LinksCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Links.
-     * @param {LinksDeleteArgs} args - Arguments to delete one Links.
-     * @example
-     * // Delete one Links
-     * const Links = await prisma.links.delete({
-     *   where: {
-     *     // ... filter to delete one Links
-     *   }
-     * })
-     * 
-     */
-    delete<T extends LinksDeleteArgs>(args: SelectSubset<T, LinksDeleteArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Links.
-     * @param {LinksUpdateArgs} args - Arguments to update one Links.
-     * @example
-     * // Update one Links
-     * const links = await prisma.links.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends LinksUpdateArgs>(args: SelectSubset<T, LinksUpdateArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Links.
-     * @param {LinksDeleteManyArgs} args - Arguments to filter Links to delete.
-     * @example
-     * // Delete a few Links
-     * const { count } = await prisma.links.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends LinksDeleteManyArgs>(args?: SelectSubset<T, LinksDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Links.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Links
-     * const links = await prisma.links.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends LinksUpdateManyArgs>(args: SelectSubset<T, LinksUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Links and returns the data updated in the database.
-     * @param {LinksUpdateManyAndReturnArgs} args - Arguments to update many Links.
-     * @example
-     * // Update many Links
-     * const links = await prisma.links.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Links and only return the `id`
-     * const linksWithIdOnly = await prisma.links.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends LinksUpdateManyAndReturnArgs>(args: SelectSubset<T, LinksUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Links.
-     * @param {LinksUpsertArgs} args - Arguments to update or create a Links.
-     * @example
-     * // Update or create a Links
-     * const links = await prisma.links.upsert({
-     *   create: {
-     *     // ... data to create a Links
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Links we want to update
-     *   }
-     * })
-     */
-    upsert<T extends LinksUpsertArgs>(args: SelectSubset<T, LinksUpsertArgs<ExtArgs>>): Prisma__LinksClient<$Result.GetResult<Prisma.$LinksPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Links.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksCountArgs} args - Arguments to filter Links to count.
-     * @example
-     * // Count the number of Links
-     * const count = await prisma.links.count({
-     *   where: {
-     *     // ... the filter for the Links we want to count
-     *   }
-     * })
-    **/
-    count<T extends LinksCountArgs>(
-      args?: Subset<T, LinksCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LinksCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Links.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends LinksAggregateArgs>(args: Subset<T, LinksAggregateArgs>): Prisma.PrismaPromise<GetLinksAggregateType<T>>
-
-    /**
-     * Group by Links.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LinksGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends LinksGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LinksGroupByArgs['orderBy'] }
-        : { orderBy?: LinksGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LinksGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinksGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Links model
-   */
-  readonly fields: LinksFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Links.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__LinksClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    CourseData<T extends Links$CourseDataArgs<ExtArgs> = {}>(args?: Subset<T, Links$CourseDataArgs<ExtArgs>>): Prisma__CourseDataClient<$Result.GetResult<Prisma.$CourseDataPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Links model
-   */
-  interface LinksFieldRefs {
-    readonly id: FieldRef<"Links", 'String'>
-    readonly title: FieldRef<"Links", 'String'>
-    readonly url: FieldRef<"Links", 'String'>
-    readonly courseDataId: FieldRef<"Links", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Links findUnique
-   */
-  export type LinksFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter, which Links to fetch.
-     */
-    where: LinksWhereUniqueInput
-  }
-
-  /**
-   * Links findUniqueOrThrow
-   */
-  export type LinksFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter, which Links to fetch.
-     */
-    where: LinksWhereUniqueInput
-  }
-
-  /**
-   * Links findFirst
-   */
-  export type LinksFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter, which Links to fetch.
-     */
-    where?: LinksWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Links to fetch.
-     */
-    orderBy?: LinksOrderByWithRelationInput | LinksOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Links.
-     */
-    cursor?: LinksWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Links from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Links.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Links.
-     */
-    distinct?: LinksScalarFieldEnum | LinksScalarFieldEnum[]
-  }
-
-  /**
-   * Links findFirstOrThrow
-   */
-  export type LinksFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter, which Links to fetch.
-     */
-    where?: LinksWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Links to fetch.
-     */
-    orderBy?: LinksOrderByWithRelationInput | LinksOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Links.
-     */
-    cursor?: LinksWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Links from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Links.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Links.
-     */
-    distinct?: LinksScalarFieldEnum | LinksScalarFieldEnum[]
-  }
-
-  /**
-   * Links findMany
-   */
-  export type LinksFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter, which Links to fetch.
-     */
-    where?: LinksWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Links to fetch.
-     */
-    orderBy?: LinksOrderByWithRelationInput | LinksOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Links.
-     */
-    cursor?: LinksWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Links from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Links.
-     */
-    skip?: number
-    distinct?: LinksScalarFieldEnum | LinksScalarFieldEnum[]
-  }
-
-  /**
-   * Links create
-   */
-  export type LinksCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Links.
-     */
-    data: XOR<LinksCreateInput, LinksUncheckedCreateInput>
-  }
-
-  /**
-   * Links createMany
-   */
-  export type LinksCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Links.
-     */
-    data: LinksCreateManyInput | LinksCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Links createManyAndReturn
-   */
-  export type LinksCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * The data used to create many Links.
-     */
-    data: LinksCreateManyInput | LinksCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Links update
-   */
-  export type LinksUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Links.
-     */
-    data: XOR<LinksUpdateInput, LinksUncheckedUpdateInput>
-    /**
-     * Choose, which Links to update.
-     */
-    where: LinksWhereUniqueInput
-  }
-
-  /**
-   * Links updateMany
-   */
-  export type LinksUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Links.
-     */
-    data: XOR<LinksUpdateManyMutationInput, LinksUncheckedUpdateManyInput>
-    /**
-     * Filter which Links to update
-     */
-    where?: LinksWhereInput
-    /**
-     * Limit how many Links to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Links updateManyAndReturn
-   */
-  export type LinksUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * The data used to update Links.
-     */
-    data: XOR<LinksUpdateManyMutationInput, LinksUncheckedUpdateManyInput>
-    /**
-     * Filter which Links to update
-     */
-    where?: LinksWhereInput
-    /**
-     * Limit how many Links to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Links upsert
-   */
-  export type LinksUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Links to update in case it exists.
-     */
-    where: LinksWhereUniqueInput
-    /**
-     * In case the Links found by the `where` argument doesn't exist, create a new Links with this data.
-     */
-    create: XOR<LinksCreateInput, LinksUncheckedCreateInput>
-    /**
-     * In case the Links was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<LinksUpdateInput, LinksUncheckedUpdateInput>
-  }
-
-  /**
-   * Links delete
-   */
-  export type LinksDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
-    /**
-     * Filter which Links to delete.
-     */
-    where: LinksWhereUniqueInput
-  }
-
-  /**
-   * Links deleteMany
-   */
-  export type LinksDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Links to delete
-     */
-    where?: LinksWhereInput
-    /**
-     * Limit how many Links to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Links.CourseData
-   */
-  export type Links$CourseDataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseData
-     */
-    select?: CourseDataSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseData
-     */
-    omit?: CourseDataOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CourseDataInclude<ExtArgs> | null
-    where?: CourseDataWhereInput
-  }
-
-  /**
-   * Links without action
-   */
-  export type LinksDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Links
-     */
-    select?: LinksSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Links
-     */
-    omit?: LinksOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LinksInclude<ExtArgs> | null
   }
 
 
@@ -14524,7 +13285,7 @@ export namespace Prisma {
     level: 'level',
     demo_url: 'demo_url',
     benefits: 'benefits',
-    prerequisitest: 'prerequisitest',
+    prerequisites: 'prerequisites',
     ratings: 'ratings',
     purchased: 'purchased',
     created_at: 'created_at',
@@ -14536,13 +13297,12 @@ export namespace Prisma {
 
   export const CourseDataScalarFieldEnum: {
     id: 'id',
-    title: 'title',
-    description: 'description',
-    videoUrl: 'videoUrl',
-    videoThumbnail: 'videoThumbnail',
-    videoSection: 'videoSection',
-    videoLength: 'videoLength',
-    videoPlayer: 'videoPlayer',
+    video_title: 'video_title',
+    video_description: 'video_description',
+    video_url: 'video_url',
+    video_section: 'video_section',
+    video_link_title: 'video_link_title',
+    video_link_url: 'video_link_url',
     suggestions: 'suggestions',
     created_at: 'created_at',
     updated_at: 'updated_at',
@@ -14560,16 +13320,6 @@ export namespace Prisma {
   };
 
   export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
-
-
-  export const LinksScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    url: 'url',
-    courseDataId: 'courseDataId'
-  };
-
-  export type LinksScalarFieldEnum = (typeof LinksScalarFieldEnum)[keyof typeof LinksScalarFieldEnum]
 
 
   export const EnrollmentScalarFieldEnum: {
@@ -14914,7 +13664,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFilter<"Course"> | $Enums.CourseLevel
     demo_url?: StringFilter<"Course"> | string
     benefits?: StringNullableListFilter<"Course">
-    prerequisitest?: StringNullableListFilter<"Course">
+    prerequisites?: StringNullableListFilter<"Course">
     ratings?: IntNullableFilter<"Course"> | number | null
     purchased?: IntNullableFilter<"Course"> | number | null
     created_at?: DateTimeFilter<"Course"> | Date | string
@@ -14936,7 +13686,7 @@ export namespace Prisma {
     level?: SortOrder
     demo_url?: SortOrder
     benefits?: SortOrder
-    prerequisitest?: SortOrder
+    prerequisites?: SortOrder
     ratings?: SortOrderInput | SortOrder
     purchased?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -14961,7 +13711,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFilter<"Course"> | $Enums.CourseLevel
     demo_url?: StringFilter<"Course"> | string
     benefits?: StringNullableListFilter<"Course">
-    prerequisitest?: StringNullableListFilter<"Course">
+    prerequisites?: StringNullableListFilter<"Course">
     ratings?: IntNullableFilter<"Course"> | number | null
     purchased?: IntNullableFilter<"Course"> | number | null
     created_at?: DateTimeFilter<"Course"> | Date | string
@@ -14983,7 +13733,7 @@ export namespace Prisma {
     level?: SortOrder
     demo_url?: SortOrder
     benefits?: SortOrder
-    prerequisitest?: SortOrder
+    prerequisites?: SortOrder
     ratings?: SortOrderInput | SortOrder
     purchased?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -15009,7 +13759,7 @@ export namespace Prisma {
     level?: EnumCourseLevelWithAggregatesFilter<"Course"> | $Enums.CourseLevel
     demo_url?: StringWithAggregatesFilter<"Course"> | string
     benefits?: StringNullableListFilter<"Course">
-    prerequisitest?: StringNullableListFilter<"Course">
+    prerequisites?: StringNullableListFilter<"Course">
     ratings?: IntNullableWithAggregatesFilter<"Course"> | number | null
     purchased?: IntNullableWithAggregatesFilter<"Course"> | number | null
     created_at?: DateTimeWithAggregatesFilter<"Course"> | Date | string
@@ -15021,36 +13771,32 @@ export namespace Prisma {
     OR?: CourseDataWhereInput[]
     NOT?: CourseDataWhereInput | CourseDataWhereInput[]
     id?: StringFilter<"CourseData"> | string
-    title?: StringFilter<"CourseData"> | string
-    description?: StringFilter<"CourseData"> | string
-    videoUrl?: StringFilter<"CourseData"> | string
-    videoThumbnail?: StringFilter<"CourseData"> | string
-    videoSection?: StringFilter<"CourseData"> | string
-    videoLength?: IntFilter<"CourseData"> | number
-    videoPlayer?: StringFilter<"CourseData"> | string
-    suggestions?: StringFilter<"CourseData"> | string
+    video_title?: StringFilter<"CourseData"> | string
+    video_description?: StringFilter<"CourseData"> | string
+    video_url?: StringFilter<"CourseData"> | string
+    video_section?: StringFilter<"CourseData"> | string
+    video_link_title?: StringNullableFilter<"CourseData"> | string | null
+    video_link_url?: StringNullableFilter<"CourseData"> | string | null
+    suggestions?: StringNullableFilter<"CourseData"> | string | null
     created_at?: DateTimeFilter<"CourseData"> | Date | string
     updated_at?: DateTimeFilter<"CourseData"> | Date | string
     courseId?: StringNullableFilter<"CourseData"> | string | null
-    links?: LinksListRelationFilter
     questions?: QuestionListRelationFilter
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
   }
 
   export type CourseDataOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    videoUrl?: SortOrder
-    videoThumbnail?: SortOrder
-    videoSection?: SortOrder
-    videoLength?: SortOrder
-    videoPlayer?: SortOrder
-    suggestions?: SortOrder
+    video_title?: SortOrder
+    video_description?: SortOrder
+    video_url?: SortOrder
+    video_section?: SortOrder
+    video_link_title?: SortOrderInput | SortOrder
+    video_link_url?: SortOrderInput | SortOrder
+    suggestions?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     courseId?: SortOrderInput | SortOrder
-    links?: LinksOrderByRelationAggregateInput
     questions?: QuestionOrderByRelationAggregateInput
     Course?: CourseOrderByWithRelationInput
   }
@@ -15060,40 +13806,35 @@ export namespace Prisma {
     AND?: CourseDataWhereInput | CourseDataWhereInput[]
     OR?: CourseDataWhereInput[]
     NOT?: CourseDataWhereInput | CourseDataWhereInput[]
-    title?: StringFilter<"CourseData"> | string
-    description?: StringFilter<"CourseData"> | string
-    videoUrl?: StringFilter<"CourseData"> | string
-    videoThumbnail?: StringFilter<"CourseData"> | string
-    videoSection?: StringFilter<"CourseData"> | string
-    videoLength?: IntFilter<"CourseData"> | number
-    videoPlayer?: StringFilter<"CourseData"> | string
-    suggestions?: StringFilter<"CourseData"> | string
+    video_title?: StringFilter<"CourseData"> | string
+    video_description?: StringFilter<"CourseData"> | string
+    video_url?: StringFilter<"CourseData"> | string
+    video_section?: StringFilter<"CourseData"> | string
+    video_link_title?: StringNullableFilter<"CourseData"> | string | null
+    video_link_url?: StringNullableFilter<"CourseData"> | string | null
+    suggestions?: StringNullableFilter<"CourseData"> | string | null
     created_at?: DateTimeFilter<"CourseData"> | Date | string
     updated_at?: DateTimeFilter<"CourseData"> | Date | string
     courseId?: StringNullableFilter<"CourseData"> | string | null
-    links?: LinksListRelationFilter
     questions?: QuestionListRelationFilter
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
   }, "id">
 
   export type CourseDataOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    videoUrl?: SortOrder
-    videoThumbnail?: SortOrder
-    videoSection?: SortOrder
-    videoLength?: SortOrder
-    videoPlayer?: SortOrder
-    suggestions?: SortOrder
+    video_title?: SortOrder
+    video_description?: SortOrder
+    video_url?: SortOrder
+    video_section?: SortOrder
+    video_link_title?: SortOrderInput | SortOrder
+    video_link_url?: SortOrderInput | SortOrder
+    suggestions?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     courseId?: SortOrderInput | SortOrder
     _count?: CourseDataCountOrderByAggregateInput
-    _avg?: CourseDataAvgOrderByAggregateInput
     _max?: CourseDataMaxOrderByAggregateInput
     _min?: CourseDataMinOrderByAggregateInput
-    _sum?: CourseDataSumOrderByAggregateInput
   }
 
   export type CourseDataScalarWhereWithAggregatesInput = {
@@ -15101,14 +13842,13 @@ export namespace Prisma {
     OR?: CourseDataScalarWhereWithAggregatesInput[]
     NOT?: CourseDataScalarWhereWithAggregatesInput | CourseDataScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"CourseData"> | string
-    title?: StringWithAggregatesFilter<"CourseData"> | string
-    description?: StringWithAggregatesFilter<"CourseData"> | string
-    videoUrl?: StringWithAggregatesFilter<"CourseData"> | string
-    videoThumbnail?: StringWithAggregatesFilter<"CourseData"> | string
-    videoSection?: StringWithAggregatesFilter<"CourseData"> | string
-    videoLength?: IntWithAggregatesFilter<"CourseData"> | number
-    videoPlayer?: StringWithAggregatesFilter<"CourseData"> | string
-    suggestions?: StringWithAggregatesFilter<"CourseData"> | string
+    video_title?: StringWithAggregatesFilter<"CourseData"> | string
+    video_description?: StringWithAggregatesFilter<"CourseData"> | string
+    video_url?: StringWithAggregatesFilter<"CourseData"> | string
+    video_section?: StringWithAggregatesFilter<"CourseData"> | string
+    video_link_title?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
+    video_link_url?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
+    suggestions?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"CourseData"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"CourseData"> | Date | string
     courseId?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
@@ -15165,56 +13905,6 @@ export namespace Prisma {
     question?: StringWithAggregatesFilter<"Question"> | string
     userId?: StringNullableWithAggregatesFilter<"Question"> | string | null
     courseDataId?: StringNullableWithAggregatesFilter<"Question"> | string | null
-  }
-
-  export type LinksWhereInput = {
-    AND?: LinksWhereInput | LinksWhereInput[]
-    OR?: LinksWhereInput[]
-    NOT?: LinksWhereInput | LinksWhereInput[]
-    id?: StringFilter<"Links"> | string
-    title?: StringFilter<"Links"> | string
-    url?: StringFilter<"Links"> | string
-    courseDataId?: StringNullableFilter<"Links"> | string | null
-    CourseData?: XOR<CourseDataNullableScalarRelationFilter, CourseDataWhereInput> | null
-  }
-
-  export type LinksOrderByWithRelationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    url?: SortOrder
-    courseDataId?: SortOrderInput | SortOrder
-    CourseData?: CourseDataOrderByWithRelationInput
-  }
-
-  export type LinksWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: LinksWhereInput | LinksWhereInput[]
-    OR?: LinksWhereInput[]
-    NOT?: LinksWhereInput | LinksWhereInput[]
-    title?: StringFilter<"Links"> | string
-    url?: StringFilter<"Links"> | string
-    courseDataId?: StringNullableFilter<"Links"> | string | null
-    CourseData?: XOR<CourseDataNullableScalarRelationFilter, CourseDataWhereInput> | null
-  }, "id">
-
-  export type LinksOrderByWithAggregationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    url?: SortOrder
-    courseDataId?: SortOrderInput | SortOrder
-    _count?: LinksCountOrderByAggregateInput
-    _max?: LinksMaxOrderByAggregateInput
-    _min?: LinksMinOrderByAggregateInput
-  }
-
-  export type LinksScalarWhereWithAggregatesInput = {
-    AND?: LinksScalarWhereWithAggregatesInput | LinksScalarWhereWithAggregatesInput[]
-    OR?: LinksScalarWhereWithAggregatesInput[]
-    NOT?: LinksScalarWhereWithAggregatesInput | LinksScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Links"> | string
-    title?: StringWithAggregatesFilter<"Links"> | string
-    url?: StringWithAggregatesFilter<"Links"> | string
-    courseDataId?: StringNullableWithAggregatesFilter<"Links"> | string | null
   }
 
   export type EnrollmentWhereInput = {
@@ -15689,7 +14379,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -15711,7 +14401,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -15733,7 +14423,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15755,7 +14445,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15777,7 +14467,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -15795,7 +14485,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15813,7 +14503,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15822,82 +14512,73 @@ export namespace Prisma {
 
   export type CourseDataCreateInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    links?: LinksCreateNestedManyWithoutCourseDataInput
     questions?: QuestionCreateNestedManyWithoutCourseDataInput
     Course?: CourseCreateNestedOneWithoutCourse_dataInput
   }
 
   export type CourseDataUncheckedCreateInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     courseId?: string | null
-    links?: LinksUncheckedCreateNestedManyWithoutCourseDataInput
     questions?: QuestionUncheckedCreateNestedManyWithoutCourseDataInput
   }
 
   export type CourseDataUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    links?: LinksUpdateManyWithoutCourseDataNestedInput
     questions?: QuestionUpdateManyWithoutCourseDataNestedInput
     Course?: CourseUpdateOneWithoutCourse_dataNestedInput
   }
 
   export type CourseDataUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
-    links?: LinksUncheckedUpdateManyWithoutCourseDataNestedInput
     questions?: QuestionUncheckedUpdateManyWithoutCourseDataNestedInput
   }
 
   export type CourseDataCreateManyInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     courseId?: string | null
@@ -15905,28 +14586,26 @@ export namespace Prisma {
 
   export type CourseDataUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CourseDataUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15976,54 +14655,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    courseDataId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type LinksCreateInput = {
-    id?: string
-    title: string
-    url: string
-    CourseData?: CourseDataCreateNestedOneWithoutLinksInput
-  }
-
-  export type LinksUncheckedCreateInput = {
-    id?: string
-    title: string
-    url: string
-    courseDataId?: string | null
-  }
-
-  export type LinksUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    CourseData?: CourseDataUpdateOneWithoutLinksNestedInput
-  }
-
-  export type LinksUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    courseDataId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type LinksCreateManyInput = {
-    id?: string
-    title: string
-    url: string
-    courseDataId?: string | null
-  }
-
-  export type LinksUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LinksUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
     courseDataId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -16693,7 +15324,7 @@ export namespace Prisma {
     level?: SortOrder
     demo_url?: SortOrder
     benefits?: SortOrder
-    prerequisitest?: SortOrder
+    prerequisites?: SortOrder
     ratings?: SortOrder
     purchased?: SortOrder
     created_at?: SortOrder
@@ -16788,60 +15419,33 @@ export namespace Prisma {
     _max?: NestedEnumCourseLevelFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type LinksListRelationFilter = {
-    every?: LinksWhereInput
-    some?: LinksWhereInput
-    none?: LinksWhereInput
-  }
-
   export type CourseNullableScalarRelationFilter = {
     is?: CourseWhereInput | null
     isNot?: CourseWhereInput | null
   }
 
-  export type LinksOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type CourseDataCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    videoUrl?: SortOrder
-    videoThumbnail?: SortOrder
-    videoSection?: SortOrder
-    videoLength?: SortOrder
-    videoPlayer?: SortOrder
+    video_title?: SortOrder
+    video_description?: SortOrder
+    video_url?: SortOrder
+    video_section?: SortOrder
+    video_link_title?: SortOrder
+    video_link_url?: SortOrder
     suggestions?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     courseId?: SortOrder
   }
 
-  export type CourseDataAvgOrderByAggregateInput = {
-    videoLength?: SortOrder
-  }
-
   export type CourseDataMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    videoUrl?: SortOrder
-    videoThumbnail?: SortOrder
-    videoSection?: SortOrder
-    videoLength?: SortOrder
-    videoPlayer?: SortOrder
+    video_title?: SortOrder
+    video_description?: SortOrder
+    video_url?: SortOrder
+    video_section?: SortOrder
+    video_link_title?: SortOrder
+    video_link_url?: SortOrder
     suggestions?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -16850,37 +15454,16 @@ export namespace Prisma {
 
   export type CourseDataMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    videoUrl?: SortOrder
-    videoThumbnail?: SortOrder
-    videoSection?: SortOrder
-    videoLength?: SortOrder
-    videoPlayer?: SortOrder
+    video_title?: SortOrder
+    video_description?: SortOrder
+    video_url?: SortOrder
+    video_section?: SortOrder
+    video_link_title?: SortOrder
+    video_link_url?: SortOrder
     suggestions?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     courseId?: SortOrder
-  }
-
-  export type CourseDataSumOrderByAggregateInput = {
-    videoLength?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -16911,27 +15494,6 @@ export namespace Prisma {
     id?: SortOrder
     question?: SortOrder
     userId?: SortOrder
-    courseDataId?: SortOrder
-  }
-
-  export type LinksCountOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    url?: SortOrder
-    courseDataId?: SortOrder
-  }
-
-  export type LinksMaxOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    url?: SortOrder
-    courseDataId?: SortOrder
-  }
-
-  export type LinksMinOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    url?: SortOrder
     courseDataId?: SortOrder
   }
 
@@ -16995,6 +15557,17 @@ export namespace Prisma {
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type ReplyListRelationFilter = {
     every?: ReplyWhereInput
     some?: ReplyWhereInput
@@ -17040,6 +15613,22 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type ReviewNullableScalarRelationFilter = {
@@ -17388,7 +15977,7 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type CourseCreateprerequisitestInput = {
+  export type CourseCreateprerequisitesInput = {
     set: string[]
   }
 
@@ -17473,7 +16062,7 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type CourseUpdateprerequisitestInput = {
+  export type CourseUpdateprerequisitesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -17590,13 +16179,6 @@ export namespace Prisma {
     deleteMany?: CourseDataScalarWhereInput | CourseDataScalarWhereInput[]
   }
 
-  export type LinksCreateNestedManyWithoutCourseDataInput = {
-    create?: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput> | LinksCreateWithoutCourseDataInput[] | LinksUncheckedCreateWithoutCourseDataInput[]
-    connectOrCreate?: LinksCreateOrConnectWithoutCourseDataInput | LinksCreateOrConnectWithoutCourseDataInput[]
-    createMany?: LinksCreateManyCourseDataInputEnvelope
-    connect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-  }
-
   export type QuestionCreateNestedManyWithoutCourseDataInput = {
     create?: XOR<QuestionCreateWithoutCourseDataInput, QuestionUncheckedCreateWithoutCourseDataInput> | QuestionCreateWithoutCourseDataInput[] | QuestionUncheckedCreateWithoutCourseDataInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutCourseDataInput | QuestionCreateOrConnectWithoutCourseDataInput[]
@@ -17610,40 +16192,11 @@ export namespace Prisma {
     connect?: CourseWhereUniqueInput
   }
 
-  export type LinksUncheckedCreateNestedManyWithoutCourseDataInput = {
-    create?: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput> | LinksCreateWithoutCourseDataInput[] | LinksUncheckedCreateWithoutCourseDataInput[]
-    connectOrCreate?: LinksCreateOrConnectWithoutCourseDataInput | LinksCreateOrConnectWithoutCourseDataInput[]
-    createMany?: LinksCreateManyCourseDataInputEnvelope
-    connect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-  }
-
   export type QuestionUncheckedCreateNestedManyWithoutCourseDataInput = {
     create?: XOR<QuestionCreateWithoutCourseDataInput, QuestionUncheckedCreateWithoutCourseDataInput> | QuestionCreateWithoutCourseDataInput[] | QuestionUncheckedCreateWithoutCourseDataInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutCourseDataInput | QuestionCreateOrConnectWithoutCourseDataInput[]
     createMany?: QuestionCreateManyCourseDataInputEnvelope
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type LinksUpdateManyWithoutCourseDataNestedInput = {
-    create?: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput> | LinksCreateWithoutCourseDataInput[] | LinksUncheckedCreateWithoutCourseDataInput[]
-    connectOrCreate?: LinksCreateOrConnectWithoutCourseDataInput | LinksCreateOrConnectWithoutCourseDataInput[]
-    upsert?: LinksUpsertWithWhereUniqueWithoutCourseDataInput | LinksUpsertWithWhereUniqueWithoutCourseDataInput[]
-    createMany?: LinksCreateManyCourseDataInputEnvelope
-    set?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    disconnect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    delete?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    connect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    update?: LinksUpdateWithWhereUniqueWithoutCourseDataInput | LinksUpdateWithWhereUniqueWithoutCourseDataInput[]
-    updateMany?: LinksUpdateManyWithWhereWithoutCourseDataInput | LinksUpdateManyWithWhereWithoutCourseDataInput[]
-    deleteMany?: LinksScalarWhereInput | LinksScalarWhereInput[]
   }
 
   export type QuestionUpdateManyWithoutCourseDataNestedInput = {
@@ -17668,20 +16221,6 @@ export namespace Prisma {
     delete?: CourseWhereInput | boolean
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutCourse_dataInput, CourseUpdateWithoutCourse_dataInput>, CourseUncheckedUpdateWithoutCourse_dataInput>
-  }
-
-  export type LinksUncheckedUpdateManyWithoutCourseDataNestedInput = {
-    create?: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput> | LinksCreateWithoutCourseDataInput[] | LinksUncheckedCreateWithoutCourseDataInput[]
-    connectOrCreate?: LinksCreateOrConnectWithoutCourseDataInput | LinksCreateOrConnectWithoutCourseDataInput[]
-    upsert?: LinksUpsertWithWhereUniqueWithoutCourseDataInput | LinksUpsertWithWhereUniqueWithoutCourseDataInput[]
-    createMany?: LinksCreateManyCourseDataInputEnvelope
-    set?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    disconnect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    delete?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    connect?: LinksWhereUniqueInput | LinksWhereUniqueInput[]
-    update?: LinksUpdateWithWhereUniqueWithoutCourseDataInput | LinksUpdateWithWhereUniqueWithoutCourseDataInput[]
-    updateMany?: LinksUpdateManyWithWhereWithoutCourseDataInput | LinksUpdateManyWithWhereWithoutCourseDataInput[]
-    deleteMany?: LinksScalarWhereInput | LinksScalarWhereInput[]
   }
 
   export type QuestionUncheckedUpdateManyWithoutCourseDataNestedInput = {
@@ -17728,22 +16267,6 @@ export namespace Prisma {
     delete?: CourseDataWhereInput | boolean
     connect?: CourseDataWhereUniqueInput
     update?: XOR<XOR<CourseDataUpdateToOneWithWhereWithoutQuestionsInput, CourseDataUpdateWithoutQuestionsInput>, CourseDataUncheckedUpdateWithoutQuestionsInput>
-  }
-
-  export type CourseDataCreateNestedOneWithoutLinksInput = {
-    create?: XOR<CourseDataCreateWithoutLinksInput, CourseDataUncheckedCreateWithoutLinksInput>
-    connectOrCreate?: CourseDataCreateOrConnectWithoutLinksInput
-    connect?: CourseDataWhereUniqueInput
-  }
-
-  export type CourseDataUpdateOneWithoutLinksNestedInput = {
-    create?: XOR<CourseDataCreateWithoutLinksInput, CourseDataUncheckedCreateWithoutLinksInput>
-    connectOrCreate?: CourseDataCreateOrConnectWithoutLinksInput
-    upsert?: CourseDataUpsertWithoutLinksInput
-    disconnect?: CourseDataWhereInput | boolean
-    delete?: CourseDataWhereInput | boolean
-    connect?: CourseDataWhereUniqueInput
-    update?: XOR<XOR<CourseDataUpdateToOneWithWhereWithoutLinksInput, CourseDataUpdateWithoutLinksInput>, CourseDataUncheckedUpdateWithoutLinksInput>
   }
 
   export type UserCreateNestedOneWithoutEnrollmentsInput = {
@@ -17806,6 +16329,14 @@ export namespace Prisma {
     connectOrCreate?: ReplyCreateOrConnectWithoutReviewInput | ReplyCreateOrConnectWithoutReviewInput[]
     createMany?: ReplyCreateManyReviewInputEnvelope
     connect?: ReplyWhereUniqueInput | ReplyWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ReplyUpdateManyWithoutReviewNestedInput = {
@@ -18157,22 +16688,6 @@ export namespace Prisma {
     _max?: NestedEnumCourseLevelFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type NestedEnumEnrollmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.EnrollmentStatus | EnumEnrollmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.EnrollmentStatus[] | ListEnumEnrollmentStatusFieldRefInput<$PrismaModel>
@@ -18188,6 +16703,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -18523,33 +17054,29 @@ export namespace Prisma {
 
   export type CourseDataCreateWithoutCourseInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    links?: LinksCreateNestedManyWithoutCourseDataInput
     questions?: QuestionCreateNestedManyWithoutCourseDataInput
   }
 
   export type CourseDataUncheckedCreateWithoutCourseInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    links?: LinksUncheckedCreateNestedManyWithoutCourseDataInput
     questions?: QuestionUncheckedCreateNestedManyWithoutCourseDataInput
   }
 
@@ -18632,39 +17159,16 @@ export namespace Prisma {
     OR?: CourseDataScalarWhereInput[]
     NOT?: CourseDataScalarWhereInput | CourseDataScalarWhereInput[]
     id?: StringFilter<"CourseData"> | string
-    title?: StringFilter<"CourseData"> | string
-    description?: StringFilter<"CourseData"> | string
-    videoUrl?: StringFilter<"CourseData"> | string
-    videoThumbnail?: StringFilter<"CourseData"> | string
-    videoSection?: StringFilter<"CourseData"> | string
-    videoLength?: IntFilter<"CourseData"> | number
-    videoPlayer?: StringFilter<"CourseData"> | string
-    suggestions?: StringFilter<"CourseData"> | string
+    video_title?: StringFilter<"CourseData"> | string
+    video_description?: StringFilter<"CourseData"> | string
+    video_url?: StringFilter<"CourseData"> | string
+    video_section?: StringFilter<"CourseData"> | string
+    video_link_title?: StringNullableFilter<"CourseData"> | string | null
+    video_link_url?: StringNullableFilter<"CourseData"> | string | null
+    suggestions?: StringNullableFilter<"CourseData"> | string | null
     created_at?: DateTimeFilter<"CourseData"> | Date | string
     updated_at?: DateTimeFilter<"CourseData"> | Date | string
     courseId?: StringNullableFilter<"CourseData"> | string | null
-  }
-
-  export type LinksCreateWithoutCourseDataInput = {
-    id?: string
-    title: string
-    url: string
-  }
-
-  export type LinksUncheckedCreateWithoutCourseDataInput = {
-    id?: string
-    title: string
-    url: string
-  }
-
-  export type LinksCreateOrConnectWithoutCourseDataInput = {
-    where: LinksWhereUniqueInput
-    create: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput>
-  }
-
-  export type LinksCreateManyCourseDataInputEnvelope = {
-    data: LinksCreateManyCourseDataInput | LinksCreateManyCourseDataInput[]
-    skipDuplicates?: boolean
   }
 
   export type QuestionCreateWithoutCourseDataInput = {
@@ -18700,7 +17204,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -18721,7 +17225,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -18734,32 +17238,6 @@ export namespace Prisma {
   export type CourseCreateOrConnectWithoutCourse_dataInput = {
     where: CourseWhereUniqueInput
     create: XOR<CourseCreateWithoutCourse_dataInput, CourseUncheckedCreateWithoutCourse_dataInput>
-  }
-
-  export type LinksUpsertWithWhereUniqueWithoutCourseDataInput = {
-    where: LinksWhereUniqueInput
-    update: XOR<LinksUpdateWithoutCourseDataInput, LinksUncheckedUpdateWithoutCourseDataInput>
-    create: XOR<LinksCreateWithoutCourseDataInput, LinksUncheckedCreateWithoutCourseDataInput>
-  }
-
-  export type LinksUpdateWithWhereUniqueWithoutCourseDataInput = {
-    where: LinksWhereUniqueInput
-    data: XOR<LinksUpdateWithoutCourseDataInput, LinksUncheckedUpdateWithoutCourseDataInput>
-  }
-
-  export type LinksUpdateManyWithWhereWithoutCourseDataInput = {
-    where: LinksScalarWhereInput
-    data: XOR<LinksUpdateManyMutationInput, LinksUncheckedUpdateManyWithoutCourseDataInput>
-  }
-
-  export type LinksScalarWhereInput = {
-    AND?: LinksScalarWhereInput | LinksScalarWhereInput[]
-    OR?: LinksScalarWhereInput[]
-    NOT?: LinksScalarWhereInput | LinksScalarWhereInput[]
-    id?: StringFilter<"Links"> | string
-    title?: StringFilter<"Links"> | string
-    url?: StringFilter<"Links"> | string
-    courseDataId?: StringNullableFilter<"Links"> | string | null
   }
 
   export type QuestionUpsertWithWhereUniqueWithoutCourseDataInput = {
@@ -18800,7 +17278,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18821,7 +17299,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18872,34 +17350,30 @@ export namespace Prisma {
 
   export type CourseDataCreateWithoutQuestionsInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    links?: LinksCreateNestedManyWithoutCourseDataInput
     Course?: CourseCreateNestedOneWithoutCourse_dataInput
   }
 
   export type CourseDataUncheckedCreateWithoutQuestionsInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     courseId?: string | null
-    links?: LinksUncheckedCreateNestedManyWithoutCourseDataInput
   }
 
   export type CourseDataCreateOrConnectWithoutQuestionsInput = {
@@ -18965,114 +17439,30 @@ export namespace Prisma {
 
   export type CourseDataUpdateWithoutQuestionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    links?: LinksUpdateManyWithoutCourseDataNestedInput
     Course?: CourseUpdateOneWithoutCourse_dataNestedInput
   }
 
   export type CourseDataUncheckedUpdateWithoutQuestionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
-    links?: LinksUncheckedUpdateManyWithoutCourseDataNestedInput
-  }
-
-  export type CourseDataCreateWithoutLinksInput = {
-    id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    questions?: QuestionCreateNestedManyWithoutCourseDataInput
-    Course?: CourseCreateNestedOneWithoutCourse_dataInput
-  }
-
-  export type CourseDataUncheckedCreateWithoutLinksInput = {
-    id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    courseId?: string | null
-    questions?: QuestionUncheckedCreateNestedManyWithoutCourseDataInput
-  }
-
-  export type CourseDataCreateOrConnectWithoutLinksInput = {
-    where: CourseDataWhereUniqueInput
-    create: XOR<CourseDataCreateWithoutLinksInput, CourseDataUncheckedCreateWithoutLinksInput>
-  }
-
-  export type CourseDataUpsertWithoutLinksInput = {
-    update: XOR<CourseDataUpdateWithoutLinksInput, CourseDataUncheckedUpdateWithoutLinksInput>
-    create: XOR<CourseDataCreateWithoutLinksInput, CourseDataUncheckedCreateWithoutLinksInput>
-    where?: CourseDataWhereInput
-  }
-
-  export type CourseDataUpdateToOneWithWhereWithoutLinksInput = {
-    where?: CourseDataWhereInput
-    data: XOR<CourseDataUpdateWithoutLinksInput, CourseDataUncheckedUpdateWithoutLinksInput>
-  }
-
-  export type CourseDataUpdateWithoutLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    questions?: QuestionUpdateManyWithoutCourseDataNestedInput
-    Course?: CourseUpdateOneWithoutCourse_dataNestedInput
-  }
-
-  export type CourseDataUncheckedUpdateWithoutLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    courseId?: NullableStringFieldUpdateOperationsInput | string | null
-    questions?: QuestionUncheckedUpdateManyWithoutCourseDataNestedInput
   }
 
   export type UserCreateWithoutEnrollmentsInput = {
@@ -19125,7 +17515,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19146,7 +17536,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19228,7 +17618,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19249,7 +17639,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19329,7 +17719,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19350,7 +17740,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19457,7 +17847,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19478,7 +17868,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19586,7 +17976,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19607,7 +17997,7 @@ export namespace Prisma {
     level: $Enums.CourseLevel
     demo_url: string
     benefits?: CourseCreatebenefitsInput | string[]
-    prerequisitest?: CourseCreateprerequisitestInput | string[]
+    prerequisites?: CourseCreateprerequisitesInput | string[]
     ratings?: number | null
     purchased?: number | null
     created_at?: Date | string
@@ -19689,7 +18079,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19710,7 +18100,7 @@ export namespace Prisma {
     level?: EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
     demo_url?: StringFieldUpdateOperationsInput | string
     benefits?: CourseUpdatebenefitsInput | string[]
-    prerequisitest?: CourseUpdateprerequisitestInput | string[]
+    prerequisites?: CourseUpdateprerequisitesInput | string[]
     ratings?: NullableIntFieldUpdateOperationsInput | number | null
     purchased?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19873,14 +18263,13 @@ export namespace Prisma {
 
   export type CourseDataCreateManyCourseInput = {
     id?: string
-    title: string
-    description: string
-    videoUrl: string
-    videoThumbnail: string
-    videoSection: string
-    videoLength: number
-    videoPlayer: string
-    suggestions: string
+    video_title: string
+    video_description: string
+    video_url: string
+    video_section: string
+    video_link_title?: string | null
+    video_link_url?: string | null
+    suggestions?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19964,78 +18353,49 @@ export namespace Prisma {
 
   export type CourseDataUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    links?: LinksUpdateManyWithoutCourseDataNestedInput
     questions?: QuestionUpdateManyWithoutCourseDataNestedInput
   }
 
   export type CourseDataUncheckedUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    links?: LinksUncheckedUpdateManyWithoutCourseDataNestedInput
     questions?: QuestionUncheckedUpdateManyWithoutCourseDataNestedInput
   }
 
   export type CourseDataUncheckedUpdateManyWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    videoUrl?: StringFieldUpdateOperationsInput | string
-    videoThumbnail?: StringFieldUpdateOperationsInput | string
-    videoSection?: StringFieldUpdateOperationsInput | string
-    videoLength?: IntFieldUpdateOperationsInput | number
-    videoPlayer?: StringFieldUpdateOperationsInput | string
-    suggestions?: StringFieldUpdateOperationsInput | string
+    video_title?: StringFieldUpdateOperationsInput | string
+    video_description?: StringFieldUpdateOperationsInput | string
+    video_url?: StringFieldUpdateOperationsInput | string
+    video_section?: StringFieldUpdateOperationsInput | string
+    video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
+    video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
+    suggestions?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LinksCreateManyCourseDataInput = {
-    id?: string
-    title: string
-    url: string
   }
 
   export type QuestionCreateManyCourseDataInput = {
     id?: string
     question: string
     userId?: string | null
-  }
-
-  export type LinksUpdateWithoutCourseDataInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LinksUncheckedUpdateWithoutCourseDataInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LinksUncheckedUpdateManyWithoutCourseDataInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuestionUpdateWithoutCourseDataInput = {

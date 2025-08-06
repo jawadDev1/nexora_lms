@@ -47,44 +47,44 @@ enum CourseLevel {
 }
 
 model Course {
-  id             String       @id @default(ulid())
-  title          String
-  slug           String       @unique
-  description    String
-  price          Float
-  discount       Float?       @default(0.0)
-  thumbnail      String
-  level          CourseLevel
-  demo_url       String
-  benefits       String[]
-  prerequisitest String[]
-  reviews        Review[]
-  orders         Order[]      @relation("CourseOrders")
-  enrollments    Enrollment[]
-  ratings        Int?         @default(0)
-  purchased      Int?         @default(0)
-  course_data    CourseData[]
-  created_at     DateTime     @default(now())
+  id            String       @id @default(ulid())
+  title         String
+  slug          String       @unique
+  description   String
+  price         Float
+  discount      Float?       @default(0.0)
+  thumbnail     String
+  level         CourseLevel
+  demo_url      String
+  benefits      String[]
+  prerequisites String[]
+  reviews       Review[]
+  orders        Order[]      @relation("CourseOrders")
+  enrollments   Enrollment[]
+  ratings       Int?         @default(0)
+  purchased     Int?         @default(0)
+  course_data   CourseData[]
+  created_at    DateTime     @default(now())
 
   updated_at DateTime @updatedAt
 }
 
 model CourseData {
-  id             String     @id @default(ulid())
-  title          String
-  description    String
-  videoUrl       String
-  videoThumbnail String
-  videoSection   String
-  videoLength    Int
-  videoPlayer    String
-  links          Links[]
-  suggestions    String
-  questions      Question[]
-  created_at     DateTime   @default(now())
-  updated_at     DateTime   @updatedAt
-  Course         Course?    @relation(fields: [courseId], references: [id])
-  courseId       String?
+  id                String     @id @default(ulid())
+  video_title       String
+  video_description String
+  video_url         String
+  // video_thumbnail String
+  video_section     String
+  // video_length      Int
+  video_link_title  String?
+  video_link_url    String?
+  suggestions       String?
+  questions         Question[]
+  created_at        DateTime   @default(now())
+  updated_at        DateTime   @updatedAt
+  Course            Course?    @relation(fields: [courseId], references: [id])
+  courseId          String?
 }
 
 model Question {
@@ -93,14 +93,6 @@ model Question {
 
   User         User?       @relation(fields: [userId], references: [id])
   userId       String?
-  CourseData   CourseData? @relation(fields: [courseDataId], references: [id])
-  courseDataId String?
-}
-
-model Links {
-  id           String      @id @default(uuid())
-  title        String
-  url          String
   CourseData   CourseData? @relation(fields: [courseDataId], references: [id])
   courseDataId String?
 }

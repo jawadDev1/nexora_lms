@@ -3,7 +3,6 @@ import type {
   FieldError,
   FieldValues,
   Path,
-  UseFormRegister,
   UseFormSetValue,
 } from "react-hook-form";
 import NextImage from "@/components/ui/common/NextImage";

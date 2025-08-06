@@ -1,0 +1,18 @@
+import HokageHeader from "@/modules/hokage/components/HokageHeader";
+import HokageSidebar from "@/modules/hokage/components/sidebar/HokageSidebar";
+import React, { ReactNode } from "react";
+
+const HokageLayout = ({ children }: { children: ReactNode }) => {
+  return (
+    <main className="grid grid-cols-[15%,2%,1fr]">
+      <HokageSidebar />
+      <div />
+      <div className="p-5 max-h-screen overflow-y-auto">
+        <HokageHeader />
+        <div className="mt-5">{children}</div>
+      </div>
+    </main>
+  );
+};
+
+export default HokageLayout;

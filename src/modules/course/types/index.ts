@@ -25,4 +25,15 @@ export interface ICachedCourse {
   videoSection: string;
   videoLength: number;
   videoPlayer: string;
+  benefits: string[];
+  prerequisites: string[];
+}
+
+export interface ICourseDataBody {
+  video_section: string;
+  video_title: string;
+  video_url: string;
+  video_description: string;
+  video_link_title?: string | null | undefined;
+  video_link_url?: string | null | undefined;
 }

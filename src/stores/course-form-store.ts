@@ -1,0 +1,103 @@
+import { ICourseSection } from "@/modules/course/pages/CreateCourse";
+import {
+  CourseContentFormData,
+  CourseInfoFormData,
+  CourseOptionsFormData,
+} from "@/schemas/course.schema";
+import { create } from "zustand";
+
+interface CourseSectionsData {
+  course_info: CourseInfoFormData | null;
+  course_content: CourseContentFormData | null;
+  course_options: CourseOptionsFormData | null;
+  course_preview: null;
+}
+
+interface CourseFormState {
+  currentStepIndex: number;
+  currentSection: ICourseSection;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+  courseSectionData: CourseSectionsData;
+}
+
+type ICourseSectionsData =
+  | CourseInfoFormData
+  | CourseContentFormData
+  | CourseOptionsFormData
+  | null;
+
+export interface CourseFormActions {
+  handleNextStep: (section: ICourseSection, data: ICourseSectionsData) => void;
+  handlePreviousStep: (
+    section: ICourseSection,
+    currentData: ICourseSectionsData
+  ) => void;
+  handleGetSectionData: (section: ICourseSection) => ICourseSectionsData | null;
+}
+
+export type CourseFormStore = CourseFormState & CourseFormActions;
+
+const initialState: CourseFormState = {
+  currentStepIndex: 1,
+  isFirstStep: true,
+  isLastStep: false,
+  courseSectionData: {
+    course_content: null,
+    course_info: null,
+    course_options: null,
+    course_preview: null,
+  },
+  currentSection: "course_info",
+};
+
+const sectionsIndex: {
+  [key: number]: ICourseSection;
+} = {
+  1: "course_info",
+  2: "course_options",
+  3: "course_content",
+  4: "course_preview",
+};
+
+export const useCourseForm = create<CourseFormStore>((set, get) => ({
+  ...initialState,
+  handleNextStep(section, data) {
+    const index = get().currentStepIndex + 1;
+    const sections_data = get().courseSectionData;
+    const nextSectoin = sectionsIndex[index];
+    set(() => ({
+      currentSection: nextSectoin,
+      courseSectionData: { ...sections_data, [section]: data },
+      currentStepIndex: index,
+      isLastStep: index === 4,
+      isFirstStep: false,
+    }));
+
+    console.log("data =======> ", data, section);
+  },
+  handlePreviousStep(section, currentData) {
+    if (get().isFirstStep) {
+      return;
+    }
+
+    console.log("da =====> ", currentData);
+    const index = get().currentStepIndex - 1;
+    const prevSection = sectionsIndex[index];
+
+    const sections_data = get().courseSectionData;
+    set(() => ({
+      currentStepIndex: index,
+      currentSection: prevSection,
+      courseSectionData: {
+        ...sections_data,
+        [section]: currentData,
+      },
+    }));
+  },
+  handleGetSectionData(section) {
+    const data = get().courseSectionData;
+    console.log("All data =======> ", data);
+    return data[section];
+  },
+}));

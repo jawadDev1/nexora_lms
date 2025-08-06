@@ -145,7 +145,7 @@ exports.Prisma.CourseScalarFieldEnum = {
   level: 'level',
   demo_url: 'demo_url',
   benefits: 'benefits',
-  prerequisitest: 'prerequisitest',
+  prerequisites: 'prerequisites',
   ratings: 'ratings',
   purchased: 'purchased',
   created_at: 'created_at',
@@ -154,13 +154,12 @@ exports.Prisma.CourseScalarFieldEnum = {
 
 exports.Prisma.CourseDataScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  description: 'description',
-  videoUrl: 'videoUrl',
-  videoThumbnail: 'videoThumbnail',
-  videoSection: 'videoSection',
-  videoLength: 'videoLength',
-  videoPlayer: 'videoPlayer',
+  video_title: 'video_title',
+  video_description: 'video_description',
+  video_url: 'video_url',
+  video_section: 'video_section',
+  video_link_title: 'video_link_title',
+  video_link_url: 'video_link_url',
   suggestions: 'suggestions',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -171,13 +170,6 @@ exports.Prisma.QuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
   userId: 'userId',
-  courseDataId: 'courseDataId'
-};
-
-exports.Prisma.LinksScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  url: 'url',
   courseDataId: 'courseDataId'
 };
 
@@ -277,7 +269,6 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   CourseData: 'CourseData',
   Question: 'Question',
-  Links: 'Links',
   Enrollment: 'Enrollment',
   Review: 'Review',
   Reply: 'Reply',

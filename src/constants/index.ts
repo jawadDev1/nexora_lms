@@ -19,3 +19,7 @@ export const REDIS_TOKEN = process.env.REDIS_TOKEN!;
 export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID!;
 export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET!;
 
+
+
+export const VDO_PLAYER = process.env.VDO_PLAYER!;
+

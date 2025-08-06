@@ -25,6 +25,7 @@ export default {
         card: "#242424",
         primary: "#FFDE00",
         "light-gray": "#797979",
+        "tomato-red": "#FF0000",
       },
 
       fontSize: {

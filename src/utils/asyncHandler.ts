@@ -26,7 +26,7 @@ export function asyncHandler<TArgs extends any[], TResult>(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 export function authAsyncHandler<TArgs extends any[], TResult>(
-  role: "USER" | "ADMIN",
+  role: "User" | "Admin",
   fn: (args: TArgs[0] & { user: Session["user"] }) => Promise<TResult>
 ): (args: TArgs[0]) => Promise<TResult> {
   return async (args: TArgs[0]): Promise<TResult> => {

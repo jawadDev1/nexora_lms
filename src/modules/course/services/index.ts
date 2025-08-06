@@ -1,30 +1,47 @@
 import { asyncHandler, authAsyncHandler } from "@/utils/asyncHandler";
-import { ICachedCourse, ICourseBody, IUpdateCourseBody } from "../types";
+import {
+  ICachedCourse,
+  ICourseBody,
+  ICourseDataBody,
+  IUpdateCourseBody,
+} from "../types";
 import { generateSlug } from "@/utils";
 import { db } from "@/lib/db";
 import redis from "@/lib/redis";
 import { Session } from "next-auth";
 
 export const createCourse = authAsyncHandler(
-  "ADMIN",
-  async (body: ICourseBody) => {
-    const slug = generateSlug(body.title);
+  "Admin",
+  async ({
+    course,
+    course_data,
+  }: {
+    course: ICourseBody;
+    course_data: ICourseDataBody[];
+  }) => {
+    const slug = generateSlug(course.title);
 
-    const course = await db.course.create({
-      data: { ...body, slug },
-      omit: { id: true },
+    const new_course = await db.course.create({
+      data: { ...course, slug },
+    });
+
+    await db.courseData.createMany({
+      data: course_data.map((data) => ({
+        ...data,
+        courseId: new_course.id,
+      })),
     });
 
     return {
       success: true,
       message: "course created successfull",
-      data: course,
+      data: new_course,
     };
   }
 );
 
 export const updateCourse = authAsyncHandler(
-  "ADMIN",
+  "Admin",
   async (body: IUpdateCourseBody) => {
     const course = await db.course.update({
       where: { slug: body.slug },
@@ -44,7 +61,7 @@ export const updateCourse = authAsyncHandler(
 export const getSingleCourse = asyncHandler(async (slug: string) => {
   const course = await db.course.findFirst({
     where: { slug },
-    include: { course_data: { omit: { videoUrl: true, suggestions: true } } },
+    include: { course_data: { omit: { video_url: true, suggestions: true } } },
   });
 
   if (!course) {
@@ -71,7 +88,7 @@ export const getAllCourses = asyncHandler(async () => {
   }
 
   const courses = await db.course.findMany({
-    include: { course_data: { omit: { videoUrl: true, suggestions: true } } },
+    include: { course_data: { omit: { video_url: true, suggestions: true } } },
   });
 
   await redis.set("all_courses", JSON.stringify(courses));
@@ -84,7 +101,7 @@ export const getAllCourses = asyncHandler(async () => {
 });
 
 export const getUserCourse = authAsyncHandler(
-  "USER",
+  "User",
   async ({ courseId, user }: { courseId: string; user: Session["user"] }) => {
     const userId = user.id;
 
@@ -104,5 +121,29 @@ export const getUserCourse = authAsyncHandler(
       message: "course fetched successfully",
       data: course,
     };
+  }
+);
+
+export const generateVideoUrl = asyncHandler(
+  async ({ videoId }: { videoId: string }) => {
+    const key = process.env.VDO_CIPHER_SECRET!;
+
+    const response = await fetch(
+      `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Apisecret ${key}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    return { success: true, message: "video url generated successfull", data };
   }
 );
