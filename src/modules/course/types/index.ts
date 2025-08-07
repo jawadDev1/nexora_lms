@@ -37,3 +37,17 @@ export interface ICourseDataBody {
   video_link_title?: string | null | undefined;
   video_link_url?: string | null | undefined;
 }
+
+export type IHokageCourseReturn = Promise<{
+  success: boolean;
+  message: string;
+  data:
+    | {
+        title: string;
+        id: string;
+        ratings: number | null;
+        purchased: number | null;
+        created_at: Date;
+      }[]
+    | null;
+}>;

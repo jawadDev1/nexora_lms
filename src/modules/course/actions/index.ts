@@ -1,8 +1,18 @@
 "use server";
 
 import { validateNoNulls } from "@/utils/service";
-import { ICourseBody, ICourseDataBody, IUpdateCourseBody } from "../types";
-import { createCourse, generateVideoUrl, updateCourse } from "../services";
+import {
+  ICourseBody,
+  ICourseDataBody,
+  IHokageCourseReturn,
+  IUpdateCourseBody,
+} from "../types";
+import {
+  createCourse,
+  generateVideoUrl,
+  getHokageCourses,
+  updateCourse,
+} from "../services";
 
 export const CREATE_COURSE = async ({
   course,
@@ -58,6 +68,26 @@ export const GENERATE_VIDEO_URL = async <T>({
     return result;
   } catch (error) {
     console.log("Error in GENERATE_VIDEO_URL :: ", error);
+    if (error instanceof Error) {
+      return { success: false, message: error.message, data: null };
+    }
+    return { success: false, message: "Something went wrong", data: null };
+  }
+};
+
+export const GET_HOKAGE_COURSES = async ({
+  page,
+  pageSize,
+}: {
+  page: number;
+  pageSize: number;
+}): IHokageCourseReturn => {
+  try {
+    const result = await getHokageCourses({ page, pageSize });
+
+    return result;
+  } catch (error) {
+    console.log("Error in GET_HOKAGE_COURSES :: ", error);
     if (error instanceof Error) {
       return { success: false, message: error.message, data: null };
     }

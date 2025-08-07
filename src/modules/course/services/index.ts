@@ -147,3 +147,26 @@ export const generateVideoUrl = asyncHandler(
     return { success: true, message: "video url generated successfull", data };
   }
 );
+
+export const getHokageCourses = authAsyncHandler(
+  "Admin",
+  async ({ page, pageSize }: { pageSize: number; page: number }) => {
+    const courses = await db.course.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      select: {
+        id: true,
+        title: true,
+        ratings: true,
+        purchased: true,
+        created_at: true,
+      },
+    });
+
+    return {
+      success: true,
+      message: "data fetched successfully",
+      data: courses,
+    };
+  }
+);
