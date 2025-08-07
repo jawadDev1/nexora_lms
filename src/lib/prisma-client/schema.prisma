@@ -65,8 +65,7 @@ model Course {
   purchased     Int?         @default(0)
   course_data   CourseData[]
   created_at    DateTime     @default(now())
-
-  updated_at DateTime @updatedAt
+  updated_at    DateTime     @updatedAt
 }
 
 model CourseData {
@@ -83,7 +82,7 @@ model CourseData {
   questions         Question[]
   created_at        DateTime   @default(now())
   updated_at        DateTime   @updatedAt
-  Course            Course?    @relation(fields: [courseId], references: [id])
+  Course            Course?    @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId          String?
 }
 
@@ -101,9 +100,9 @@ model Question {
 model Enrollment {
   id String @id @default(uuid())
 
-  User     User?   @relation(fields: [userId], references: [id])
+  User     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
-  Course   Course? @relation(fields: [courseId], references: [id])
+  Course   Course? @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId String?
   progress Float   @default(0.0)
 

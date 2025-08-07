@@ -1,4 +1,4 @@
-import HokageCouresPage from '@/modules/course/pages/HokageCoursesPage'
+import HokageCouresPage from '@/modules/hokage/pages/HokageCoursesPage'
 import React from 'react'
 
 const HokageCourses = () => {

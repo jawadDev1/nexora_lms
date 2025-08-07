@@ -1,17 +1,33 @@
 "use client";
-import React from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { CgTrash } from "react-icons/cg";
+import DeleteButton from "@/components/ui/buttons/DeleteButton";
+import EditButton from "@/components/ui/buttons/EditButton";
+import { DELETE_COURSE } from "@/modules/hokage/actions";
+import { notifyError, notifySuccess } from "@/utils/toast";
+import { GridCellParams } from "@mui/x-data-grid";
+import React, { useState } from "react";
 
-const CourseActions = () => {
+const CourseActions = (params: GridCellParams) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleDelete = async () => {
+    setIsLoading(true);
+    const id = params.row?.id;
+    const result = await DELETE_COURSE({courseId: id})
+
+    setIsLoading(false);
+    if(!result?.success) {
+      notifyError(result.message)
+      return
+    }
+
+    notifySuccess(result.message)
+  }
+
+
   return (
     <div className="h-full w-full flex gap-x-3 justify-start items-center">
-      <button className="bg-primary  rounded text-white">
-        <AiOutlineEdit size={22} />
-      </button>
-      <button className="bg-tomato-red  rounded text-white">
-        <CgTrash size={22} />
-      </button>
+    <EditButton link="" /> 
+    <DeleteButton onClick={handleDelete} isLoading={isLoading} /> 
     </div>
   );
 };

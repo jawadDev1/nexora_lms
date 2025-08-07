@@ -5,6 +5,7 @@ import { generateActivationCode } from "@/utils";
 import sendMail from "@/lib/email";
 import { asyncHandler } from "@/utils/asyncHandler";
 import { hashPassword } from "@/utils/hash";
+import redis from "@/lib/redis";
 
 export const Signup = asyncHandler(async (body: ISignup) => {
   validateNoNulls(body);
@@ -35,6 +36,9 @@ export const Signup = asyncHandler(async (body: ISignup) => {
     template: "verify-email",
     context: { name: user.name, otpCode: otp },
   });
+
+
+  await redis.del("hokage_table_users")
 
   return {
     success: true,

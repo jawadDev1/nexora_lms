@@ -1,21 +1,23 @@
 "use client";
 import React, { useState } from "react";
 
-import VideoPlayer from "../VideoPlayer";
+import VideoPlayer from "../../../../course/components/VideoPlayer";
 import { useCourseForm } from "@/stores/course-form-store";
 import Title from "@/components/ui/typography/Title";
 import Subtitle from "@/components/ui/typography/Subtitle";
 import Content from "@/components/ui/typography/Content";
-import Outcomes from "../Outcomes";
-import CoursePrice from "../CoursePrice";
+import Outcomes from "../../../../course/components/Outcomes";
+import CoursePrice from "../../../../course/components/CoursePrice";
 import Button from "@/components/ui/buttons/Button";
-import { CREATE_COURSE } from "../../actions";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
+import { CREATE_COURSE } from "@/modules/hokage/actions";
+import { useRouter } from "next/navigation";
 
 const CoursePreviewSection = () => {
   const { courseSectionData, handlePreviousStep } = useCourseForm();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const { course_info, course_options, course_content } = courseSectionData;
 
@@ -43,6 +45,7 @@ const CoursePreviewSection = () => {
     }
 
     notifySuccess(result.message);
+    router.push("/hokage/course");
   };
 
   return (

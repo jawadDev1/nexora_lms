@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { GENERATE_VIDEO_URL } from "../../actions";
 import { notifyError } from "@/utils/toast";
-import { VDO_PLAYER } from "@/constants";
+import { GENERATE_VIDEO_URL } from "@/modules/hokage/actions";
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -22,7 +21,6 @@ const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => {
         notifyError(result?.message);
       }
 
-      console.log("video data ========> ", result);
       setVideoData(result.data!);
     })();
   }, [videoUrl]);

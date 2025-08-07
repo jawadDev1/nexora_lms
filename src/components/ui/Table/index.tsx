@@ -10,6 +10,9 @@ const dataGridStyles = {
   "& .MuiDataGrid-cell": {
     borderColor: "#1D1D1F",
     color: "#ffffff",
+    "&:focus, &:focus-within": {
+      outline: "none",
+    },
   },
   "& .MuiDataGrid-columnHeaders": {
     backgroundColor: "#000",
@@ -59,9 +62,6 @@ const dataGridStyles = {
   "& .MuiDataGrid-menuIconButton": {
     color: "#797979",
   },
-  "& .MuiDataGrid-filler": {
-    border: 0,
-  },
 };
 
 interface TableProps {
@@ -107,6 +107,7 @@ const Table = ({ rows, cols, pageSize = 15 }: TableProps) => {
           }}
           pageSizeOptions={[pageSize]}
           // checkboxSelection
+
           disableRowSelectionOnClick
           sx={{
             ...dataGridStyles,

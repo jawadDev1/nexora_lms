@@ -1,4 +1,4 @@
-import CreateCoursePage from '@/modules/course/pages/CreateCourse'
+import CreateCoursePage from '@/modules/hokage/pages/CreateCourse'
 import React from 'react'
 
 const CreateCourse = () => {

@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import CourseInfoSection from "../../components/CourseInfoSection";
-import CourseOptionSection from "../../components/CourseOptionSection";
-import CourseContentSection from "../../components/CourseContentSection";
-import CourseFormSteps from "../../components/CourseFormSteps";
+import CourseInfoSection from "../../components/course/CourseInfoSection";
+import CourseOptionSection from "../../components/course/CourseOptionSection";
+import CourseContentSection from "../../components/course/CourseContentSection";
+import CoursePreviewSection from "../../components/course/CoursePreviewSection";
 import { useCourseForm } from "@/stores/course-form-store";
-import CoursePreviewSection from "../../components/CoursePreviewSection";
+import CourseFormSteps from "../../components/course/CourseFormSteps";
 
 const SECTIONS = {
   course_info: CourseInfoSection,

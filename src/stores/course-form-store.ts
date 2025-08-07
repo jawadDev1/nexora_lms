@@ -1,4 +1,4 @@
-import { ICourseSection } from "@/modules/course/pages/CreateCourse";
+import { ICourseSection } from "@/modules/hokage/pages/CreateCourse";
 import {
   CourseContentFormData,
   CourseInfoFormData,
@@ -74,14 +74,12 @@ export const useCourseForm = create<CourseFormStore>((set, get) => ({
       isFirstStep: false,
     }));
 
-    console.log("data =======> ", data, section);
   },
   handlePreviousStep(section, currentData) {
     if (get().isFirstStep) {
       return;
     }
 
-    console.log("da =====> ", currentData);
     const index = get().currentStepIndex - 1;
     const prevSection = sectionsIndex[index];
 
@@ -97,7 +95,6 @@ export const useCourseForm = create<CourseFormStore>((set, get) => ({
   },
   handleGetSectionData(section) {
     const data = get().courseSectionData;
-    console.log("All data =======> ", data);
     return data[section];
   },
 }));
