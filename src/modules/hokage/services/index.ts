@@ -3,6 +3,7 @@ import {
   ICachedCourse,
   ICourseBody,
   ICourseDataBody,
+  IHokageCourseDetailReturn,
   IHokageCourseReturn,
   IUpdateCourseBody,
 } from "../types";
@@ -37,7 +38,7 @@ export const createCourse = authAsyncHandler(
 
     return {
       success: true,
-      message: "course created successfull",
+      message: "course created successfully",
       data: new_course,
     };
   }
@@ -45,17 +46,47 @@ export const createCourse = authAsyncHandler(
 
 export const updateCourse = authAsyncHandler(
   "Admin",
-  async (body: IUpdateCourseBody) => {
-    const course = await db.course.update({
-      where: { slug: body.slug },
-      data: { ...body },
-      omit: { id: true },
+  async ({
+    course,
+    course_data,
+    id,
+  }: {
+    course: ICourseBody;
+    course_data: ICourseDataBody[];
+    id: string;
+  }) => {
+    if (!id) {
+      throw new Error("Invalid course id");
+    }
+
+    const new_course = await db.course.update({
+      where: { id },
+      data: { ...course },
     });
+
+    // Batch update each courseData item
+    const courseDataUpdates = course_data.map((data) =>
+      db.courseData.update({
+        where: { id: data.id }, // make sure `data.id` exists
+        data: {
+          video_title: data.video_title,
+          video_description: data.video_description,
+          video_url: data.video_url,
+          video_section: data.video_section,
+          video_link_title: data.video_link_title,
+          video_link_url: data.video_link_url,
+        },
+      })
+    );
+
+    await db.$transaction(courseDataUpdates); // safely run all updates together
+
+    await redis.del("hokage_courses");
 
     return {
       success: true,
       message: "course updated successfully",
-      data: course,
+      data: new_course,
     };
   }
 );
@@ -203,5 +234,42 @@ export const deleteCourse = authAsyncHandler(
     await redis.del("hokage_courses");
 
     return { success: true, message: "user deleted successfully" };
+  }
+);
+
+export const getHokageCourseDetails = authAsyncHandler(
+  "Admin",
+  async ({ courseId }: { courseId: string }): IHokageCourseDetailReturn => {
+    if (!courseId) {
+      throw new Error("Invalid course id");
+    }
+
+    const course = await db.course.findFirst({
+      where: { id: courseId },
+      omit: {
+        created_at: true,
+        updated_at: true,
+        ratings: true,
+        purchased: true,
+        slug: true,
+      },
+
+      include: {
+        course_data: {
+          omit: {
+            created_at: true,
+            updated_at: true,
+            courseId: true,
+            suggestions: true,
+          },
+        },
+      },
+    });
+
+    return {
+      success: true,
+      message: "course fetched successfully",
+      data: course,
+    };
   }
 );

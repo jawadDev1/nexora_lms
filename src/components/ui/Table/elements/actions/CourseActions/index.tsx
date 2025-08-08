@@ -26,7 +26,7 @@ const CourseActions = (params: GridCellParams) => {
 
   return (
     <div className="h-full w-full flex gap-x-3 justify-start items-center">
-    <EditButton link="" /> 
+    <EditButton link={`/hokage/course/update/${params.row?.id}`} /> 
     <DeleteButton onClick={handleDelete} isLoading={isLoading} /> 
     </div>
   );

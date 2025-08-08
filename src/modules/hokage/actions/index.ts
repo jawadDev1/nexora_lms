@@ -2,7 +2,6 @@
 
 import { validateNoNulls } from "@/utils/service";
 import {
-  ICachedCourse,
   ICourseBody,
   ICourseDataBody,
   IHokageCourseReturn,
@@ -15,7 +14,6 @@ import {
   getHokageCourses,
   updateCourse,
 } from "../services";
-import redis from "@/lib/redis";
 import { revalidatePath } from "next/cache";
 
 export const CREATE_COURSE = async ({
@@ -43,15 +41,26 @@ export const CREATE_COURSE = async ({
   }
 };
 
-export const UPDATE_COURSE = async (data: IUpdateCourseBody) => {
+export const UPDATE_COURSE = async ({
+  id,
+  course,
+  course_data,
+}: {
+  id: string;
+  course: ICourseBody;
+  course_data: ICourseDataBody[];
+}) => {
   try {
-    validateNoNulls(data);
+    validateNoNulls(course);
+    validateNoNulls(course_data);
 
-    const result = await updateCourse(data);
+    const result = await updateCourse({ id, course, course_data });
+
+    revalidatePath("/hokage/courses");
 
     return result;
   } catch (error) {
-    console.log("Error in UPDATE_COURSE :: ", error);
+    console.log("Error in CREATE_COURSE :: ", error);
     if (error instanceof Error) {
       return { success: false, message: error.message };
     }

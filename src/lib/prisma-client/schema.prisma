@@ -66,6 +66,9 @@ model Course {
   course_data   CourseData[]
   created_at    DateTime     @default(now())
   updated_at    DateTime     @updatedAt
+
+  categoryId String?
+  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model CourseData {
@@ -184,6 +187,26 @@ model Faq {
   id         String   @id @default(uuid())
   question   String
   answer     String
+  active     Boolean  @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+// ======= Category ==================
+model Category {
+  id    String @id @default(uuid())
+  title String
+
+  courses    Course[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+// ======= Home Layout ==================
+
+model Hero {
+  id       String @id @default(uuid())
+  title    String
+  subtitle String
+  image    String
 }

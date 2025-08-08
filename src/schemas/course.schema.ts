@@ -22,6 +22,7 @@ export const course_content_item_schema = z.object({
   video_title: z.string().min(4, "video title must be atleast 4 characters"),
   video_url: z.string("enter a valid url"),
   // video_thumbnail: z.string(),
+  id: z.string().optional(),
   video_description: z
     .string()
     .min(50, "course description must be atleast 50 characters long"),

@@ -3,35 +3,49 @@
 @tailwind utilities;
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .hide-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 /* Custom Scroll bar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #ffde00; /* dark-brown */
+    background-color: #ffde00; /* dark-brown */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ffde00; /* light-gray */
-  border-radius: 10px;
+    background-color: #ffde00; /* light-gray */
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #ffde00; /* primary */
+    background-color: #ffde00; /* primary */
 }
 
 /* Firefox */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #797979 #1d1d1f; /* thumb color track color */
+    scrollbar-width: thin;
+    scrollbar-color: #797979 #1d1d1f; /* thumb color track color */
+}
+
+/* In your global CSS or styled component */
+.MuiDataGrid-root {
+    contain: none !important;
+    transform: none !important;
+}
+
+.MuiDataGrid-main {
+    contain: none !important;
+}
+
+.MuiDataGrid-virtualScroller {
+    contain: none !important;
 }

@@ -11,11 +11,11 @@ import CoursePrice from "../../../../course/components/CoursePrice";
 import Button from "@/components/ui/buttons/Button";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
-import { CREATE_COURSE } from "@/modules/hokage/actions";
+import { CREATE_COURSE, UPDATE_COURSE } from "@/modules/hokage/actions";
 import { useRouter } from "next/navigation";
 
 const CoursePreviewSection = () => {
-  const { courseSectionData, handlePreviousStep } = useCourseForm();
+  const { courseSectionData, handlePreviousStep, isUpdate } = useCourseForm();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -33,10 +33,19 @@ const CoursePreviewSection = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const result = await CREATE_COURSE({
-      course: { ...course_info, ...course_options },
-      course_data: course_content.contents,
-    });
+    let result;
+    if (isUpdate) {
+      result = await UPDATE_COURSE({
+        id: isUpdate,
+        course: { ...course_info, ...course_options },
+        course_data: course_content.contents,
+      });
+    } else {
+      result = await CREATE_COURSE({
+        course: { ...course_info, ...course_options },
+        course_data: course_content.contents,
+      });
+    }
 
     setIsLoading(false);
     if (!result.success) {
@@ -86,7 +95,7 @@ const CoursePreviewSection = () => {
           isLoading={isLoading}
           className="max-w-[200px]"
         >
-          Create Course
+          {isUpdate ? "Update Course" : "Create Course"}
         </SpinnerButton>
       </div>
     </div>

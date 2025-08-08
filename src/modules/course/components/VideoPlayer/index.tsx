@@ -27,7 +27,7 @@ const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => {
 
   return (
     <div style={{ paddingTop: "41%", position: "relative" }}>
-      {videoData.otp && videoData.playbackInfo && (
+      {videoData?.otp && videoData?.playbackInfo && (
         <iframe
           src={`https://player.vdocipher.com/v2/?otp=${videoData.otp}&playbackInfo=${videoData.playbackInfo}`}
           style={{

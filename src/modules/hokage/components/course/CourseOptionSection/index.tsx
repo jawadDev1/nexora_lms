@@ -26,6 +26,7 @@ const CourseOptionSection = () => {
     handlePreviousStep,
     handleGetSectionData,
     currentStepIndex,
+    isUpdate,
   } = useCourseForm();
   const onSubmit = (data: CourseOptionsFormData) => {
     handleNextStep("course_options", data);
@@ -44,7 +45,7 @@ const CourseOptionSection = () => {
     if (data) {
       reset(data as CourseOptionsFormData);
     }
-  }, [currentStepIndex]);
+  }, [currentStepIndex, isUpdate]);
 
   return (
     <div className="bg-card rounded-xl py-4 px-5">

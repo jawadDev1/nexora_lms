@@ -19,6 +19,7 @@ interface CourseFormState {
   isFirstStep: boolean;
   isLastStep: boolean;
   courseSectionData: CourseSectionsData;
+  isUpdate: string | null;
 }
 
 type ICourseSectionsData =
@@ -27,6 +28,13 @@ type ICourseSectionsData =
   | CourseOptionsFormData
   | null;
 
+type ICourseSectionUpdateData = {
+  course_info: CourseInfoFormData;
+  course_data: CourseContentFormData;
+  course_options: CourseOptionsFormData;
+  id: string;
+};
+
 export interface CourseFormActions {
   handleNextStep: (section: ICourseSection, data: ICourseSectionsData) => void;
   handlePreviousStep: (
@@ -34,6 +42,7 @@ export interface CourseFormActions {
     currentData: ICourseSectionsData
   ) => void;
   handleGetSectionData: (section: ICourseSection) => ICourseSectionsData | null;
+  handleSetUpdateCourse: (data: ICourseSectionUpdateData) => void;
 }
 
 export type CourseFormStore = CourseFormState & CourseFormActions;
@@ -42,6 +51,7 @@ const initialState: CourseFormState = {
   currentStepIndex: 1,
   isFirstStep: true,
   isLastStep: false,
+  isUpdate: null,
   courseSectionData: {
     course_content: null,
     course_info: null,
@@ -73,7 +83,6 @@ export const useCourseForm = create<CourseFormStore>((set, get) => ({
       isLastStep: index === 4,
       isFirstStep: false,
     }));
-
   },
   handlePreviousStep(section, currentData) {
     if (get().isFirstStep) {
@@ -96,5 +105,18 @@ export const useCourseForm = create<CourseFormStore>((set, get) => ({
   handleGetSectionData(section) {
     const data = get().courseSectionData;
     return data[section];
+  },
+  handleSetUpdateCourse(data) {
+    const { course_data, course_info, course_options, id } = data;
+
+    set(() => ({
+      courseSectionData: {
+        course_info,
+        course_options,
+        course_content: course_data,
+        course_preview: null,
+      },
+      isUpdate: id,
+    }));
   },
 }));

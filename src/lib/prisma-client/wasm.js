@@ -149,7 +149,8 @@ exports.Prisma.CourseScalarFieldEnum = {
   ratings: 'ratings',
   purchased: 'purchased',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.CourseDataScalarFieldEnum = {
@@ -218,8 +219,23 @@ exports.Prisma.FaqScalarFieldEnum = {
   id: 'id',
   question: 'question',
   answer: 'answer',
+  active: 'active',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.HeroScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subtitle: 'subtitle',
+  image: 'image'
 };
 
 exports.Prisma.SortOrder = {
@@ -274,7 +290,9 @@ exports.Prisma.ModelName = {
   Reply: 'Reply',
   Order: 'Order',
   Notification: 'Notification',
-  Faq: 'Faq'
+  Faq: 'Faq',
+  Category: 'Category',
+  Hero: 'Hero'
 };
 
 /**

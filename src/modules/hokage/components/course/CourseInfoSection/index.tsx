@@ -28,7 +28,7 @@ const CourseInfoSection = () => {
     resolver: zodResolver(course_info_schema),
   });
 
-  const { handleNextStep, handleGetSectionData } = useCourseForm();
+  const { handleNextStep, handleGetSectionData, isUpdate } = useCourseForm();
 
   const [isThumbnailLoading, setIsThumbnailLoading] = useState(false);
 
@@ -53,7 +53,7 @@ const CourseInfoSection = () => {
     if (data) {
       reset(data as CourseInfoFormData);
     }
-  }, []);
+  }, [isUpdate]);
 
   return (
     <div className="bg-card rounded-xl py-4 px-5">
