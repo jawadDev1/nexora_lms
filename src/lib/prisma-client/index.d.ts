@@ -4803,8 +4803,18 @@ export namespace Prisma {
 
   export type AggregateCourseData = {
     _count: CourseDataCountAggregateOutputType | null
+    _avg: CourseDataAvgAggregateOutputType | null
+    _sum: CourseDataSumAggregateOutputType | null
     _min: CourseDataMinAggregateOutputType | null
     _max: CourseDataMaxAggregateOutputType | null
+  }
+
+  export type CourseDataAvgAggregateOutputType = {
+    video_length: number | null
+  }
+
+  export type CourseDataSumAggregateOutputType = {
+    video_length: number | null
   }
 
   export type CourseDataMinAggregateOutputType = {
@@ -4813,6 +4823,7 @@ export namespace Prisma {
     video_description: string | null
     video_url: string | null
     video_section: string | null
+    video_length: number | null
     video_link_title: string | null
     video_link_url: string | null
     suggestions: string | null
@@ -4827,6 +4838,7 @@ export namespace Prisma {
     video_description: string | null
     video_url: string | null
     video_section: string | null
+    video_length: number | null
     video_link_title: string | null
     video_link_url: string | null
     suggestions: string | null
@@ -4841,6 +4853,7 @@ export namespace Prisma {
     video_description: number
     video_url: number
     video_section: number
+    video_length: number
     video_link_title: number
     video_link_url: number
     suggestions: number
@@ -4851,12 +4864,21 @@ export namespace Prisma {
   }
 
 
+  export type CourseDataAvgAggregateInputType = {
+    video_length?: true
+  }
+
+  export type CourseDataSumAggregateInputType = {
+    video_length?: true
+  }
+
   export type CourseDataMinAggregateInputType = {
     id?: true
     video_title?: true
     video_description?: true
     video_url?: true
     video_section?: true
+    video_length?: true
     video_link_title?: true
     video_link_url?: true
     suggestions?: true
@@ -4871,6 +4893,7 @@ export namespace Prisma {
     video_description?: true
     video_url?: true
     video_section?: true
+    video_length?: true
     video_link_title?: true
     video_link_url?: true
     suggestions?: true
@@ -4885,6 +4908,7 @@ export namespace Prisma {
     video_description?: true
     video_url?: true
     video_section?: true
+    video_length?: true
     video_link_title?: true
     video_link_url?: true
     suggestions?: true
@@ -4932,6 +4956,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CourseDataAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CourseDataSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CourseDataMinAggregateInputType
@@ -4962,6 +4998,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CourseDataCountAggregateInputType | true
+    _avg?: CourseDataAvgAggregateInputType
+    _sum?: CourseDataSumAggregateInputType
     _min?: CourseDataMinAggregateInputType
     _max?: CourseDataMaxAggregateInputType
   }
@@ -4972,6 +5010,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length: number
     video_link_title: string | null
     video_link_url: string | null
     suggestions: string | null
@@ -4979,6 +5018,8 @@ export namespace Prisma {
     updated_at: Date
     courseId: string | null
     _count: CourseDataCountAggregateOutputType | null
+    _avg: CourseDataAvgAggregateOutputType | null
+    _sum: CourseDataSumAggregateOutputType | null
     _min: CourseDataMinAggregateOutputType | null
     _max: CourseDataMaxAggregateOutputType | null
   }
@@ -5003,6 +5044,7 @@ export namespace Prisma {
     video_description?: boolean
     video_url?: boolean
     video_section?: boolean
+    video_length?: boolean
     video_link_title?: boolean
     video_link_url?: boolean
     suggestions?: boolean
@@ -5020,6 +5062,7 @@ export namespace Prisma {
     video_description?: boolean
     video_url?: boolean
     video_section?: boolean
+    video_length?: boolean
     video_link_title?: boolean
     video_link_url?: boolean
     suggestions?: boolean
@@ -5035,6 +5078,7 @@ export namespace Prisma {
     video_description?: boolean
     video_url?: boolean
     video_section?: boolean
+    video_length?: boolean
     video_link_title?: boolean
     video_link_url?: boolean
     suggestions?: boolean
@@ -5050,6 +5094,7 @@ export namespace Prisma {
     video_description?: boolean
     video_url?: boolean
     video_section?: boolean
+    video_length?: boolean
     video_link_title?: boolean
     video_link_url?: boolean
     suggestions?: boolean
@@ -5058,7 +5103,7 @@ export namespace Prisma {
     courseId?: boolean
   }
 
-  export type CourseDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "video_title" | "video_description" | "video_url" | "video_section" | "video_link_title" | "video_link_url" | "suggestions" | "created_at" | "updated_at" | "courseId", ExtArgs["result"]["courseData"]>
+  export type CourseDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "video_title" | "video_description" | "video_url" | "video_section" | "video_length" | "video_link_title" | "video_link_url" | "suggestions" | "created_at" | "updated_at" | "courseId", ExtArgs["result"]["courseData"]>
   export type CourseDataInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     questions?: boolean | CourseData$questionsArgs<ExtArgs>
     Course?: boolean | CourseData$CourseArgs<ExtArgs>
@@ -5083,6 +5128,7 @@ export namespace Prisma {
       video_description: string
       video_url: string
       video_section: string
+      video_length: number
       video_link_title: string | null
       video_link_url: string | null
       suggestions: string | null
@@ -5519,6 +5565,7 @@ export namespace Prisma {
     readonly video_description: FieldRef<"CourseData", 'String'>
     readonly video_url: FieldRef<"CourseData", 'String'>
     readonly video_section: FieldRef<"CourseData", 'String'>
+    readonly video_length: FieldRef<"CourseData", 'Int'>
     readonly video_link_title: FieldRef<"CourseData", 'String'>
     readonly video_link_url: FieldRef<"CourseData", 'String'>
     readonly suggestions: FieldRef<"CourseData", 'String'>
@@ -15617,6 +15664,7 @@ export namespace Prisma {
     video_description: 'video_description',
     video_url: 'video_url',
     video_section: 'video_section',
+    video_length: 'video_length',
     video_link_title: 'video_link_title',
     video_link_url: 'video_link_url',
     suggestions: 'suggestions',
@@ -16120,6 +16168,7 @@ export namespace Prisma {
     video_description?: StringFilter<"CourseData"> | string
     video_url?: StringFilter<"CourseData"> | string
     video_section?: StringFilter<"CourseData"> | string
+    video_length?: IntFilter<"CourseData"> | number
     video_link_title?: StringNullableFilter<"CourseData"> | string | null
     video_link_url?: StringNullableFilter<"CourseData"> | string | null
     suggestions?: StringNullableFilter<"CourseData"> | string | null
@@ -16136,6 +16185,7 @@ export namespace Prisma {
     video_description?: SortOrder
     video_url?: SortOrder
     video_section?: SortOrder
+    video_length?: SortOrder
     video_link_title?: SortOrderInput | SortOrder
     video_link_url?: SortOrderInput | SortOrder
     suggestions?: SortOrderInput | SortOrder
@@ -16155,6 +16205,7 @@ export namespace Prisma {
     video_description?: StringFilter<"CourseData"> | string
     video_url?: StringFilter<"CourseData"> | string
     video_section?: StringFilter<"CourseData"> | string
+    video_length?: IntFilter<"CourseData"> | number
     video_link_title?: StringNullableFilter<"CourseData"> | string | null
     video_link_url?: StringNullableFilter<"CourseData"> | string | null
     suggestions?: StringNullableFilter<"CourseData"> | string | null
@@ -16171,6 +16222,7 @@ export namespace Prisma {
     video_description?: SortOrder
     video_url?: SortOrder
     video_section?: SortOrder
+    video_length?: SortOrder
     video_link_title?: SortOrderInput | SortOrder
     video_link_url?: SortOrderInput | SortOrder
     suggestions?: SortOrderInput | SortOrder
@@ -16178,8 +16230,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     courseId?: SortOrderInput | SortOrder
     _count?: CourseDataCountOrderByAggregateInput
+    _avg?: CourseDataAvgOrderByAggregateInput
     _max?: CourseDataMaxOrderByAggregateInput
     _min?: CourseDataMinOrderByAggregateInput
+    _sum?: CourseDataSumOrderByAggregateInput
   }
 
   export type CourseDataScalarWhereWithAggregatesInput = {
@@ -16191,6 +16245,7 @@ export namespace Prisma {
     video_description?: StringWithAggregatesFilter<"CourseData"> | string
     video_url?: StringWithAggregatesFilter<"CourseData"> | string
     video_section?: StringWithAggregatesFilter<"CourseData"> | string
+    video_length?: IntWithAggregatesFilter<"CourseData"> | number
     video_link_title?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
     video_link_url?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
     suggestions?: StringNullableWithAggregatesFilter<"CourseData"> | string | null
@@ -16969,6 +17024,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -16984,6 +17040,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -16999,6 +17056,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17014,6 +17072,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17029,6 +17088,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -17043,6 +17103,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17056,6 +17117,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17989,6 +18051,17 @@ export namespace Prisma {
     _max?: NestedEnumCourseLevelFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type CourseNullableScalarRelationFilter = {
     is?: CourseWhereInput | null
     isNot?: CourseWhereInput | null
@@ -18000,6 +18073,7 @@ export namespace Prisma {
     video_description?: SortOrder
     video_url?: SortOrder
     video_section?: SortOrder
+    video_length?: SortOrder
     video_link_title?: SortOrder
     video_link_url?: SortOrder
     suggestions?: SortOrder
@@ -18008,12 +18082,17 @@ export namespace Prisma {
     courseId?: SortOrder
   }
 
+  export type CourseDataAvgOrderByAggregateInput = {
+    video_length?: SortOrder
+  }
+
   export type CourseDataMaxOrderByAggregateInput = {
     id?: SortOrder
     video_title?: SortOrder
     video_description?: SortOrder
     video_url?: SortOrder
     video_section?: SortOrder
+    video_length?: SortOrder
     video_link_title?: SortOrder
     video_link_url?: SortOrder
     suggestions?: SortOrder
@@ -18028,12 +18107,33 @@ export namespace Prisma {
     video_description?: SortOrder
     video_url?: SortOrder
     video_section?: SortOrder
+    video_length?: SortOrder
     video_link_title?: SortOrder
     video_link_url?: SortOrder
     suggestions?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     courseId?: SortOrder
+  }
+
+  export type CourseDataSumOrderByAggregateInput = {
+    video_length?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -18127,17 +18227,6 @@ export namespace Prisma {
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type ReplyListRelationFilter = {
     every?: ReplyWhereInput
     some?: ReplyWhereInput
@@ -18183,22 +18272,6 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type ReviewNullableScalarRelationFilter = {
@@ -18840,6 +18913,14 @@ export namespace Prisma {
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type QuestionUpdateManyWithoutCourseDataNestedInput = {
     create?: XOR<QuestionCreateWithoutCourseDataInput, QuestionUncheckedCreateWithoutCourseDataInput> | QuestionCreateWithoutCourseDataInput[] | QuestionUncheckedCreateWithoutCourseDataInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutCourseDataInput | QuestionCreateOrConnectWithoutCourseDataInput[]
@@ -18970,14 +19051,6 @@ export namespace Prisma {
     connectOrCreate?: ReplyCreateOrConnectWithoutReviewInput | ReplyCreateOrConnectWithoutReviewInput[]
     createMany?: ReplyCreateManyReviewInputEnvelope
     connect?: ReplyWhereUniqueInput | ReplyWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ReplyUpdateManyWithoutReviewNestedInput = {
@@ -19371,6 +19444,22 @@ export namespace Prisma {
     _max?: NestedEnumCourseLevelFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type NestedEnumEnrollmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.EnrollmentStatus | EnumEnrollmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.EnrollmentStatus[] | ListEnumEnrollmentStatusFieldRefInput<$PrismaModel>
@@ -19386,22 +19475,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -19741,6 +19814,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -19755,6 +19829,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -19865,6 +19940,7 @@ export namespace Prisma {
     video_description?: StringFilter<"CourseData"> | string
     video_url?: StringFilter<"CourseData"> | string
     video_section?: StringFilter<"CourseData"> | string
+    video_length?: IntFilter<"CourseData"> | number
     video_link_title?: StringNullableFilter<"CourseData"> | string | null
     video_link_url?: StringNullableFilter<"CourseData"> | string | null
     suggestions?: StringNullableFilter<"CourseData"> | string | null
@@ -20085,6 +20161,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -20099,6 +20176,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -20174,6 +20252,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20188,6 +20267,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21102,6 +21182,7 @@ export namespace Prisma {
     video_description: string
     video_url: string
     video_section: string
+    video_length?: number
     video_link_title?: string | null
     video_link_url?: string | null
     suggestions?: string | null
@@ -21192,6 +21273,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21206,6 +21288,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21220,6 +21303,7 @@ export namespace Prisma {
     video_description?: StringFieldUpdateOperationsInput | string
     video_url?: StringFieldUpdateOperationsInput | string
     video_section?: StringFieldUpdateOperationsInput | string
+    video_length?: IntFieldUpdateOperationsInput | number
     video_link_title?: NullableStringFieldUpdateOperationsInput | string | null
     video_link_url?: NullableStringFieldUpdateOperationsInput | string | null
     suggestions?: NullableStringFieldUpdateOperationsInput | string | null

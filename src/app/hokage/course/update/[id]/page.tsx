@@ -18,13 +18,18 @@ const HokageCourseUpdate = async ({ params }: { params: { id: string } }) => {
     prerequisites,
     course_data,
     discount,
+    categoryId,
     ...course_info
   } = result.data;
 
   return (
     <>
       <UpdateCoursePage
-        course_info={{ ...course_info, discount: discount as number }}
+        course_info={{
+          ...course_info,
+          discount: discount as number,
+          categoryId: categoryId as string,
+        }}
         course_options={{ benefits, prerequisites }}
         id={courseId}
         course_content={{ contents: course_data ?? [] }}

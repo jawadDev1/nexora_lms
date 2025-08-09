@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { authAsyncHandler } from "@/utils/asyncHandler";
-import { IHokageCourseReturn } from "../types";
+import { ICourseAnalyticsReturn, IHokageCourseReturn } from "../types";
 import { IHokageUserTable, IHokageUserTableReturn } from "../types/users";
 import redis from "@/lib/redis";
 
@@ -57,3 +57,32 @@ export const deleteUser = authAsyncHandler('Admin', async({userId}: {userId: str
 
     return {success: true, message: "user deleted successfully"};
 })
+
+
+export const getUsersAnalytics = authAsyncHandler(
+  "Admin",
+  async (): Promise<ICourseAnalyticsReturn> => {
+    const usersByMonth = await db.$queryRaw<
+      { month: string; count: number }[]
+    >`
+SELECT 
+  TO_CHAR("created_at", 'Mon YYYY') AS month,
+  COUNT(*) AS count
+FROM "User"
+GROUP BY month
+ORDER BY MIN("created_at");
+`;
+
+
+    const formatted = usersByMonth.map((row) => ({
+      month: row.month,
+      count: Number(row.count),
+    }));
+
+    return {
+      success: true,
+      message: "course analytics fetched successfully",
+      data: formatted,
+    };
+  }
+);

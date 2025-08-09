@@ -1,127 +1,112 @@
 "use server";
 
 import { validateNoNulls } from "@/utils/service";
-import {
-  ICourseBody,
-  ICourseDataBody,
-  IHokageCourseReturn,
-  IUpdateCourseBody,
-} from "../types";
-import {
-  createCourse,
-  deleteCourse,
-  generateVideoUrl,
-  getHokageCourses,
-  updateCourse,
-} from "../services";
+import { IHokageCategory, IHokageFormCategoryReturn } from "../types";
 import { revalidatePath } from "next/cache";
+import {
+    addCategory,
+    deleteCategory,
+    getFormCategories,
+    updateCategory,
+} from "../services/category.servic";
+import { IHomeHeroBody } from "../types/home.types";
+import { updateHomeHero } from "../services/home.services";
+import { deleteUser } from "../services/users.services";
 
-export const CREATE_COURSE = async ({
-  course,
-  course_data,
-}: {
-  course: ICourseBody;
-  course_data: ICourseDataBody[];
-}) => {
-  try {
-    validateNoNulls(course);
-    validateNoNulls(course_data);
-
-    const result = await createCourse({ course, course_data });
-
-    revalidatePath("/hokage/courses");
-
-    return result;
-  } catch (error) {
-    console.log("Error in CREATE_COURSE :: ", error);
-    if (error instanceof Error) {
-      return { success: false, message: error.message };
+export const ADD_CATEGORY = async (body: IHokageCategory) => {
+    try {
+        validateNoNulls(body);
+        const result = await addCategory(body);
+        revalidatePath("/hokage/category");
+        return result;
+    } catch (error) {
+        console.log("Error in ADD_CATEGORY :: ", error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: "Something went wrong" };
     }
-    return { success: false, message: "Something went wrong" };
-  }
 };
 
-export const UPDATE_COURSE = async ({
-  id,
-  course,
-  course_data,
-}: {
-  id: string;
-  course: ICourseBody;
-  course_data: ICourseDataBody[];
-}) => {
-  try {
-    validateNoNulls(course);
-    validateNoNulls(course_data);
-
-    const result = await updateCourse({ id, course, course_data });
-
-    revalidatePath("/hokage/courses");
-
-    return result;
-  } catch (error) {
-    console.log("Error in CREATE_COURSE :: ", error);
-    if (error instanceof Error) {
-      return { success: false, message: error.message };
+export const UPDATE_CATEGORY = async (body: IHokageCategory) => {
+    try {
+        validateNoNulls(body);
+        const result = await updateCategory(body);
+        revalidatePath("/hokage/category");
+        return result;
+    } catch (error) {
+        console.log("Error in UPDATE_CATEGORY :: ", error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: "Something went wrong" };
     }
-    return { success: false, message: "Something went wrong" };
-  }
 };
 
-export const GENERATE_VIDEO_URL = async <T>({
-  videoId,
-}: {
-  videoId: string;
-}): Promise<{
-  success: boolean;
-  message: string;
-  data: { otp: string; playbackInfo: string } | null;
-}> => {
-  try {
-    const result = await generateVideoUrl({ videoId });
+export const DELETE_CATEGORY = async ({ id }: { id: string }) => {
+    try {
+        if (!id) throw new Error("id is required");
 
-    return result;
-  } catch (error) {
-    console.log("Error in GENERATE_VIDEO_URL :: ", error);
-    if (error instanceof Error) {
-      return { success: false, message: error.message, data: null };
+        const result = await deleteCategory({ id });
+        revalidatePath("/hokage/faq");
+        return result;
+    } catch (error) {
+        console.log("Error in DELETE_CATEGORY :: ", error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: "Something went wrong" };
     }
-    return { success: false, message: "Something went wrong", data: null };
-  }
 };
 
-export const GET_HOKAGE_COURSES = async ({
-  page,
-  pageSize,
-}: {
-  page: number;
-  pageSize: number;
-}): IHokageCourseReturn => {
-  try {
-    const result = await getHokageCourses({ page, pageSize });
+export const GET_FORM_CATEGORIES =
+    async (): Promise<IHokageFormCategoryReturn> => {
+        try {
+            const result = await getFormCategories("");
+            return result;
+        } catch (error) {
+            console.log("Error in GET_FORM_CATEGORIES :: ", error);
+            if (error instanceof Error) {
+                return { success: false, message: error.message, data: null };
+            }
+            return {
+                success: false,
+                message: "Something went wrong",
+                data: null,
+            };
+        }
+    };
 
-    return result;
-  } catch (error) {
-    console.log("Error in GET_HOKAGE_COURSES :: ", error);
-    if (error instanceof Error) {
-      return { success: false, message: error.message, data: null };
+// ==== HOME =======================
+
+export const UPDATE_HOME_HERO = async (body: IHomeHeroBody) => {
+    try {
+        validateNoNulls(body);
+        const result = await updateHomeHero(body);
+        return result;
+    } catch (error) {
+        console.log("Error in UPDATE_HOME :: ", error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: "Something went wrong" };
     }
-    return { success: false, message: "Something went wrong", data: null };
-  }
 };
 
-export const DELETE_COURSE = async ({ courseId }: { courseId: string }) => {
-  try {
-    const result = await deleteCourse({ courseId });
+// ======= USER ==============================
 
-    revalidatePath("/hokage/courses");
+export const DELETE_USER = async ({ userId }: { userId: string }) => {
+    try {
+        const result = await deleteUser({ userId });
 
-    return result;
-  } catch (error) {
-    console.log("Error in DELETE_COURSE :: ", error);
-    if (error instanceof Error) {
-      return { success: false, message: error.message, data: null };
+        revalidatePath("/hokage/users");
+
+        return result;
+    } catch (error) {
+        console.log("Error in DELETE_USER :: ", error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: "Something went wrong" };
     }
-    return { success: false, message: "Something went wrong", data: null };
-  }
 };

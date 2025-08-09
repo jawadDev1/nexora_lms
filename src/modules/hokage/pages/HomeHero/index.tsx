@@ -7,10 +7,10 @@ import { uploadImageToAppwrite } from "@/utils/uploadFile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { UPDATE_HOME_HERO } from "../../actions/home.actions";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import SpinnerButton from "@/components/ui/buttons/SpinnerButton";
 import { IHomeHeroBody } from "../../types/home.types";
+import { UPDATE_HOME_HERO } from "../../actions";
 
 interface HomeHeroPageProps {
     data: IHomeHeroBody;

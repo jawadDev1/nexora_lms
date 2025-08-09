@@ -2,11 +2,11 @@ import LinkButton from "@/components/ui/buttons/LinkButton";
 import NextImage from "@/components/ui/common/NextImage";
 import Content from "@/components/ui/typography/Content";
 import Subheading from "@/components/ui/typography/Subheading";
-import { getUserHomeHero } from "@/modules/hokage/services/home.services";
+import { getUserHomeHero } from "@/modules/home/services";
 import React from "react";
 
 const HeroSection = async () => {
-    const result = await getUserHomeHero("");
+    const result = await getUserHomeHero();
     if (!result.success || !result.data) return null;
 
     const { title, subtitle, image } = result?.data;

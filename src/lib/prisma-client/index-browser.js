@@ -159,6 +159,7 @@ exports.Prisma.CourseDataScalarFieldEnum = {
   video_description: 'video_description',
   video_url: 'video_url',
   video_section: 'video_section',
+  video_length: 'video_length',
   video_link_title: 'video_link_title',
   video_link_url: 'video_link_url',
   suggestions: 'suggestions',

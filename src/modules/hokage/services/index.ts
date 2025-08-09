@@ -1,13 +1,14 @@
 import { asyncHandler, authAsyncHandler } from "@/utils/asyncHandler";
 import {
   ICachedCourse,
+  ICourseAnalyticsReturn,
   ICourseBody,
   ICourseDataBody,
   IHokageCourseDetailReturn,
   IHokageCourseReturn,
   IUpdateCourseBody,
 } from "../types";
-import { generateSlug } from "@/utils";
+import { generateRandomString, generateSlug } from "@/utils";
 import { db } from "@/lib/db";
 import redis from "@/lib/redis";
 import { Session } from "next-auth";
@@ -21,7 +22,13 @@ export const createCourse = authAsyncHandler(
     course: ICourseBody;
     course_data: ICourseDataBody[];
   }) => {
-    const slug = generateSlug(course.title);
+    let slug = generateSlug(course.title);
+
+    const alreadyExists = await db.course.findFirst({ where: { slug } });
+
+    if (alreadyExists) {
+      slug = `slug-${generateRandomString()}`;
+    }
 
     const new_course = await db.course.create({
       data: { ...course, slug },
@@ -34,7 +41,7 @@ export const createCourse = authAsyncHandler(
       })),
     });
 
-    await redis.del("hokage_courses");
+    await redis.del("hokage_courses", "hokage_table_categories");
 
     return {
       success: true,
@@ -95,7 +102,9 @@ export const updateCourse = authAsyncHandler(
 export const getSingleCourse = asyncHandler(async (slug: string) => {
   const course = await db.course.findFirst({
     where: { slug },
-    include: { course_data: { omit: { video_url: true, suggestions: true } } },
+    include: {
+      course_data: { omit: { video_url: true, suggestions: true } },
+    },
   });
 
   if (!course) {
@@ -122,7 +131,9 @@ export const getAllCourses = asyncHandler(async () => {
   }
 
   const courses = await db.course.findMany({
-    include: { course_data: { omit: { video_url: true, suggestions: true } } },
+    include: {
+      course_data: { omit: { video_url: true, suggestions: true } },
+    },
   });
 
   await redis.set("all_courses", JSON.stringify(courses));
@@ -178,7 +189,11 @@ export const generateVideoUrl = asyncHandler(
 
     console.log(data);
 
-    return { success: true, message: "video url generated successfull", data };
+    return {
+      success: true,
+      message: "video url generated successfull",
+      data,
+    };
   }
 );
 
@@ -270,6 +285,64 @@ export const getHokageCourseDetails = authAsyncHandler(
       success: true,
       message: "course fetched successfully",
       data: course,
+    };
+  }
+);
+
+export const getCourseAnalytics = authAsyncHandler(
+  "Admin",
+  async (): Promise<ICourseAnalyticsReturn> => {
+    const coursesByMonth = await db.$queryRaw<
+      { month: string; count: number }[]
+    >`
+SELECT 
+  TO_CHAR("created_at", 'Mon YYYY') AS month,
+  COUNT(*) AS count
+FROM "Course"
+GROUP BY month
+ORDER BY MIN("created_at");
+`;
+
+
+    const formatted = coursesByMonth.map((row) => ({
+      month: row.month,
+      count: Number(row.count),
+    }));
+
+    return {
+      success: true,
+      message: "users analytics fetched successfully",
+      data: formatted,
+    };
+  }
+);
+
+
+// ====== Orders =======================
+export const getOrdersAnalytics = authAsyncHandler(
+  "Admin",
+  async (): Promise<ICourseAnalyticsReturn> => {
+    const coursesByMonth = await db.$queryRaw<
+      { month: string; count: number }[]
+    >`
+SELECT 
+  TO_CHAR("created_at", 'Mon YYYY') AS month,
+  COUNT(*) AS count
+FROM "Course"
+GROUP BY month
+ORDER BY MIN("created_at");
+`;
+
+
+    const formatted = coursesByMonth.map((row) => ({
+      month: row.month,
+      count: Number(row.count),
+    }));
+
+    return {
+      success: true,
+      message: "course analytics fetched successfully",
+      data: formatted,
     };
   }
 );

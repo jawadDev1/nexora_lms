@@ -2,7 +2,6 @@
 import Button from "@/components/ui/buttons/Button";
 import DeleteButton from "@/components/ui/buttons/DeleteButton";
 import { DELETE_FAQ } from "@/modules/hokage/actions/faq.actions";
-import { DELETE_USER } from "@/modules/hokage/actions/user.actions";
 import FaqFormModal from "@/modules/hokage/components/faqs/FaqFormModal";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { GridCellParams } from "@mui/x-data-grid";
