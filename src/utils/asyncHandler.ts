@@ -49,3 +49,23 @@ export function authAsyncHandler<TArgs extends any[], TResult>(
     }
   };
 }
+
+export async function handlePromise<PromiseResult>(
+  promise: Promise<PromiseResult>
+): Promise<
+  | { success: true; message: string; data: PromiseResult }
+  | { success: false; message: string }
+> {
+  try {
+    const result = await promise;
+
+    return { success: true, message: "", data: result };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error:", error.message);
+      throw new Error(error.message);
+    }
+
+    throw new Error("Something went wrong");
+  }
+}

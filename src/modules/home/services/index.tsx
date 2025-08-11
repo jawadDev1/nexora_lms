@@ -48,3 +48,12 @@ export const getUserHomeCourses = asyncHandler(async () => {
     data: courses,
   };
 });
+
+export const getHomeFaqs = asyncHandler(async () => {
+  const faqs = await db.faq.findMany({
+    where: { active: true },
+    select: { question: true, answer: true },
+  });
+
+  return { success: true, message: "faqs fetched successfully", data: faqs };
+});

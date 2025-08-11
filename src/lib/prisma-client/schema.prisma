@@ -133,6 +133,9 @@ model Review {
   User     User    @relation(fields: [userId], references: [id])
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Reply {

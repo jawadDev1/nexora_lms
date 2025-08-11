@@ -190,7 +190,9 @@ exports.Prisma.ReviewScalarFieldEnum = {
   rating: 'rating',
   comment: 'comment',
   userId: 'userId',
-  courseId: 'courseId'
+  courseId: 'courseId',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ReplyScalarFieldEnum = {

@@ -4,6 +4,7 @@ import { calculatePriceAfterDiscount } from "@/utils";
 import RenderStars from "../RatingStars";
 import LinkButton from "@/components/ui/buttons/LinkButton";
 import CourseLevel from "../CourseLevel";
+import NextImage from "@/components/ui/common/NextImage";
 
 interface CourseCardProps {
   title: string;
@@ -36,7 +37,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
     <div className="group w-full relative bg-[#242424] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-800 hover:border-[#FFDE00]/30 max-w-sm mx-auto">
       {/* Course Image */}
       <div className="relative overflow-hidden">
-        <img
+        <NextImage
           src={imageUrl}
           alt={title}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -66,7 +67,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
         {/* Rating and Lectures */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {/* <div className="flex items-center gap-1">{renderStars(rating)}</div> */}
             <RenderStars rating={rating} />
             {rating && (
               <span className="text-[#797979] text-sm">
@@ -97,7 +97,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           </div>
 
           <LinkButton
-            href={`/courses/${slug}`}
+            href={`/course/${slug}`}
             className="bg-[#FFDE00] hover:bg-[#FFDE00]/90 text-black px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#FFDE00]/50"
           >
             Enroll Now

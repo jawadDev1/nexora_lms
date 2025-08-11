@@ -8310,6 +8310,8 @@ export namespace Prisma {
     comment: string | null
     userId: string | null
     courseId: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ReviewMaxAggregateOutputType = {
@@ -8318,6 +8320,8 @@ export namespace Prisma {
     comment: string | null
     userId: string | null
     courseId: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ReviewCountAggregateOutputType = {
@@ -8326,6 +8330,8 @@ export namespace Prisma {
     comment: number
     userId: number
     courseId: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -8344,6 +8350,8 @@ export namespace Prisma {
     comment?: true
     userId?: true
     courseId?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ReviewMaxAggregateInputType = {
@@ -8352,6 +8360,8 @@ export namespace Prisma {
     comment?: true
     userId?: true
     courseId?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ReviewCountAggregateInputType = {
@@ -8360,6 +8370,8 @@ export namespace Prisma {
     comment?: true
     userId?: true
     courseId?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -8455,6 +8467,8 @@ export namespace Prisma {
     comment: string
     userId: string
     courseId: string | null
+    created_at: Date
+    updated_at: Date
     _count: ReviewCountAggregateOutputType | null
     _avg: ReviewAvgAggregateOutputType | null
     _sum: ReviewSumAggregateOutputType | null
@@ -8482,6 +8496,8 @@ export namespace Prisma {
     comment?: boolean
     userId?: boolean
     courseId?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     replies?: boolean | Review$repliesArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
     Course?: boolean | Review$CourseArgs<ExtArgs>
@@ -8494,6 +8510,8 @@ export namespace Prisma {
     comment?: boolean
     userId?: boolean
     courseId?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     User?: boolean | UserDefaultArgs<ExtArgs>
     Course?: boolean | Review$CourseArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
@@ -8504,6 +8522,8 @@ export namespace Prisma {
     comment?: boolean
     userId?: boolean
     courseId?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     User?: boolean | UserDefaultArgs<ExtArgs>
     Course?: boolean | Review$CourseArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
@@ -8514,9 +8534,11 @@ export namespace Prisma {
     comment?: boolean
     userId?: boolean
     courseId?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "comment" | "userId" | "courseId", ExtArgs["result"]["review"]>
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "comment" | "userId" | "courseId" | "created_at" | "updated_at", ExtArgs["result"]["review"]>
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     replies?: boolean | Review$repliesArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
@@ -8545,6 +8567,8 @@ export namespace Prisma {
       comment: string
       userId: string
       courseId: string | null
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["review"]>
     composites: {}
   }
@@ -8976,6 +9000,8 @@ export namespace Prisma {
     readonly comment: FieldRef<"Review", 'String'>
     readonly userId: FieldRef<"Review", 'String'>
     readonly courseId: FieldRef<"Review", 'String'>
+    readonly created_at: FieldRef<"Review", 'DateTime'>
+    readonly updated_at: FieldRef<"Review", 'DateTime'>
   }
     
 
@@ -15704,7 +15730,9 @@ export namespace Prisma {
     rating: 'rating',
     comment: 'comment',
     userId: 'userId',
-    courseId: 'courseId'
+    courseId: 'courseId',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
@@ -16387,6 +16415,8 @@ export namespace Prisma {
     comment?: StringFilter<"Review"> | string
     userId?: StringFilter<"Review"> | string
     courseId?: StringNullableFilter<"Review"> | string | null
+    created_at?: DateTimeFilter<"Review"> | Date | string
+    updated_at?: DateTimeFilter<"Review"> | Date | string
     replies?: ReplyListRelationFilter
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
@@ -16398,6 +16428,8 @@ export namespace Prisma {
     comment?: SortOrder
     userId?: SortOrder
     courseId?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     replies?: ReplyOrderByRelationAggregateInput
     User?: UserOrderByWithRelationInput
     Course?: CourseOrderByWithRelationInput
@@ -16412,6 +16444,8 @@ export namespace Prisma {
     comment?: StringFilter<"Review"> | string
     userId?: StringFilter<"Review"> | string
     courseId?: StringNullableFilter<"Review"> | string | null
+    created_at?: DateTimeFilter<"Review"> | Date | string
+    updated_at?: DateTimeFilter<"Review"> | Date | string
     replies?: ReplyListRelationFilter
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
@@ -16423,6 +16457,8 @@ export namespace Prisma {
     comment?: SortOrder
     userId?: SortOrder
     courseId?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: ReviewCountOrderByAggregateInput
     _avg?: ReviewAvgOrderByAggregateInput
     _max?: ReviewMaxOrderByAggregateInput
@@ -16439,6 +16475,8 @@ export namespace Prisma {
     comment?: StringWithAggregatesFilter<"Review"> | string
     userId?: StringWithAggregatesFilter<"Review"> | string
     courseId?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
 
   export type ReplyWhereInput = {
@@ -17245,6 +17283,8 @@ export namespace Prisma {
     id?: string
     rating: number
     comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyCreateNestedManyWithoutReviewInput
     User: UserCreateNestedOneWithoutReviewsInput
     Course?: CourseCreateNestedOneWithoutReviewsInput
@@ -17256,6 +17296,8 @@ export namespace Prisma {
     comment: string
     userId: string
     courseId?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyUncheckedCreateNestedManyWithoutReviewInput
   }
 
@@ -17263,6 +17305,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUpdateManyWithoutReviewNestedInput
     User?: UserUpdateOneRequiredWithoutReviewsNestedInput
     Course?: CourseUpdateOneWithoutReviewsNestedInput
@@ -17274,6 +17318,8 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUncheckedUpdateManyWithoutReviewNestedInput
   }
 
@@ -17283,12 +17329,16 @@ export namespace Prisma {
     comment: string
     userId: string
     courseId?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ReviewUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewUncheckedUpdateManyInput = {
@@ -17297,6 +17347,8 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReplyCreateInput = {
@@ -18248,6 +18300,8 @@ export namespace Prisma {
     comment?: SortOrder
     userId?: SortOrder
     courseId?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ReviewAvgOrderByAggregateInput = {
@@ -18260,6 +18314,8 @@ export namespace Prisma {
     comment?: SortOrder
     userId?: SortOrder
     courseId?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ReviewMinOrderByAggregateInput = {
@@ -18268,6 +18324,8 @@ export namespace Prisma {
     comment?: SortOrder
     userId?: SortOrder
     courseId?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ReviewSumOrderByAggregateInput = {
@@ -19515,6 +19573,8 @@ export namespace Prisma {
     id?: string
     rating: number
     comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyCreateNestedManyWithoutReviewInput
     Course?: CourseCreateNestedOneWithoutReviewsInput
   }
@@ -19524,6 +19584,8 @@ export namespace Prisma {
     rating: number
     comment: string
     courseId?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyUncheckedCreateNestedManyWithoutReviewInput
   }
 
@@ -19640,6 +19702,8 @@ export namespace Prisma {
     comment?: StringFilter<"Review"> | string
     userId?: StringFilter<"Review"> | string
     courseId?: StringNullableFilter<"Review"> | string | null
+    created_at?: DateTimeFilter<"Review"> | Date | string
+    updated_at?: DateTimeFilter<"Review"> | Date | string
   }
 
   export type OrderUpsertWithWhereUniqueWithoutUserInput = {
@@ -19730,6 +19794,8 @@ export namespace Prisma {
     id?: string
     rating: number
     comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyCreateNestedManyWithoutReviewInput
     User: UserCreateNestedOneWithoutReviewsInput
   }
@@ -19739,6 +19805,8 @@ export namespace Prisma {
     rating: number
     comment: string
     userId: string
+    created_at?: Date | string
+    updated_at?: Date | string
     replies?: ReplyUncheckedCreateNestedManyWithoutReviewInput
   }
 
@@ -20701,6 +20769,8 @@ export namespace Prisma {
     id?: string
     rating: number
     comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
     User: UserCreateNestedOneWithoutReviewsInput
     Course?: CourseCreateNestedOneWithoutReviewsInput
   }
@@ -20711,6 +20781,8 @@ export namespace Prisma {
     comment: string
     userId: string
     courseId?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ReviewCreateOrConnectWithoutRepliesInput = {
@@ -20733,6 +20805,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutReviewsNestedInput
     Course?: CourseUpdateOneWithoutReviewsNestedInput
   }
@@ -20743,6 +20817,8 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -21030,6 +21106,8 @@ export namespace Prisma {
     rating: number
     comment: string
     courseId?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type OrderCreateManyUserInput = {
@@ -21060,6 +21138,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUpdateManyWithoutReviewNestedInput
     Course?: CourseUpdateOneWithoutReviewsNestedInput
   }
@@ -21069,6 +21149,8 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUncheckedUpdateManyWithoutReviewNestedInput
   }
 
@@ -21077,6 +21159,8 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     courseId?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderUpdateWithoutUserInput = {
@@ -21156,6 +21240,8 @@ export namespace Prisma {
     rating: number
     comment: string
     userId: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type OrderCreateManyCourseInput = {
@@ -21194,6 +21280,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUpdateManyWithoutReviewNestedInput
     User?: UserUpdateOneRequiredWithoutReviewsNestedInput
   }
@@ -21203,6 +21291,8 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     replies?: ReplyUncheckedUpdateManyWithoutReviewNestedInput
   }
 
@@ -21211,6 +21301,8 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderUpdateWithoutCourseInput = {

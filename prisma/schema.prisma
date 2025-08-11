@@ -68,7 +68,7 @@ model Course {
   updated_at    DateTime     @updatedAt
 
   categoryId String?
-  Category Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model CourseData {
@@ -78,7 +78,7 @@ model CourseData {
   video_url         String
   // video_thumbnail String
   video_section     String
-  video_length      Int       @default(0)
+  video_length      Int        @default(0)
   video_link_title  String?
   video_link_url    String?
   suggestions       String?
@@ -133,6 +133,9 @@ model Review {
   User     User    @relation(fields: [userId], references: [id])
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Reply {
@@ -187,27 +190,26 @@ model Faq {
   id         String   @id @default(uuid())
   question   String
   answer     String
-  active Boolean @default(false)
+  active     Boolean  @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-
 // ======= Category ==================
 model Category {
-    id String @id @default(uuid())
-    title String
+  id    String @id @default(uuid())
+  title String
 
-    courses Course[]
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
+  courses    Course[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 // ======= Home Layout ==================
 
 model Hero {
-    id String  @id  @default(uuid())
-    title String
-    subtitle String
-    image String
+  id       String @id @default(uuid())
+  title    String
+  subtitle String
+  image    String
 }

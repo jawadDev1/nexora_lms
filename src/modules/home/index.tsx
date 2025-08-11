@@ -5,6 +5,7 @@ import CourseCard from "../course/components/CourseCard";
 import CoursesSection from "./components/sections/CoursesSection";
 import TestimonialsSection from "./components/sections/TestimonialSection";
 import CallToAction from "@/components/ui/common/CallToAction";
+import FAQsSection from "./components/sections/FaqSection";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,8 @@ const HomePage = () => {
         <CoursesSection />
 
         <TestimonialsSection />
+
+        <FAQsSection />
 
         <CallToAction />
       </div>

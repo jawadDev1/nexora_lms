@@ -20,3 +20,9 @@ export interface Testimonial {
   videoUrl?: string;
   featured?: boolean;
 }
+
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
