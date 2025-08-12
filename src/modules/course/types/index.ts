@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 export interface ICourse {
   id?: string;
   title: string;
@@ -75,4 +77,67 @@ export interface ICourseDetailPageProps {
   course: ICourse;
   isEnrolled: boolean;
   userProgress?: number;
+}
+
+// ========= Question ==============================
+
+export interface ICreateQuestion {
+  question: string;
+  content_id: string;
+}
+
+export interface IReplyQuestion {
+  reply: string;
+  question_id: string;
+}
+
+export interface questions {
+  id: string;
+  question: string;
+  created_at: Date;
+  User: {
+    avatar: string;
+    name: string;
+    role?: string;
+  } | null;
+  replies: {
+    id: string;
+    reply: string;
+    created_at: Date;
+    User: {
+      avatar: string;
+      name: string;
+      role?: string;
+    } | null;
+  }[];
+}
+
+export interface IGetQuestionsReturn {
+  success: boolean;
+  message: string;
+  data: questions[] | null;
+}
+
+// ============== Fontend ====================
+export interface IQuestion {
+  id: string;
+  question: string;
+  created_at: Date;
+  User: {
+    avatar: string;
+    name: string;
+    role?: string;
+  } | null;
+  replies: IReply[];
+}
+
+export interface IReply {
+  id: string;
+  reply: string;
+  created_at: Date;
+  User: {
+    avatar: string;
+    name: string;
+    role?: string;
+  } | null;
 }

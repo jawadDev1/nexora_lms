@@ -172,7 +172,16 @@ exports.Prisma.QuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
   userId: 'userId',
-  courseDataId: 'courseDataId'
+  courseDataId: 'courseDataId',
+  created_at: 'created_at'
+};
+
+exports.Prisma.ReplyScalarFieldEnum = {
+  id: 'id',
+  reply: 'reply',
+  questionId: 'questionId',
+  userId: 'userId',
+  created_at: 'created_at'
 };
 
 exports.Prisma.EnrollmentScalarFieldEnum = {
@@ -193,12 +202,6 @@ exports.Prisma.ReviewScalarFieldEnum = {
   courseId: 'courseId',
   created_at: 'created_at',
   updated_at: 'updated_at'
-};
-
-exports.Prisma.ReplyScalarFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  reviewId: 'reviewId'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
@@ -288,9 +291,9 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   CourseData: 'CourseData',
   Question: 'Question',
+  Reply: 'Reply',
   Enrollment: 'Enrollment',
   Review: 'Review',
-  Reply: 'Reply',
   Order: 'Order',
   Notification: 'Notification',
   Faq: 'Faq',

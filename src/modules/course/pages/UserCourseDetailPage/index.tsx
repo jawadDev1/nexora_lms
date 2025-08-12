@@ -27,6 +27,7 @@ const UserCourseDetailPage = ({ course }: UserCourseDetailPageProps) => {
           video_url: section_details.video_url,
           video_link_title: section_details.video_link_title as string,
           vidoe_link_url: section_details.video_link_url as string,
+          sectionId: section_details.id
         }}
       />
       <div />

@@ -119,5 +119,4 @@ export const USER_COURSE_DETAIL_TABS = [
   "Overview",
   "Q&A",
   "Resources",
-  "Reviews",
 ];

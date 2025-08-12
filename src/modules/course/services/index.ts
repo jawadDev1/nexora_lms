@@ -8,6 +8,7 @@ import { ICoursePurchased } from "@/types/email";
 import { calculatePriceAfterDiscount } from "@/utils";
 import { asyncHandler, authAsyncHandler } from "@/utils/asyncHandler";
 import { getServerSession, Session } from "next-auth";
+import { ICreateQuestion, IGetQuestionsReturn, IReplyQuestion } from "../types";
 
 export const getCourseDetails = asyncHandler(
   async ({ slug }: { slug: string }) => {
@@ -63,7 +64,7 @@ export const getCourseDetails = asyncHandler(
 );
 
 export const getUserCourseDetails = authAsyncHandler(
-  "Admin",
+  "User",
   async ({ slug, user }: { slug: string; user: Session["user"] }) => {
     const courseDetails = await db.course.findFirst({
       where: { slug },
@@ -113,7 +114,7 @@ export const getUserCourseDetails = authAsyncHandler(
 );
 
 export const processPayment = authAsyncHandler(
-  "Admin",
+  "User",
   async ({ amount }: { amount: number }) => {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -135,7 +136,7 @@ export const processPayment = authAsyncHandler(
 // ====== Order ========================
 
 export const createOrder = authAsyncHandler(
-  "Admin",
+  "User",
   async ({
     courseId,
     user,
@@ -195,5 +196,84 @@ export const createOrder = authAsyncHandler(
     });
 
     return { success: true, message: "course enrolled successfully" };
+  }
+);
+
+// ====== Question ==================================
+
+export const createQuestion = authAsyncHandler(
+  "User",
+  async ({
+    question,
+    content_id,
+    user,
+  }: ICreateQuestion & { user: Session["user"] }) => {
+    if (!content_id) {
+      throw new Error("Content id is required");
+    }
+
+    const newQuestion = await db.question.create({
+      data: { question, userId: user.id, courseDataId: content_id },
+      omit: { id: true },
+    });
+
+    return {
+      success: true,
+      message: "question created successfully",
+      data: newQuestion,
+    };
+  }
+);
+
+export const getContentQuestions = authAsyncHandler(
+  "User",
+  async ({
+    content_id,
+  }: {
+    content_id: string;
+  }): Promise<IGetQuestionsReturn> => {
+    if (!content_id) {
+      throw new Error("Content id is required");
+    }
+
+    const questions = await db.question.findMany({
+      where: { courseDataId: content_id },
+      include: {
+        replies: {
+          include: {
+            User: { select: { name: true, avatar: true, role: true } },
+          },
+          omit: { userId: true, questionId: true },
+        },
+        User: { select: { avatar: true, name: true, role: true } },
+      },
+      omit: { courseDataId: true, userId: true },
+    });
+
+    return {
+      success: true,
+      message: "questions fetched successfully",
+      data: questions,
+    };
+  }
+);
+
+export const replyQuestion = authAsyncHandler(
+  "User",
+  async ({
+    reply,
+    user,
+    question_id,
+  }: IReplyQuestion & { user: Session["user"] }) => {
+    const questions = await db.reply.create({
+      data: { reply, questionId: question_id, userId: user.id },
+      omit: { id: true },
+    });
+
+    return {
+      success: true,
+      message: "question replied successfully",
+      data: questions,
+    };
   }
 );

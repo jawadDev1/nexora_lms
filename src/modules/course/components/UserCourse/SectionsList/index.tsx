@@ -18,7 +18,7 @@ const SectionsList = ({ sections, handleActiveSection }: SectionsListProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <section className="bg-card py-2 px-3 rounded-xl max-h-fit sticky top-0">
+    <section className="bg-card py-2 px-3 rounded-xl max-h-fit sticky top-5">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}

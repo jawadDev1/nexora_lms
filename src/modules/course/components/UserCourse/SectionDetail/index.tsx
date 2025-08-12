@@ -1,16 +1,12 @@
 "use client";
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import VideoPlayer from "../../VideoPlayer";
 import Button from "@/components/ui/buttons/Button";
-import Content from "@/components/ui/typography/Content";
 import SectionOverview, { SectionOverviewProps } from "../SectionOverview";
-import SectionReviews from "../SectionReviews";
 import SectionQA from "../SectionQA";
 import SectionSources, { SectionSourcesProps } from "../SectionSources";
 import { USER_COURSE_DETAIL_TABS } from "@/constants/menu";
-import Title from "@/components/ui/typography/Title";
 import cn from "@/utils/cn";
-import Subtitle from "@/components/ui/typography/Subtitle";
 import Subtitle2 from "@/components/ui/typography/Subtitle2";
 
 interface SectionDetailProps {
@@ -19,9 +15,10 @@ interface SectionDetailProps {
   description: string;
   video_link_title: string;
   vidoe_link_url: string;
+  sectionId: string;
 }
 
-export type ITabs = "Overview" | "Resources" | "Q&A" | "Reviews";
+export type ITabs = "Overview" | "Resources" | "Q&A";
 
 function getTab<T>(tab: ITabs, props: T) {
   const tabs: Record<ITabs, { Tab: React.ComponentType<any>; props: T }> = {
@@ -37,14 +34,15 @@ function getTab<T>(tab: ITabs, props: T) {
       Tab: SectionSources,
       props,
     },
-    Reviews: {
-      Tab: SectionReviews,
-      props,
-    },
   };
 
   return tabs[tab];
 }
+
+type IPropsPayload =
+  | SectionOverviewProps
+  | SectionSourcesProps
+  | { sectionId: string };
 
 const SectionDetail = ({
   video_url,
@@ -52,20 +50,23 @@ const SectionDetail = ({
   description,
   video_link_title,
   vidoe_link_url,
+  sectionId,
 }: SectionDetailProps) => {
   const [currentTab, setCurrentTab] = useState<ITabs>("Overview");
 
-  const propsPayload =
-    currentTab == "Overview"
-      ? {
-          title,
-          description,
-        }
-      : { title: video_link_title, link: vidoe_link_url };
-  const { Tab, props } = getTab<SectionOverviewProps | SectionSourcesProps>(
-    currentTab,
-    propsPayload
-  );
+  const payloads = {
+    Overview: {
+      title,
+      description,
+    },
+    Resources: { title: video_link_title, link: vidoe_link_url },
+    "Q&A": { sectionId },
+    Reviews: { sectionId },
+  };
+
+  const propsPayload = payloads[currentTab];
+
+  const { Tab, props } = getTab<IPropsPayload>(currentTab, propsPayload);
 
   return (
     <section className="w-full ">
@@ -79,15 +80,15 @@ const SectionDetail = ({
         </div>
       </div>
 
-      <div className="w-full mt-10 flex justify-between items-center">
+      <div className="w-full mt-10 flex overflow-x-auto justify-between items-center bg-card rounded-xl py-2 px-3">
         {USER_COURSE_DETAIL_TABS.map((tab) => (
           <Subtitle2
             key={tab}
             onClick={() => setCurrentTab(tab as ITabs)}
             className={cn(
-              "border-b-4 hover:text-primary flex-[0.2] text-center rounded cursor-pointer pb-1 border-transparent",
+              "border  flex justify-center items-center shrink-0 flex-[0.2] text-center rounded cursor-pointer py-1   border-transparent",
               {
-                "text-primary border-primary": tab === currentTab,
+                "bg-primary text-dark-brown": tab === currentTab,
               }
             )}
           >
