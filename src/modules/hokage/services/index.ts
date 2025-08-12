@@ -187,8 +187,6 @@ export const generateVideoUrl = asyncHandler(
 
     const data = await response.json();
 
-    console.log(data);
-
     return {
       success: true,
       message: "video url generated successfull",
@@ -303,7 +301,6 @@ GROUP BY month
 ORDER BY MIN("created_at");
 `;
 
-
     const formatted = coursesByMonth.map((row) => ({
       month: row.month,
       count: Number(row.count),
@@ -316,7 +313,6 @@ ORDER BY MIN("created_at");
     };
   }
 );
-
 
 // ====== Orders =======================
 export const getOrdersAnalytics = authAsyncHandler(
@@ -332,7 +328,6 @@ FROM "Course"
 GROUP BY month
 ORDER BY MIN("created_at");
 `;
-
 
     const formatted = coursesByMonth.map((row) => ({
       month: row.month,

@@ -11,7 +11,7 @@ const CourseDetail = async ({ params }: { params: { slug: string } }) => {
     return notFound();
   }
 
-  const { discount, ratings, purchased, ...course } = result.data;
+  const { discount, ratings, purchased,isEnrolled, ...course } = result.data;
   return (
     <>
       <CourseDetailPage
@@ -21,7 +21,7 @@ const CourseDetail = async ({ params }: { params: { slug: string } }) => {
           ratings: ratings as number,
           purchased: purchased as number,
         }}
-        isEnrolled={false}
+        isEnrolled={isEnrolled}
       />
     </>
   );

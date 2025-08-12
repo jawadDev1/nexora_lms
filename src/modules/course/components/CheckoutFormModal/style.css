@@ -1,0 +1,9 @@
+input, #Field-emailInput {
+  background: transparent !important;
+  border: 1px solid white;
+}
+
+.p-LinkInput {
+  background: transparent !important;
+  border: 1px solid white;
+}

@@ -62,3 +62,7 @@ export const calculatePriceAfterDiscount = (
 ): number => {
   return Number((originalPrice - (1 - discount / 100)).toFixed(2));
 };
+
+export const formatVideoLength = (length: number) => {
+  return `${Math.round(length / 60)}h ${length % 60}m`;
+};

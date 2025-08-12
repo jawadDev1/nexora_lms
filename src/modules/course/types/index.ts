@@ -1,4 +1,5 @@
 export interface ICourse {
+  id?: string;
   title: string;
   slug: string;
   description: string;
@@ -26,10 +27,8 @@ export interface ICourseData {
   video_description?: string;
   video_length?: number;
   video_url: string;
-  //   duration?: number;
-  //   order: number;
-  //   is_free: boolean;
-  //   courseId: string;
+  video_link_title: string | null;
+  video_link_url: string | null;
 }
 
 export interface IReview {

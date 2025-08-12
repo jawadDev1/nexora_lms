@@ -97,7 +97,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           </div>
 
           <LinkButton
-            href={`/course/${slug}`}
+            href={`/course/course-details/${slug}`}
             className="bg-[#FFDE00] hover:bg-[#FFDE00]/90 text-black px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#FFDE00]/50"
           >
             Enroll Now

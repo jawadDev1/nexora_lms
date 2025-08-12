@@ -1,0 +1,168 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Purchase Successful</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #1E1E1E; color:
+      #ffffff; line-height: 1.6; margin: 0; padding: 20px; } .email-container {
+      max-width: 600px; margin: 20px auto; background: #242424; padding: 40px
+      30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid #1D1D1F; } .logo { text-align: center; margin-bottom:
+      30px; } .logo h1 { color: #FFDE00; font-size: 28px; font-weight: 700;
+      margin: 0; letter-spacing: -0.5px; } .success-icon { text-align: center;
+      margin-bottom: 25px; } .success-icon span { background: #22C55E; color:
+      white; border-radius: 50%; width: 60px; height: 60px; display:
+      inline-flex; align-items: center; justify-content: center; font-size:
+      24px; margin-bottom: 15px; } h2 { font-size: 24px; margin-bottom: 20px;
+      color: #ffffff; font-weight: 600; text-align: center; } p { margin: 16px
+      0; color: #ffffff; font-size: 16px; } .course-card { background: #1D1D1F;
+      border: 2px solid #FFDE00; border-radius: 12px; padding: 25px; margin:
+      30px 0; position: relative; overflow: hidden; } .course-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #FFDE00 0%, #FFE433 100%); }
+      .course-thumbnail { width: 100%; height: 200px; background: #797979;
+      border-radius: 8px; margin-bottom: 20px; display: flex; align-items:
+      center; justify-content: center; font-size: 48px; color: #FFDE00;
+      background-image: linear-gradient(135deg, #1D1D1F 0%, #242424 100%);
+      border: 1px solid #797979; } .course-title { font-size: 20px; font-weight:
+      700; color: #FFDE00; margin-bottom: 10px; } .course-details { display:
+      flex; justify-content: space-between; align-items: center; margin-top:
+      15px; padding-top: 15px; border-top: 1px solid #797979; } .course-level {
+      background: #FFDE00; color: #1D1D1F; padding: 4px 12px; border-radius:
+      20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+      .course-price { font-size: 24px; font-weight: 700; color: #22C55E; }
+      .order-summary { background: #1D1D1F; padding: 25px; border-radius: 8px;
+      margin: 25px 0; border: 1px solid #797979; } .order-summary h3 { color:
+      #FFDE00; font-size: 18px; margin-bottom: 15px; font-weight: 600; }
+      .order-row { display: flex; justify-content: space-between; margin: 10px
+      0; padding: 8px 0; color: #ffffff; } .order-row.total { border-top: 1px
+      solid #797979; padding-top: 15px; margin-top: 15px; font-weight: 700;
+      font-size: 18px; color: #FFDE00; } .cta-button { display: block; width:
+      100%; background: #FFDE00; color: #1D1D1F; padding: 16px 24px; text-align:
+      center; text-decoration: none; border-radius: 8px; font-weight: 700;
+      font-size: 16px; margin: 30px 0; transition: background-color 0.3s ease; }
+      .cta-button:hover { background: #FFE433; color: #1D1D1F; } .next-steps {
+      background: #1D1D1F; padding: 25px; border-radius: 8px; margin: 25px 0;
+      border-left: 4px solid #FFDE00; } .next-steps h3 { color: #FFDE00;
+      font-size: 18px; margin-bottom: 15px; font-weight: 600; } .next-steps ul {
+      margin: 0; padding-left: 20px; color: #ffffff; } .next-steps li { margin:
+      8px 0; font-size: 15px; } .certificate-badge { background: rgba(255, 222,
+      0, 0.1); border: 1px solid rgba(255, 222, 0, 0.3); padding: 20px;
+      border-radius: 8px; margin: 25px 0; text-align: center; }
+      .certificate-badge p { color: #FFDE00; font-size: 16px; margin: 0;
+      font-weight: 600; } .certificate-badge .icon { font-size: 32px;
+      margin-bottom: 10px; display: block; } .support-section { background:
+      rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding:
+      20px; border-radius: 8px; margin: 25px 0; } .support-section p { color:
+      #22C55E; font-size: 14px; margin: 5px 0; text-align: center; } .footer {
+      margin-top: 40px; text-align: center; font-size: 14px; color: #797979;
+      border-top: 1px solid #1D1D1F; padding-top: 20px; } .company { color:
+      #FFDE00; text-decoration: none; font-weight: 600; } .company:hover {
+      color: #FFE433; } .highlight { color: #FFDE00; font-weight: 600; }
+      .social-links { margin: 20px 0; text-align: center; } .social-links a {
+      color: #797979; text-decoration: none; margin: 0 10px; font-size: 12px;
+      text-transform: uppercase; letter-spacing: 1px; } .social-links a:hover {
+      color: #FFDE00; } @media (max-width: 600px) { .email-container { margin:
+      10px; padding: 20px 15px; } .course-details { flex-direction: column; gap:
+      10px; align-items: flex-start; } .order-row { font-size: 14px; } }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="logo">
+        <h1>Nexora LMS</h1>
+      </div>
+
+      <div class="success-icon">
+        <span>✓</span>
+      </div>
+
+      <h2> Course Purchase Successful!</h2>
+
+      <p>Hi <span class="highlight">{{userName}}</span>,</p>
+
+      <p>
+        Congratulations! Your course purchase has been completed successfully.
+        You now have lifetime access to your new course and can start learning
+        immediately.
+      </p>
+
+      <div class="course-card">
+        <div class="course-title">{{courseTitle}}</div>
+        <p style="color: #797979; margin: 10px 0;">{{courseDescription}}</p>
+        <div class="course-details">
+          <span class="course-price">${{courseFinalPrice}}</span>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h3> Order Summary</h3>
+        <div class="order-row">
+          <span>Order ID:</span>
+          <span><strong>{{orderId}}</strong></span>
+        </div>
+        <div class="order-row">
+          <span>Purchase Date:</span>
+          <span>{{purchaseDate}}</span>
+        </div>
+        <div class="order-row">
+          <span>Course Price:</span>
+          <span>${{courseOriginalPrice}}</span>
+        </div>
+        {{#if discount}}
+          <div class="order-row" style="color: #22C55E;">
+            <span>Discount ({{discount}}%):</span>
+          </div>
+        {{/if}}
+        <div class="order-row total">
+          <span>Total Paid:</span>
+          <span>${{courseFinalPrice}}</span>
+        </div>
+      </div>
+
+      <a href="{{courseUrl}}" class="cta-button">
+        Start Learning Now
+      </a>
+
+      <div class="next-steps">
+        <h3> What's Next?</h3>
+        <ul>
+          <li>Access your course anytime from your
+            <strong>My Courses</strong>
+            dashboard</li>
+          <li>Download course materials and resources</li>
+          <li>Join our community discussion forums</li>
+          <li>Track your progress and earn completion certificates</li>
+          <li>Get lifetime updates and new content additions</li>
+        </ul>
+      </div>
+
+      <div class="certificate-badge">
+        <span class="icon">🏆</span>
+        <p>Complete the course to earn your professional certificate!</p>
+      </div>
+
+      <div class="support-section">
+        <p><strong>Need Help Getting Started?</strong></p>
+        <p>Our support team is available 24/7 to help you with any questions.</p>
+        <p>Email: support@nexoralms.com | Live Chat: Available in your dashboard</p>
+      </div>
+
+      <p>
+        Thank you for choosing Nexora LMS for your learning journey. We're
+        excited to see you grow and succeed!
+      </p>
+
+      <div class="footer">
+        <p>&copy;
+          {{year}}
+          <a href="{{companyUrl}}" class="company">Nexora LMS</a>. All rights
+          reserved.</p>
+        <p>Building the future of learning, one course at a time.</p>
+
+      </div>
+    </div>
+  </body>
+</html>
