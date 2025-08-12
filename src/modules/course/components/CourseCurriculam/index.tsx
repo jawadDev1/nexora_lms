@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import { ChevronDown, Play, Lock, Clock } from "lucide-react";
 import { ICourseData } from "../../types";
@@ -37,12 +37,7 @@ const CourseCurriculum = ({
 
   const isAccessible = (index: number) => {
     return isEnrolled || index === 0;
-    // return isEnrolled || section.is_free || index === 0;
   };
-
-  const completedSections = Math.floor(
-    (userProgress / 100) * courseData.length
-  );
 
   return (
     <div className="bg-bg">
@@ -60,19 +55,6 @@ const CourseCurriculum = ({
               )}{" "}
               minutes total
             </span>
-            {isEnrolled && (
-              <div className="flex items-center space-x-2">
-                <div className="w-32 bg-gray-700 rounded-full h-2">
-                  <div
-                    className="bg-primary h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${userProgress}%` }}
-                  />
-                </div>
-                <span className="text-primary font-semibold">
-                  {userProgress}% complete
-                </span>
-              </div>
-            )}
           </div>
         </div>
 
@@ -80,7 +62,6 @@ const CourseCurriculum = ({
           {courseData.map((section, index) => {
             const accessible = isAccessible(index);
             const isExpanded = expandedSections.has(section.id);
-            const isCompleted = isEnrolled && index < completedSections;
 
             return (
               <div
@@ -103,15 +84,10 @@ const CourseCurriculum = ({
                     <div className="flex items-center space-x-3">
                       {accessible ? (
                         <div
-                          className={`p-2 rounded-full ${
-                            isCompleted ? "bg-green-600" : "bg-primary"
-                          }`}
+                          className={`p-2 rounded-full bg-primary 
+                          `}
                         >
-                          <Play
-                            className={`w-4 h-4 ${
-                              isCompleted ? "text-white" : "text-black"
-                            }`}
-                          />
+                          <Play className={`w-4 h-4 text-black `} />
                         </div>
                       ) : (
                         <div className="p-2 rounded-full bg-gray-600">
@@ -126,20 +102,10 @@ const CourseCurriculum = ({
                           }`}
                         >
                           {section.video_title}
-                          {/* {section.is_free && ( */}
-                            <span className="ml-2 bg-green-600 text-white px-2 py-1 rounded text-xs">
-                              FREE
-                            </span>
-                          {/* )} */}
                         </h3>
                         <div className="flex items-center space-x-2 text-sm text-light-gray">
                           <Clock className="w-3 h-3" />
                           <span>{formatDuration(section.video_length)}</span>
-                          {isCompleted && (
-                            <span className="text-green-500 text-xs">
-                              ✓ Completed
-                            </span>
-                          )}
                         </div>
                       </div>
                     </div>

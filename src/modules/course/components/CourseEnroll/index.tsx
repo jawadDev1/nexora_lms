@@ -2,14 +2,21 @@
 import React, { useState } from "react";
 import CheckoutFormModal from "../CheckoutFormModal";
 import StripeProvider from "../../providers/StripeProvider";
+import Link from "next/link";
 
 interface CourseEnrollProps {
   isEnrolled: boolean;
   courseId: string;
   amount: number;
+  slug: string;
 }
 
-const CourseEnroll = ({ isEnrolled, courseId, amount }: CourseEnrollProps) => {
+const CourseEnroll = ({
+  isEnrolled,
+  courseId,
+  amount,
+  slug,
+}: CourseEnrollProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);
@@ -25,16 +32,25 @@ const CourseEnroll = ({ isEnrolled, courseId, amount }: CourseEnrollProps) => {
           />
         </StripeProvider>
       )}
-      <button
-        onClick={toggleModal}
-        className={`w-full py-3 px-4 rounded-lg font-semibold text-lg transition-colors ${
-          isEnrolled
-            ? "bg-green-600 text-white hover:bg-green-700"
-            : "bg-primary text-black hover:bg-yellow-400"
-        }`}
-      >
-        {isEnrolled ? "Continue Learning" : "Enroll Now"}
-      </button>
+
+      {!isEnrolled && (
+        <button
+          onClick={toggleModal}
+          className={`w-full py-3 px-4 rounded-lg font-semibold text-lg transition-colors bg-primary text-black hover:bg-yellow-400 `}
+        >
+          Enroll Now
+        </button>
+      )}
+      {isEnrolled && (
+        <Link href={`/course/my-courses/${slug}`}>
+          <button
+            onClick={toggleModal}
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-lg transition-colors bg-green-600 text-white hover:bg-green-700 `}
+          >
+            Continue Learning{" "}
+          </button>
+        </Link>
+      )}
     </>
   );
 };

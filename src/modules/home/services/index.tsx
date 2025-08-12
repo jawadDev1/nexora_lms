@@ -37,8 +37,10 @@ export const getUserHomeCourses = asyncHandler(async () => {
       slug: true,
       level: true,
       thumbnail: true,
-      _count: { select: { course_data: true } },
+      reviews: { select: { rating: true } },
+      _count: { select: { course_data: true, reviews: true } },
     },
+
     orderBy: { created_at: "asc" },
   });
 

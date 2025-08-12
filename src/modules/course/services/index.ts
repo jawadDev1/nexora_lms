@@ -8,7 +8,13 @@ import { ICoursePurchased } from "@/types/email";
 import { calculatePriceAfterDiscount } from "@/utils";
 import { asyncHandler, authAsyncHandler } from "@/utils/asyncHandler";
 import { getServerSession, Session } from "next-auth";
-import { ICreateQuestion, IGetQuestionsReturn, IReplyQuestion } from "../types";
+import {
+  ICourseReviewCreate,
+  ICreateQuestion,
+  IGetQuestionsReturn,
+  IReplyQuestion,
+} from "../types";
+import { Prisma } from "@/lib/prisma-client";
 
 export const getCourseDetails = asyncHandler(
   async ({ slug }: { slug: string }) => {
@@ -101,6 +107,10 @@ export const getUserCourseDetails = authAsyncHandler(
       where: { userId: user.id, courseId: courseDetails.id },
     });
 
+    const isReviewed = await db.review.findFirst({
+      where: { courseId: courseDetails.id, userId: user.id },
+    });
+
     if (!isEnrolled) {
       throw new Error("Unauthorized");
     }
@@ -108,7 +118,10 @@ export const getUserCourseDetails = authAsyncHandler(
     return {
       success: true,
       message: "course details fetched successfully",
-      data: courseDetails,
+      data: {
+        course: courseDetails,
+        isReviewed: !!isReviewed,
+      },
     };
   }
 );
@@ -150,7 +163,10 @@ export const createOrder = authAsyncHandler(
       throw new Error("Invalid request");
     }
 
-    const course = await db.course.findFirst({ where: { id: courseId } });
+    const course = await db.course.update({
+      where: { id: courseId },
+      data: { purchased: { increment: 1 } },
+    });
 
     if (!course) {
       throw new Error("course not found");
@@ -277,3 +293,71 @@ export const replyQuestion = authAsyncHandler(
     };
   }
 );
+
+export const addCourseReview = authAsyncHandler(
+  "User",
+  async ({
+    comment,
+    rating,
+    courseId,
+    user,
+  }: ICourseReviewCreate & { user: Session["user"] }) => {
+    if (!courseId) {
+      throw new Error("Course id is required");
+    }
+
+    await db.review.create({
+      data: { rating, comment, courseId, userId: user.id },
+    });
+
+    return { success: true, message: "review added successfully" };
+  }
+);
+
+export const getCourses = asyncHandler(
+  async ({ category, search }: { category?: string; search?: string }) => {
+    let payload: Prisma.CourseFindManyArgs = {
+      select: {
+        title: true,
+        price: true,
+        discount: true,
+        ratings: true,
+        slug: true,
+        level: true,
+        thumbnail: true,
+        reviews: { select: { rating: true } },
+        _count: { select: { course_data: true } },
+      },
+      orderBy: { created_at: "asc" },
+    };
+
+    if (category) {
+      payload.where = { categoryId: category };
+    }
+
+    if (search) {
+      payload.where = payload.where
+        ? { ...payload.where, title: { contains: search, mode: "insensitive" } }
+        : { title: { contains: search, mode: "insensitive" } };
+    }
+    const courses = await db.course.findMany(payload);
+
+    return {
+      success: true,
+      message: "courses fetched successfully",
+      data: courses,
+    };
+  }
+);
+
+export const getCategories = asyncHandler(async () => {
+  const categories = await db.category.findMany({
+    select: { title: true, id: true },
+  });
+
+  return {
+    success: true,
+    message: "categories fetched successfully",
+    data: categories,
+  };
+});

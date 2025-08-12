@@ -35,6 +35,7 @@ const CoursesSection = async () => {
                 _count,
                 thumbnail,
                 slug,
+                reviews,
               }) => (
                 <CourseCard
                   key={slug}
@@ -46,7 +47,7 @@ const CoursesSection = async () => {
                     imageUrl: thumbnail,
                     level,
                     lectures: _count.course_data,
-                    rating: ratings ?? 0,
+                    reviews: reviews,
                   }}
                 />
               )

@@ -80,7 +80,7 @@ const SectionDetail = ({
         </div>
       </div>
 
-      <div className="w-full mt-10 flex overflow-x-auto justify-between items-center bg-card rounded-xl py-2 px-3">
+      <div className="w-full my-10 flex overflow-x-auto justify-between items-center bg-card rounded-xl py-2 px-3">
         {USER_COURSE_DETAIL_TABS.map((tab) => (
           <Subtitle2
             key={tab}
@@ -97,7 +97,6 @@ const SectionDetail = ({
         ))}
       </div>
 
-      <div className="h-px bg-light-gray/30 mt-5 mb-10" />
 
       <Tab {...props} />
     </section>

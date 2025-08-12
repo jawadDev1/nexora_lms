@@ -13,8 +13,8 @@ const Header = () => {
         </div>
 
         <nav className="flex items-center gap-x-4 flex-1  justify-center">
-          <Link href={"/categories"} className="text-subtitle2">
-            Categories
+          <Link href={"/course"} className="text-subtitle2">
+           Courses 
           </Link>
           <Search />
         </nav>

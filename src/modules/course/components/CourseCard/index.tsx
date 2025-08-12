@@ -1,5 +1,5 @@
 import React from "react";
-import { Star, BookOpen, Signal } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { calculatePriceAfterDiscount } from "@/utils";
 import RenderStars from "../RatingStars";
 import LinkButton from "@/components/ui/buttons/LinkButton";
@@ -8,20 +8,18 @@ import NextImage from "@/components/ui/common/NextImage";
 
 interface CourseCardProps {
   title: string;
-  rating: number;
-  totalRatings?: number;
   lectures: number;
   level: "Beginner" | "Intermediate" | "Advance";
   price: number;
   discount?: number;
   imageUrl: string;
   slug: string;
+  reviews: { rating: number }[];
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
   title,
-  rating,
-  totalRatings = 0,
+  reviews,
   lectures,
   level,
   price,
@@ -32,6 +30,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
   const discountedPrice = discount
     ? calculatePriceAfterDiscount(price, discount)
     : price;
+
+  const totalRatings = reviews.length;
+  const avgRating =
+    reviews.reduce((sum, rat) => sum + rat.rating, 0) / totalRatings;
 
   return (
     <div className="group w-full relative bg-[#242424] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-800 hover:border-[#FFDE00]/30 max-w-sm mx-auto">
@@ -67,12 +69,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
         {/* Rating and Lectures */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <RenderStars rating={rating} />
-            {rating && (
-              <span className="text-[#797979] text-sm">
-                {rating.toFixed(1)} ({totalRatings})
-              </span>
-            )}
+            <RenderStars rating={Math.trunc(avgRating)} />
+            <span className="text-[#797979] text-sm">({totalRatings})</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#797979] text-sm">

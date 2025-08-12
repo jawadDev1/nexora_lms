@@ -1,13 +1,14 @@
 "use server";
 
 import {
+  addCourseReview,
   createOrder,
   createQuestion,
   getContentQuestions,
   processPayment,
   replyQuestion,
 } from "../services";
-import { ICreateQuestion, IGetQuestionsReturn, IReplyQuestion } from "../types";
+import { ICourseReviewCreate, ICreateQuestion, IGetQuestionsReturn, IReplyQuestion } from "../types";
 
 export const PROCESS_PAYMENT = async ({
   amount,
@@ -94,3 +95,18 @@ export const REPLY_QUESTION = async (payload: IReplyQuestion) => {
     return { success: false, message: "Something went wrong", data: null };
   }
 };
+
+
+export const ADD_REVIEW = async (payload: ICourseReviewCreate) => {
+  try {
+    const res = await addCourseReview(payload);
+
+    return res;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { success: false, message: error.message, data: null };
+    }
+    return { success: false, message: "Something went wrong", data: null };
+  }
+};
+

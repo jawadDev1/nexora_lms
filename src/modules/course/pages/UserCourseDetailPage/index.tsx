@@ -7,9 +7,13 @@ import { ICourse } from "../../types";
 
 interface UserCourseDetailPageProps {
   course: ICourse;
+  isReviewd: boolean;
 }
 
-const UserCourseDetailPage = ({ course }: UserCourseDetailPageProps) => {
+const UserCourseDetailPage = ({
+  course,
+  isReviewd,
+}: UserCourseDetailPageProps) => {
   const [currentSectoin, setCurrentSection] = useState<number>(0);
 
   const section_details = course.course_data[currentSectoin];
@@ -27,13 +31,15 @@ const UserCourseDetailPage = ({ course }: UserCourseDetailPageProps) => {
           video_url: section_details.video_url,
           video_link_title: section_details.video_link_title as string,
           vidoe_link_url: section_details.video_link_url as string,
-          sectionId: section_details.id
+          sectionId: section_details.id,
         }}
       />
       <div />
       <SectionsList
         sections={course.course_data}
         handleActiveSection={handleCurrentSection}
+        courseId={course.id as string}
+        isReviewed={isReviewd}
       />
     </main>
   );

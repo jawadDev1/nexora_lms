@@ -40,7 +40,6 @@ const CheckoutFormModal = ({
       redirect: "if_required",
     });
 
-    console.log("error =====+> ", error);
     if (error) {
       notifyError(error.message || "Something went wrong");
       setIsLoading(false);

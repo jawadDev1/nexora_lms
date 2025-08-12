@@ -141,3 +141,22 @@ export interface IReply {
     role?: string;
   } | null;
 }
+
+export interface ICourseReviewCreate {
+  rating: number;
+  comment: string;
+  courseId: string;
+}
+
+
+export interface ICourseWithCountAndReviews {
+  title: string;
+  price: number;
+  discount: number | null;
+  ratings: number | null;
+  slug: string;
+  level: string;
+  thumbnail: string | null;
+  reviews: { rating: number }[];
+  _count: { course_data: number };
+}

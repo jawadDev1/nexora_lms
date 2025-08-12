@@ -20,8 +20,7 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
     0
   );
 
-  //   const totalSections = course.course_data.length;
-  const totalSections = 5;
+  const totalSections = course.course_data.length;
 
   const getLevelColor = (level: ICourseLevel) => {
     switch (level) {
@@ -52,29 +51,6 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
 
               {/* Course Stats */}
               <div className="flex flex-wrap items-center gap-6 text-sm">
-                {/* Rating */}
-                <div className="flex items-center space-x-2">
-                  <div className="flex items-center space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < Math.floor(course.ratings)
-                            ? "text-primary fill-current"
-                            : "text-gray-600"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-white font-semibold">
-                    {course.ratings}
-                  </span>
-                  <span className="text-light-gray">
-                    ({course.reviews.length} reviews)
-                  </span>
-                </div>
-
-                {/* Students */}
                 <div className="flex items-center space-x-2 text-light-gray">
                   <Users className="w-4 h-4" />
                   <span>{course.purchased || 0} students</span>
@@ -135,6 +111,7 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                     amount={discountedPrice}
                     courseId={course.id as string}
                     isEnrolled={isEnrolled}
+                    slug={course.slug}
                   />
 
                   {/* Course Includes */}

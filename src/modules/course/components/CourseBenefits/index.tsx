@@ -80,24 +80,6 @@ const CourseBenefitsPrerequisites = ({
           </div>
         </div>
 
-        {/* Additional Info Section */}
-        <div className="mt-8 bg-dark-brown rounded-lg p-6 border border-gray-700">
-          <div className="text-center">
-            <h3 className="text-white font-bold text-lg mb-3">
-              Ready to Start Your Learning Journey?
-            </h3>
-            <p className="text-light-gray mb-4">
-              Join thousands of students who have already transformed their
-              skills with this course.
-            </p>
-            <div className="flex justify-center space-x-4">
-              <button className="bg-primary text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
-                Enroll Now
-              </button>
-             
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

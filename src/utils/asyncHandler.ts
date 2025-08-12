@@ -41,7 +41,7 @@ export function authAsyncHandler<TArgs extends any[], TResult>(
       return await fn({ ...args, user: session.user });
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error:", error.message);
+        console.log("Error:", error.message);
         throw new Error(error.message);
       }
 
