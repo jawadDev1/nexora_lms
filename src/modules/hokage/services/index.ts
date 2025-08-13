@@ -6,7 +6,6 @@ import {
   ICourseDataBody,
   IHokageCourseDetailReturn,
   IHokageCourseReturn,
-  IUpdateCourseBody,
 } from "../types";
 import { generateRandomString, generateSlug } from "@/utils";
 import { db } from "@/lib/db";
@@ -377,3 +376,29 @@ export const updateNotificationStatus = authAsyncHandler(
     return { success: true, message: "notification is updated successfully" };
   }
 );
+
+export const getHokageOrders = authAsyncHandler("Admin", async () => {
+  const orders = await db.order.findMany({
+    select: {
+      id: true,
+      created_at: true,
+      Course: { select: { title: true, price: true, discount: true } },
+      User: { select: { name: true, email: true } },
+    },
+  });
+
+  const modifiedOrders = orders.map((order) => ({
+    id: order.id,
+    title: order.Course.title,
+    price: order.Course.price,
+    discount: order.Course.discount,
+    email: order.User.email,
+    created_at: order.created_at,
+  }));
+
+  return {
+    success: true,
+    message: "orders fetched successfully",
+    data: modifiedOrders,
+  };
+});

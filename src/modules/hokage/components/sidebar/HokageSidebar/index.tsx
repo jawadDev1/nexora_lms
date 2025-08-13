@@ -10,22 +10,22 @@ import { usePathname } from "next/navigation";
 const HokageSidebar = () => {
   const pathname = usePathname();
   return (
-    <aside className="bg-card py-5 md:py-10 px-5 h-screen overflow-y-auto">
+    <aside className="bg-card py-5 md:py-10 px-1  lg:px-5 lg:h-screen overflow-y-auto sticky top-10 rounded lg:rounded-none lg:static h-fit">
       <HokageBadge />
 
-      <div className="mt-5 flex flex-col gap-y-2">
+      <div className="mt-5 flex flex-col gap-y-6  items-center lg:items-start lg:gap-y-2">
         <SidebarItem
           isActive={pathname === '/hokage'}
           href="/hokage"
           className="flex items-center gap-x-2"
         >
           <BiHome size={20} />
-          <Subtitle2>Dashboard</Subtitle2>
+          <Subtitle2 className="hidden lg:block">Dashboard</Subtitle2>
         </SidebarItem>
 
         {HOKAGE_SIBAR_MENU.map((item) => (
           <React.Fragment key={item.group}>
-            <Subtitle2 className="!font-medium px-3 rounded bg-primary/5 mt-3">
+            <Subtitle2 className="!font-medium hidden lg:block px-3 rounded bg-primary/5 mt-3">
               {item.group}
             </Subtitle2>
             {item.children.map(({ href, title, Icon }) => (
@@ -36,7 +36,7 @@ const HokageSidebar = () => {
                 className="flex items-center gap-x-2"
               >
                 <Icon size={20} />
-                <Subtitle2>{title}</Subtitle2>
+                <Subtitle2 className="hidden lg:block" >{title}</Subtitle2>
               </SidebarItem>
             ))}
           </React.Fragment>

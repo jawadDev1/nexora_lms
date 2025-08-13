@@ -20,7 +20,7 @@ const HokageBadge = () => {
   if (!user) return null;
 
   return (
-    <div className="text-center">
+    <div className="text-center hidden lg:block">
       <div className="size-16 mx-auto md:size-24 rounded-full overflow-hidden">
         <NextImage src={user.avatar} />
       </div>

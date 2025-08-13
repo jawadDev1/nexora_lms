@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 
 const HokageLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="grid grid-cols-[15%,2%,1fr]">
+    <main className="grid px-3 lg:px-1 grid-cols-[15%,2%,1fr]">
       <HokageSidebar />
       <div />
       <div className="p-5 max-h-screen overflow-y-auto">

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Logo = ({ className }: { className?: string }) => {
   return (
-    <Link href={"/"} className={cn("w-12", className)}>
+    <Link href={"/"} className={cn("w-8 shrink-0 inline-block lg:w-12", className)}>
       <NextImage src={"/images/logo.png"} className="object-cover" />
     </Link>
   );

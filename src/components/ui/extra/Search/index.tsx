@@ -15,8 +15,8 @@ const Search = () => {
   };
 
   return (
-    <form className="w-full max-w-[622px]" onSubmit={handleSearch}>
-      <div className="relative  w-full border border-light-gray rounded px-2 py-1 grid grid-cols-[95%,5%]">
+    <form className="w-full max-w-[250px] lg:max-w-[622px]" onSubmit={handleSearch}>
+      <div className="relative  w-full border border-light-gray rounded px-2 py-1 grid grid-cols-[85%,15%] lg:grid-cols-[95%,5%]">
         <input
           className="w-full h-full px-1 py-1 outline-none border-none text-sm bg-transparent rounded text-white focus:outline-none"
           placeholder="Search Courses"

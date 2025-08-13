@@ -2,22 +2,26 @@ import { BiVideoPlus } from "react-icons/bi";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { IoMdStats } from "react-icons/io";
 import { AiFillSetting, AiOutlineTeam } from "react-icons/ai";
-import { GiChart } from "react-icons/gi";
-import { BsQuestionCircle } from "react-icons/bs";
+import { GiChart, GiPlagueDoctorProfile } from "react-icons/gi";
+import { BsQuestionCircle, BsShieldLock } from "react-icons/bs";
 import { CgPathExclude, CgScreen } from "react-icons/cg";
 import { FaFileInvoice, FaShapes, FaUsers } from "react-icons/fa";
+import {SiCoursera} from 'react-icons/si'
 
 export const PROFILE_SIDEBAR_MENU = [
   {
     title: "Profile",
+    Icon: GiPlagueDoctorProfile,
     slug: "/profile/info",
   },
   {
     title: "Change Password",
+    Icon: BsShieldLock,
     slug: "/profile/change-password",
   },
   {
     title: "Courses",
+    Icon: SiCoursera, 
     slug: "/profile/courses",
   },
 ];

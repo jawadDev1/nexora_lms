@@ -17,8 +17,8 @@ const SidebarItem = ({
 }: SidebarItemProps) => {
   return (
     <Link
-      className={cn("py-1 px-3 hover:bg-gold-fade ", className, {
-        "bg-gold-fade": isActive,
+      className={cn("lg:py-1 lg:px-3  hover:bg-gold-fade ", className, {
+        "bg-gold-fade text-primary lg:text-white": isActive,
       })}
       href={href}
     >

@@ -12,7 +12,7 @@ const HeroSection = async () => {
     const { title, subtitle, image } = result?.data;
 
     return (
-        <div className="grid grid-cols-[45%,3%,52%] justify-between items-center py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[45%,3%,52%] justify-between items-center py-8">
             <div>
                 <Subheading>{title}</Subheading>
                 <Content className="mt-2 mb-3">{subtitle}</Content>
@@ -21,7 +21,7 @@ const HeroSection = async () => {
                 </LinkButton>
             </div>
             <div></div>
-            <div className="w-[341px] h-[430px] md:w-[650px] md:h-auto   ">
+            <div className="w-[341px] hidden lg:block h-[430px] md:w-[650px] md:h-auto   ">
                 <NextImage src={image ?? "/images/graduate.png"} />
             </div>
         </div>

@@ -49,7 +49,7 @@ const UserNav = () => {
               setIsModalOpen(true);
             }}
             varient="outline"
-            className="max-w-[200px]"
+            className="max-w-[200px] hidden lg:block"
           >
             Login
           </Button>
@@ -58,7 +58,7 @@ const UserNav = () => {
               handleModal("signup");
               setIsModalOpen(true);
             }}
-            className="max-w-[200px]"
+            className="max-w-fit lg:max-w-[200px]"
           >
             Signup
           </Button>

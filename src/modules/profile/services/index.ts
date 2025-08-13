@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import { comparePassword, hashPassword } from "@/utils/hash";
 
 export const updateProfile = authAsyncHandler(
-  "USER",
+  "User",
   async ({ name, avatar, user }: IProfileBody & { user: Session["user"] }) => {
     const updatedUser = await db.user.update({
       where: { email: user.email! },
@@ -21,7 +21,7 @@ export const updateProfile = authAsyncHandler(
 );
 
 export const updatePassword = authAsyncHandler(
-  "USER",
+  "User",
   async ({
     confirm_password,
     new_password,
@@ -59,5 +59,39 @@ export const updatePassword = authAsyncHandler(
     });
 
     return { success: true, message: "password updated successfully" };
+  }
+);
+
+export const getUserCourses = authAsyncHandler(
+  "User",
+  async ({ user }: { user: Session["user"] }) => {
+    const result = await db.enrollment.findMany({
+      where: { userId: user.id },
+      select: {
+        progress: true,
+        Course: {
+          select: {
+            title: true,
+            price: true,
+            discount: true,
+            ratings: true,
+            slug: true,
+            level: true,
+            thumbnail: true,
+            reviews: { select: { rating: true } },
+            _count: { select: { course_data: true, reviews: true } },
+          },
+        },
+      },
+      orderBy: { joined_at: "desc" },
+    });
+
+    const courses = result.map((course) => course.Course);
+
+    return {
+      success: true,
+      message: "courses fetched successfully",
+      data: courses,
+    };
   }
 );
