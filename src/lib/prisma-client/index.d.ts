@@ -112,14 +112,6 @@ export const PaymentStatus: {
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
-
-export const NotificationStatus: {
-  READ: 'READ',
-  UNREAD: 'UNREAD'
-};
-
-export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]
-
 }
 
 export type Role = $Enums.Role
@@ -137,10 +129,6 @@ export const EnrollmentStatus: typeof $Enums.EnrollmentStatus
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
-
-export type NotificationStatus = $Enums.NotificationStatus
-
-export const NotificationStatus: typeof $Enums.NotificationStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -11719,21 +11707,27 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    status: $Enums.NotificationStatus | null
+    is_read: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type NotificationMaxAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
-    status: $Enums.NotificationStatus | null
+    is_read: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type NotificationCountAggregateOutputType = {
     id: number
     title: number
     description: number
-    status: number
+    is_read: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -11742,21 +11736,27 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    status?: true
+    is_read?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type NotificationMaxAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    status?: true
+    is_read?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type NotificationCountAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    status?: true
+    is_read?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -11836,7 +11836,9 @@ export namespace Prisma {
     id: string
     title: string
     description: string
-    status: $Enums.NotificationStatus
+    is_read: boolean
+    created_at: Date
+    updated_at: Date
     _count: NotificationCountAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
     _max: NotificationMaxAggregateOutputType | null
@@ -11860,31 +11862,39 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    status?: boolean
+    is_read?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     description?: boolean
-    status?: boolean
+    is_read?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     description?: boolean
-    status?: boolean
+    is_read?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectScalar = {
     id?: boolean
     title?: boolean
     description?: boolean
-    status?: boolean
+    is_read?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "is_read" | "created_at" | "updated_at", ExtArgs["result"]["notification"]>
 
   export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Notification"
@@ -11893,7 +11903,9 @@ export namespace Prisma {
       id: string
       title: string
       description: string
-      status: $Enums.NotificationStatus
+      is_read: boolean
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["notification"]>
     composites: {}
   }
@@ -12320,7 +12332,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Notification", 'String'>
     readonly title: FieldRef<"Notification", 'String'>
     readonly description: FieldRef<"Notification", 'String'>
-    readonly status: FieldRef<"Notification", 'NotificationStatus'>
+    readonly is_read: FieldRef<"Notification", 'Boolean'>
+    readonly created_at: FieldRef<"Notification", 'DateTime'>
+    readonly updated_at: FieldRef<"Notification", 'DateTime'>
   }
     
 
@@ -15870,7 +15884,9 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    status: 'status'
+    is_read: 'is_read',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -16053,20 +16069,6 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'NotificationStatus'
-   */
-  export type EnumNotificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'NotificationStatus[]'
-   */
-  export type ListEnumNotificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationStatus[]'>
     
   /**
    * Deep Input Types
@@ -16727,14 +16729,18 @@ export namespace Prisma {
     id?: StringFilter<"Notification"> | string
     title?: StringFilter<"Notification"> | string
     description?: StringFilter<"Notification"> | string
-    status?: EnumNotificationStatusFilter<"Notification"> | $Enums.NotificationStatus
+    is_read?: BoolFilter<"Notification"> | boolean
+    created_at?: DateTimeFilter<"Notification"> | Date | string
+    updated_at?: DateTimeFilter<"Notification"> | Date | string
   }
 
   export type NotificationOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    status?: SortOrder
+    is_read?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -16744,14 +16750,18 @@ export namespace Prisma {
     NOT?: NotificationWhereInput | NotificationWhereInput[]
     title?: StringFilter<"Notification"> | string
     description?: StringFilter<"Notification"> | string
-    status?: EnumNotificationStatusFilter<"Notification"> | $Enums.NotificationStatus
+    is_read?: BoolFilter<"Notification"> | boolean
+    created_at?: DateTimeFilter<"Notification"> | Date | string
+    updated_at?: DateTimeFilter<"Notification"> | Date | string
   }, "id">
 
   export type NotificationOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    status?: SortOrder
+    is_read?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
     _min?: NotificationMinOrderByAggregateInput
@@ -16764,7 +16774,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Notification"> | string
     title?: StringWithAggregatesFilter<"Notification"> | string
     description?: StringWithAggregatesFilter<"Notification"> | string
-    status?: EnumNotificationStatusWithAggregatesFilter<"Notification"> | $Enums.NotificationStatus
+    is_read?: BoolWithAggregatesFilter<"Notification"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
   export type FaqWhereInput = {
@@ -17615,49 +17627,63 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    status: $Enums.NotificationStatus
+    is_read?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type NotificationUncheckedCreateInput = {
     id?: string
     title: string
     description: string
-    status: $Enums.NotificationStatus
+    is_read?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type NotificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    status?: EnumNotificationStatusFieldUpdateOperationsInput | $Enums.NotificationStatus
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    status?: EnumNotificationStatusFieldUpdateOperationsInput | $Enums.NotificationStatus
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateManyInput = {
     id?: string
     title: string
     description: string
-    status: $Enums.NotificationStatus
+    is_read?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type NotificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    status?: EnumNotificationStatusFieldUpdateOperationsInput | $Enums.NotificationStatus
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    status?: EnumNotificationStatusFieldUpdateOperationsInput | $Enums.NotificationStatus
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FaqCreateInput = {
@@ -18572,42 +18598,31 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
-  export type EnumNotificationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.NotificationStatus | EnumNotificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumNotificationStatusFilter<$PrismaModel> | $Enums.NotificationStatus
-  }
-
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    status?: SortOrder
+    is_read?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type NotificationMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    status?: SortOrder
+    is_read?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type NotificationMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    status?: SortOrder
-  }
-
-  export type EnumNotificationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.NotificationStatus | EnumNotificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumNotificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.NotificationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumNotificationStatusFilter<$PrismaModel>
-    _max?: NestedEnumNotificationStatusFilter<$PrismaModel>
+    is_read?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type FaqCountOrderByAggregateInput = {
@@ -19423,10 +19438,6 @@ export namespace Prisma {
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutOrdersInput, CourseUpdateWithoutOrdersInput>, CourseUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type EnumNotificationStatusFieldUpdateOperationsInput = {
-    set?: $Enums.NotificationStatus
-  }
-
   export type CourseCreateNestedManyWithoutCategoryInput = {
     create?: XOR<CourseCreateWithoutCategoryInput, CourseUncheckedCreateWithoutCategoryInput> | CourseCreateWithoutCategoryInput[] | CourseUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: CourseCreateOrConnectWithoutCategoryInput | CourseCreateOrConnectWithoutCategoryInput[]
@@ -19768,23 +19779,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
-  }
-
-  export type NestedEnumNotificationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.NotificationStatus | EnumNotificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumNotificationStatusFilter<$PrismaModel> | $Enums.NotificationStatus
-  }
-
-  export type NestedEnumNotificationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.NotificationStatus | EnumNotificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.NotificationStatus[] | ListEnumNotificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumNotificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.NotificationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumNotificationStatusFilter<$PrismaModel>
-    _max?: NestedEnumNotificationStatusFilter<$PrismaModel>
   }
 
   export type ReviewCreateWithoutUserInput = {

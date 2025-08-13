@@ -122,3 +122,16 @@ export interface IHokageCategoryReturn extends IServiceReturn {
 export interface IHokageFormCategoryReturn extends IServiceReturn {
   data: IHokageFormCategory[] | null;
 }
+
+// ========== Notifications =====================
+export interface INotification {
+  id: string;
+  title: string;
+  description: string;
+  is_read: boolean;
+  created_at: Date;
+}
+
+export interface INotificationReturn extends IServiceReturn {
+  data: INotification[] | null;
+}

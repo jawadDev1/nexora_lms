@@ -109,4 +109,3 @@ export const ADD_REVIEW = async (payload: ICourseReviewCreate) => {
     return { success: false, message: "Something went wrong", data: null };
   }
 };
-

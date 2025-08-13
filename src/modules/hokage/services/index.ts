@@ -12,6 +12,7 @@ import { generateRandomString, generateSlug } from "@/utils";
 import { db } from "@/lib/db";
 import redis from "@/lib/redis";
 import { Session } from "next-auth";
+import server_pusher from "@/lib/server-pusher";
 
 export const createCourse = authAsyncHandler(
   "Admin",
@@ -339,5 +340,40 @@ ORDER BY MIN("created_at");
       message: "course analytics fetched successfully",
       data: formatted,
     };
+  }
+);
+
+export const getNotifications = authAsyncHandler("Admin", async () => {
+  const notifications = await db.notification.findMany({
+    where: { is_read: false },
+    omit: { updated_at: true },
+  });
+
+  return {
+    success: true,
+    message: "notifications fetched successfully",
+    data: notifications,
+  };
+});
+
+// Pusher Notification
+export const pushNotification = asyncHandler(
+  async ({ title, description }: { title: string; description: string }) => {
+    await db.notification.create({ data: { title, description } });
+
+    const pusher = server_pusher;
+
+    await pusher.trigger("notification-channel", "new-notification", {});
+
+    return { success: true, message: "test successful" };
+  }
+);
+
+export const updateNotificationStatus = authAsyncHandler(
+  "Admin",
+  async ({ id }: { id: string }) => {
+    await db.notification.update({ where: { id }, data: { is_read: true } });
+
+    return { success: true, message: "notification is updated successfully" };
   }
 );

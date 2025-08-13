@@ -218,7 +218,9 @@ exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  status: 'status'
+  is_read: 'is_read',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.FaqScalarFieldEnum = {
@@ -279,11 +281,6 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   PENDING: 'PENDING',
   PAID: 'PAID',
   FAILED: 'FAILED'
-};
-
-exports.NotificationStatus = exports.$Enums.NotificationStatus = {
-  READ: 'READ',
-  UNREAD: 'UNREAD'
 };
 
 exports.Prisma.ModelName = {

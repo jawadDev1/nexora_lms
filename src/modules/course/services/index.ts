@@ -1,4 +1,3 @@
-export const runtime = "nodejs";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { NEXT_PUBLIC_APP_URL } from "@/constants";
 import { db } from "@/lib/db";
@@ -15,6 +14,7 @@ import {
   IReplyQuestion,
 } from "../types";
 import { Prisma } from "@/lib/prisma-client";
+import { pushNotification } from "@/modules/hokage/services";
 
 export const getCourseDetails = asyncHandler(
   async ({ slug }: { slug: string }) => {
@@ -209,6 +209,11 @@ export const createOrder = authAsyncHandler(
       context: payload,
       subject: "Course Purchased",
       template: "course-purchased",
+    });
+
+    await pushNotification({
+      title: "New Course Purchased",
+      description: `${course.title} has been purchased by ${user.email}`,
     });
 
     return { success: true, message: "course enrolled successfully" };

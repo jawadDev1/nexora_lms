@@ -44,7 +44,6 @@ const CourseEnroll = ({
       {isEnrolled && (
         <Link href={`/course/my-courses/${slug}`}>
           <button
-            onClick={toggleModal}
             className={`w-full py-3 px-4 rounded-lg font-semibold text-lg transition-colors bg-green-600 text-white hover:bg-green-700 `}
           >
             Continue Learning{" "}
