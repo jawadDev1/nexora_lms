@@ -19,7 +19,7 @@ const ProfileSidebar = () => {
 
   useEffect(() => {
     if (status === "loading") return;
-    if (!user) {
+    if (!user || user.role !== 'User') {
       router.push("/");
     }
   }, [user]);

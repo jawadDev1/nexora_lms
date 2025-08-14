@@ -171,7 +171,7 @@ model Order {
   userId   String
   User     User   @relation(fields: [userId], references: [id], name: "UserOrders")
   courseId String
-  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders")
+  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders", onDelete: Cascade)
 
   @@unique([userId, courseId])
 }

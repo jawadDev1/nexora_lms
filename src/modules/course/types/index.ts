@@ -26,6 +26,7 @@ export interface ICourse {
 export interface ICourseData {
   id: string;
   video_title: string;
+  video_section?: string;
   video_description?: string;
   video_length?: number;
   video_url: string;

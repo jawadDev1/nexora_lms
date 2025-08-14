@@ -1,43 +1,65 @@
 "use client";
 import React, { useState } from "react";
-import { ChevronDown, Play, Lock, Clock } from "lucide-react";
+import { ChevronDown, Play, Lock, Clock, ExternalLink } from "lucide-react";
 import { ICourseData } from "../../types";
 
 interface CourseCurriculumProps {
   courseData: ICourseData[];
   isEnrolled: boolean;
-  userProgress?: number;
 }
 
 const CourseCurriculum = ({
   courseData,
   isEnrolled,
-  userProgress = 0,
 }: CourseCurriculumProps) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set()
   );
 
-  const toggleSection = (sectionId: string) => {
+  const toggleSection = (sectionTitle: string) => {
     const newExpanded = new Set(expandedSections);
-    if (newExpanded.has(sectionId)) {
-      newExpanded.delete(sectionId);
+    if (newExpanded.has(sectionTitle)) {
+      newExpanded.delete(sectionTitle);
     } else {
-      newExpanded.add(sectionId);
+      newExpanded.add(sectionTitle);
     }
     setExpandedSections(newExpanded);
   };
 
-  const formatDuration = (duration: number | undefined) => {
+  const formatDuration = (duration: number) => {
     if (!duration) return "0:00";
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  const isAccessible = (index: number) => {
-    return isEnrolled || index === 0;
+  // Group videos by section
+  const groupedSections = courseData.reduce((acc, video) => {
+    const sectionTitle = video.video_section!;
+    if (!acc[sectionTitle]) {
+      acc[sectionTitle] = [];
+    }
+    acc[sectionTitle].push(video);
+    return acc;
+  }, {} as Record<string, ICourseData[]>);
+
+  const sectionTitles = Object.keys(groupedSections);
+
+  const isVideoAccessible = (sectionIndex: number, videoIndex: number) => {
+    if (sectionIndex === 0 && videoIndex === 0) return true;
+    return isEnrolled;
   };
+
+  const getSectionDuration = (videos: ICourseData[]) => {
+    return videos.reduce((total, video) => total + video.video_length!, 0);
+  };
+
+  const totalSections = sectionTitles.length;
+  const totalVideos = courseData.length;
+  const totalDuration = courseData.reduce(
+    (total, video) => total + video.video_length!,
+    0
+  );
 
   return (
     <div className="bg-bg">
@@ -47,30 +69,27 @@ const CourseCurriculum = ({
             Course Curriculum
           </h2>
           <div className="flex items-center space-x-6 text-light-gray">
-            <span>{courseData.length} sections</span>
-            <span>
-              {courseData.reduce(
-                (total, section) => total + (section.video_length || 0),
-                0
-              )}{" "}
-              minutes total
-            </span>
+            <span>{totalSections} sections</span>
+            <span>{totalVideos} videos</span>
+            <span>{Math.floor(totalDuration / 60)} minutes total</span>
           </div>
         </div>
 
         <div className="space-y-4">
-          {courseData.map((section, index) => {
-            const accessible = isAccessible(index);
-            const isExpanded = expandedSections.has(section.id);
+          {sectionTitles.map((sectionTitle, sectionIndex) => {
+            const videos = groupedSections[sectionTitle];
+            const isExpanded = expandedSections.has(sectionTitle);
+            const sectionDuration = getSectionDuration(videos);
 
             return (
               <div
-                key={section.id}
+                key={sectionTitle}
                 className="bg-card rounded-lg overflow-hidden"
               >
+                {/* Section Header */}
                 <div
                   className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700 transition-colors"
-                  onClick={() => toggleSection(section.id)}
+                  onClick={() => toggleSection(sectionTitle)}
                 >
                   <div className="flex items-center space-x-4 flex-1">
                     <button className="text-light-gray hover:text-white transition-colors">
@@ -81,91 +100,116 @@ const CourseCurriculum = ({
                       />
                     </button>
 
-                    <div className="flex items-center space-x-3">
-                      {accessible ? (
-                        <div
-                          className={`p-2 rounded-full bg-primary 
-                          `}
-                        >
-                          <Play className={`w-4 h-4 text-black `} />
-                        </div>
-                      ) : (
-                        <div className="p-2 rounded-full bg-gray-600">
-                          <Lock className="w-4 h-4 text-light-gray" />
-                        </div>
-                      )}
-
-                      <div>
-                        <h3
-                          className={`font-semibold ${
-                            accessible ? "text-white" : "text-light-gray"
-                          }`}
-                        >
-                          {section.video_title}
-                        </h3>
-                        <div className="flex items-center space-x-2 text-sm text-light-gray">
+                    <div>
+                      <h3 className="font-semibold text-white text-lg">
+                        {sectionTitle}
+                      </h3>
+                      <div className="flex items-center space-x-4 text-sm text-light-gray mt-1">
+                        <span>{videos.length} videos</span>
+                        <div className="flex items-center space-x-1">
                           <Clock className="w-3 h-3" />
-                          <span>{formatDuration(section.video_length)}</span>
+                          <span>{formatDuration(sectionDuration)}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="text-sm text-light-gray">
-                    Lesson {index + 1}
+                    Section {sectionIndex + 1}
                   </div>
                 </div>
 
+                {/* Videos List */}
                 {isExpanded && (
-                  <div className="px-4 pb-4 pl-16">
-                    <div className="border-l-2 border-gray-700 pl-4">
-                      {section.video_description && (
-                        <p className="text-light-gray text-sm mb-3">
-                          {section.video_description}
-                        </p>
-                      )}
+                  <div className="px-4 pb-4 pt-3">
+                    <div className="space-y-3">
+                      {videos.map((video, videoIndex) => {
+                        const accessible = isVideoAccessible(
+                          sectionIndex,
+                          videoIndex
+                        );
 
-                      {!accessible && (
-                        <div className="bg-dark-brown p-3 rounded-lg border border-gray-700">
-                          <p className="text-light-gray text-sm flex items-center space-x-2">
-                            <Lock className="w-4 h-4" />
-                            <span>
-                              Enroll in this course to access this lesson and
-                              all other premium content.
-                            </span>
-                          </p>
-                        </div>
-                      )}
+                        return (
+                          <div
+                            key={`${sectionTitle}-${videoIndex}`}
+                            className="flex items-center justify-between p-3 ml-8 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                          >
+                            <div className="flex items-center space-x-3 flex-1">
+                              {accessible ? (
+                                <div className="p-2 rounded-full bg-primary">
+                                  <Play className="w-4 h-4 text-black" />
+                                </div>
+                              ) : (
+                                <div className="p-2 rounded-full bg-gray-600">
+                                  <Lock className="w-4 h-4 text-light-gray" />
+                                </div>
+                              )}
 
-                      {accessible && section.video_url && (
-                        <button className="text-primary hover:text-yellow-400 text-sm font-semibold transition-colors">
-                          ▶ Start Lesson
-                        </button>
-                      )}
+                              <div className="flex-1">
+                                <h4
+                                  className={`font-medium ${
+                                    accessible
+                                      ? "text-white"
+                                      : "text-light-gray"
+                                  }`}
+                                >
+                                  {video.video_title}
+                                </h4>
+                                {video.video_description && (
+                                  <p className="text-sm text-light-gray mt-1 line-clamp-2">
+                                    {video.video_description}
+                                  </p>
+                                )}
+
+                                {/* External Link */}
+                                {video.video_link_url &&
+                                  video.video_link_title && (
+                                    <a
+                                      href={video.video_link_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center space-x-1 text-primary hover:text-yellow-400 text-sm mt-2 transition-colors"
+                                    >
+                                      <ExternalLink className="w-3 h-3" />
+                                      <span>{video.video_link_title}</span>
+                                    </a>
+                                  )}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center space-x-4">
+                              <div className="flex items-center space-x-1 text-sm text-light-gray">
+                                <Clock className="w-3 h-3" />
+                                <span>
+                                  {formatDuration(video.video_length!)}
+                                </span>
+                              </div>
+
+                              
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
+
+                    {/* Section Lock Message */}
+                    {!isEnrolled && sectionIndex > 0 && (
+                      <div className="mt-4 ml-8 bg-dark-brown p-3 rounded-lg border border-gray-700">
+                        <p className="text-light-gray text-sm flex items-center space-x-2">
+                          <Lock className="w-4 h-4" />
+                          <span>
+                            Enroll in this course to access all videos in this
+                            section.
+                          </span>
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
             );
           })}
         </div>
-
-        {!isEnrolled && (
-          <div className="mt-8 bg-dark-brown p-6 rounded-lg border border-gray-700">
-            <div className="text-center">
-              <h3 className="text-white font-semibold text-lg mb-2">
-                Unlock Full Course Access
-              </h3>
-              <p className="text-light-gray mb-4">
-                Get access to all {courseData.length} lessons and premium
-                features
-              </p>
-              <button className="bg-primary text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
-                Enroll Now
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

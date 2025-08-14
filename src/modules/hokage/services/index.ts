@@ -72,19 +72,33 @@ export const updateCourse = authAsyncHandler(
     });
 
     // Batch update each courseData item
-    const courseDataUpdates = course_data.map((data) =>
-      db.courseData.update({
-        where: { id: data.id }, // make sure `data.id` exists
-        data: {
-          video_title: data.video_title,
-          video_description: data.video_description,
-          video_url: data.video_url,
-          video_section: data.video_section,
-          video_link_title: data.video_link_title,
-          video_link_url: data.video_link_url,
-        },
-      })
-    );
+    const courseDataUpdates = course_data.map((data) => {
+      if (data?.id) {
+        return db.courseData.update({
+          where: { id: data.id },
+          data: {
+            video_title: data.video_title,
+            video_description: data.video_description,
+            video_url: data.video_url,
+            video_section: data.video_section,
+            video_link_title: data.video_link_title,
+            video_link_url: data.video_link_url,
+          },
+        });
+      } else {
+        return db.courseData.create({
+          data: {
+            video_title: data.video_title,
+            video_description: data.video_description,
+            video_url: data.video_url,
+            video_section: data.video_section,
+            video_link_title: data.video_link_title,
+            video_link_url: data.video_link_url,
+            courseId: id,
+          },
+        });
+      }
+    });
 
     await db.$transaction(courseDataUpdates); // safely run all updates together
 
@@ -246,7 +260,7 @@ export const deleteCourse = authAsyncHandler(
 
     await redis.del("hokage_courses");
 
-    return { success: true, message: "user deleted successfully" };
+    return { success: true, message: "course deleted successfully" };
   }
 );
 

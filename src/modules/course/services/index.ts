@@ -30,6 +30,7 @@ export const getCourseDetails = asyncHandler(
             video_url: true,
             video_link_title: true,
             video_link_url: true,
+            video_section: true,
           },
         },
         Category: { select: { title: true } },

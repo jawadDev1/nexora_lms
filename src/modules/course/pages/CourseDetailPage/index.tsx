@@ -8,7 +8,6 @@ import CourseReviews from "../../components/CourseReviews";
 const CourseDetailPage = ({
   course,
   isEnrolled,
-  userProgress = 0,
 }: ICourseDetailPageProps) => {
   return (
     <>
@@ -19,7 +18,6 @@ const CourseDetailPage = ({
           <CourseCurriculum
             courseData={course.course_data}
             isEnrolled={isEnrolled}
-            userProgress={userProgress}
           />
         </section>
 

@@ -77,7 +77,6 @@ model CourseData {
   video_title       String
   video_description String
   video_url         String
-  // video_thumbnail String
   video_section     String
   video_length      Int        @default(0)
   video_link_title  String?
@@ -171,7 +170,7 @@ model Order {
   userId   String
   User     User   @relation(fields: [userId], references: [id], name: "UserOrders")
   courseId String
-  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders")
+  Course   Course @relation(fields: [courseId], references: [id], name: "CourseOrders", onDelete: Cascade)
 
   @@unique([userId, courseId])
 }

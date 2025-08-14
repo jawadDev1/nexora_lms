@@ -16,7 +16,7 @@ const HeroSection = async () => {
             <div>
                 <Subheading>{title}</Subheading>
                 <Content className="mt-2 mb-3">{subtitle}</Content>
-                <LinkButton className="max-w-[300px]" href="/courses">
+                <LinkButton className="max-w-[300px]" href="/course">
                     Start your journey
                 </LinkButton>
             </div>
