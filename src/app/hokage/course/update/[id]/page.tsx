@@ -3,7 +3,7 @@ import { getHokageCourseDetails } from "@/modules/hokage/services";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const HokageCourseUpdate = async ({ params }: { params: { id: string } }) => {
+const HokageCourseUpdate = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   const result = await getHokageCourseDetails({ courseId: id });

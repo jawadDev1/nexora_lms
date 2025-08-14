@@ -22,7 +22,6 @@ type InputWithLabelProps<TFieldValues extends FieldValues> = {
   required: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-// const previewAavatar = "/images/avatar-preview.png";
 
 const FileInputWithPreview = <TFieldValues extends FieldValues>({
   className,

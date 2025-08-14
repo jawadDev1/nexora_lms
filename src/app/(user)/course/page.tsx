@@ -2,7 +2,7 @@ import CoursesPage from "@/modules/course/pages/CoursesPage";
 import React from "react";
 
 interface CoursesProps {
-  searchParams: { category?: string; search?: string };
+  searchParams: Promise<{ category?: string; search?: string }>;
 }
 
 const Courses = async ({ searchParams }: CoursesProps) => {

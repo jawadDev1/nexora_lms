@@ -25,7 +25,6 @@ const DragDropImageInput = <TFieldValues extends FieldValues>({
   const [preview, setPreview] = useState<string | null>(defaultPreview ?? null);
   const [isDragging, setIsDragging] = useState(false);
 
-  console.log("Preview =======> ", defaultPreview)
   const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     setIsDragging(false);

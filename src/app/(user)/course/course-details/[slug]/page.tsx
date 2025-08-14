@@ -3,7 +3,11 @@ import { getCourseDetails } from "@/modules/course/services";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const CourseDetail = async ({ params }: { params: { slug: string } }) => {
+const CourseDetail = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
   const result = await getCourseDetails({ slug });
 
@@ -11,7 +15,7 @@ const CourseDetail = async ({ params }: { params: { slug: string } }) => {
     return notFound();
   }
 
-  const { discount, ratings, purchased,isEnrolled, ...course } = result.data;
+  const { discount, ratings, purchased, isEnrolled, ...course } = result.data;
   return (
     <>
       <CourseDetailPage
