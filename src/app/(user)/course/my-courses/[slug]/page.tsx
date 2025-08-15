@@ -3,9 +3,13 @@ import { getUserCourseDetails } from "@/modules/course/services";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const UserCourseDetail = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const UserCourseDetail = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
-  const result = await getUserCourseDetails({ slug });
+  const result = await getUserCourseDetails({ slug: decodeURIComponent(slug) });
 
   if (!result.success || !result.data) {
     return notFound();

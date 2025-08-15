@@ -8,7 +8,6 @@ const HomeHero = async () => {
 
     if (!result.success || !result.data) {
         notFound();
-        return;
     }
 
     return <HomeHeroPage data={result?.data} />;

@@ -45,10 +45,6 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                 {course.title}
               </h1>
 
-              <p className="text-light-gray text-lg leading-relaxed">
-                {course.description}
-              </p>
-
               {/* Course Stats */}
               <div className="flex flex-wrap items-center gap-6 text-sm">
                 <div className="flex items-center space-x-2 text-light-gray">
@@ -77,6 +73,9 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                 {/* Sections */}
                 <div className="text-light-gray">{totalSections} sections</div>
               </div>
+              <p className="text-light-gray text-lg leading-relaxed">
+                {course.description}
+              </p>
             </div>
 
             {/* Course Card */}

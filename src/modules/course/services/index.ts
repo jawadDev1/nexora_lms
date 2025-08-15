@@ -47,7 +47,7 @@ export const getCourseDetails = asyncHandler(
     });
 
     if (!courseDetails) {
-      throw new Error("Course not found");
+      return { success: false, message: "course not found", data: null };
     }
 
     let isEnrolled = false;
@@ -80,6 +80,7 @@ export const getUserCourseDetails = authAsyncHandler(
           select: {
             id: true,
             video_length: true,
+            video_section: true,
             video_title: true,
             video_description: true,
             video_url: true,
@@ -101,7 +102,7 @@ export const getUserCourseDetails = authAsyncHandler(
     });
 
     if (!courseDetails) {
-      throw new Error("Course not found");
+      return { success: false, message: "course not found", data: null };
     }
 
     const isEnrolled = await db.enrollment.findFirst({
@@ -113,7 +114,7 @@ export const getUserCourseDetails = authAsyncHandler(
     });
 
     if (!isEnrolled) {
-      throw new Error("Unauthorized");
+      return { success: false, message: "Unauthorized", data: null };
     }
 
     return {

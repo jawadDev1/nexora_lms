@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import SectionDetail from "../../components/UserCourse/SectionDetail";
 import SectionsList from "../../components/UserCourse/SectionsList";
@@ -19,6 +18,7 @@ const UserCourseDetailPage = ({
   const section_details = course.course_data[currentSectoin];
 
   const handleCurrentSection = (index: number) => {
+    if (index < 0 || index >= course.course_data.length) return;
     setCurrentSection(index);
   };
 
@@ -32,10 +32,13 @@ const UserCourseDetailPage = ({
           video_link_title: section_details.video_link_title as string,
           vidoe_link_url: section_details.video_link_url as string,
           sectionId: section_details.id,
+          currentSection: currentSectoin,
+          handleCurrentSection,
         }}
       />
       <div />
       <SectionsList
+        currentVideoIndex={currentSectoin}
         sections={course.course_data}
         handleActiveSection={handleCurrentSection}
         courseId={course.id as string}

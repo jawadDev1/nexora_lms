@@ -52,6 +52,7 @@ const CoursePreviewSection = () => {
       return data;
     }, []);
 
+
     if (isUpdate) {
       result = await UPDATE_COURSE({
         id: isUpdate,
@@ -78,7 +79,7 @@ const CoursePreviewSection = () => {
 
   return (
     <div className="bg-card px-5 py-6 rounded-xl">
-      <div className="max-h-[20vh]">
+      <div className="h-[50vh]">
         <VideoPlayer videoUrl={demo_url ?? ""} />
       </div>
       <div className="mt-5 flex flex-col gap-y-4">
@@ -101,7 +102,7 @@ const CoursePreviewSection = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-5">
         <Button
           onClick={handlePrevious}
           type="button"

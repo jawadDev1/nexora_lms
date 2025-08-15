@@ -15,6 +15,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { faq_schema, FaqFormData } from "@/schemas/faq.schema";
 import ToggleSwitch from "@/components/form/formFields/ToggleSwitch";
 import { ADD_FAQ, UPDATE_FAQ } from "@/modules/hokage/actions/faq.actions";
+import TextareaWithLabel from "@/components/form/formFields/TextareaWithLabel";
 
 const initialValues = {
     question: "",
@@ -39,6 +40,7 @@ const FaqFormModal = ({
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
     } = useForm<FaqFormData>({
         resolver: zodResolver(faq_schema),
@@ -63,6 +65,7 @@ const FaqFormModal = ({
 
         notifySuccess(result.message);
         handleCloseModal();
+        reset();
     };
 
     return (
@@ -94,7 +97,7 @@ const FaqFormModal = ({
                 </div>
 
                 <div>
-                    <InputWithLabel
+                    <TextareaWithLabel
                         type="text"
                         placeholder="who knows"
                         label="Answer"

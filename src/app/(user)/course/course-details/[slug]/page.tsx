@@ -9,7 +9,7 @@ const CourseDetail = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const result = await getCourseDetails({ slug });
+  const result = await getCourseDetails({ slug: decodeURIComponent(slug) });
 
   if (!result.success || !result.data) {
     return notFound();

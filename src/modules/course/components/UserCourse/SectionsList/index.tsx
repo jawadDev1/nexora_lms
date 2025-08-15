@@ -15,6 +15,7 @@ interface SectionsListProps {
   handleActiveSection: (index: number) => void;
   courseId: string;
   isReviewed: boolean;
+  currentVideoIndex: number
 }
 
 const SectionsList = ({
@@ -22,6 +23,7 @@ const SectionsList = ({
   sections,
   isReviewed,
   handleActiveSection,
+  currentVideoIndex
 }: SectionsListProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isCourseReviewed, setIsCourseReviewed] = useState(isReviewed);
@@ -51,11 +53,11 @@ const SectionsList = ({
           />
         </div>
         <div
-          className={cn("h-0 overflow-hidden mt-3", {
+          className={cn("h-0 space-y-3 overflow-hidden mt-3", {
             "h-fit": isOpen,
           })}
         >
-          <div className="my-3 h-px w-full bg-light-gray/20" />
+          <div className="my-3 h-px w-full bg-light-gray/20 " />
           {sections &&
             sections.length > 0 &&
             sections.map((section, index) => (
@@ -66,7 +68,7 @@ const SectionsList = ({
               >
                 <CgScreen size={20} className="text-primary" />
                 <div>
-                  <CardTitle className="hover:text-primary">
+                  <CardTitle className={cn("hover:text-primary", {"text-primary": currentVideoIndex === index})}>
                     {section.video_title}
                   </CardTitle>
                   <Content>

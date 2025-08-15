@@ -16,6 +16,8 @@ interface SectionDetailProps {
   video_link_title: string;
   vidoe_link_url: string;
   sectionId: string;
+  handleCurrentSection: (index: number) => void;
+  currentSection: number;
 }
 
 export type ITabs = "Overview" | "Resources" | "Q&A";
@@ -51,6 +53,8 @@ const SectionDetail = ({
   video_link_title,
   vidoe_link_url,
   sectionId,
+  handleCurrentSection,
+  currentSection,
 }: SectionDetailProps) => {
   const [currentTab, setCurrentTab] = useState<ITabs>("Overview");
 
@@ -75,8 +79,18 @@ const SectionDetail = ({
           <VideoPlayer className="h-[50vh]" videoUrl={video_url} />
         </div>
         <div className="flex justify-between mt-8 items-center">
-          <Button className="max-w-[200px]">Previous</Button>
-          <Button className="max-w-[200px]">Next</Button>
+          <Button
+            onClick={() => handleCurrentSection(currentSection - 1)}
+            className="max-w-[200px]"
+          >
+            Previous
+          </Button>
+          <Button
+            onClick={() => handleCurrentSection(currentSection + 1)}
+            className="max-w-[200px]"
+          >
+            Next
+          </Button>
         </div>
       </div>
 
@@ -96,7 +110,6 @@ const SectionDetail = ({
           </Subtitle2>
         ))}
       </div>
-
 
       <Tab {...props} />
     </section>
