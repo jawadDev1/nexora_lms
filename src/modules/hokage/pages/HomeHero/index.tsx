@@ -1,7 +1,6 @@
 "use client";
 import DragDropImageInput from "@/components/form/formFields/DragDropImageInput";
 import InputWithLabel from "@/components/form/formFields/InputWithLabel";
-import Button from "@/components/ui/buttons/Button";
 import { hero_schem, HeroFormData } from "@/schemas/hero.schema";
 import { uploadImageToAppwrite } from "@/utils/uploadFile";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,5 +1,5 @@
 import { IHomeHeroBody } from "@/modules/hokage/types/home.types";
-import { IHomeHeroReturn } from "../types";
+import { IHomeCourse, IHomeHeroReturn } from "../types";
 import redis from "@/lib/redis";
 import { db } from "@/lib/db";
 import { asyncHandler } from "@/utils/asyncHandler";
@@ -26,7 +26,18 @@ export const getUserHomeHero = async (): IHomeHeroReturn => {
   };
 };
 
+
 export const getUserHomeCourses = asyncHandler(async () => {
+  const cached: IHomeCourse[] | null = await redis.get("home_courses");
+
+  if (cached) {
+    return {
+      success: true,
+      message: "courses fetched successfully",
+      data: cached,
+    };
+  }
+
   const courses = await db.course.findMany({
     take: 7,
     select: {
@@ -41,8 +52,10 @@ export const getUserHomeCourses = asyncHandler(async () => {
       _count: { select: { course_data: true, reviews: true } },
     },
 
-    orderBy: { created_at: "asc" },
+    orderBy: { created_at: "desc" },
   });
+
+  await redis.set("home_courses", JSON.stringify(courses));
 
   return {
     success: true,

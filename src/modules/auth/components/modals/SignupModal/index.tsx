@@ -12,6 +12,7 @@ import { IAuthModals } from "@/modules/auth/UserNav";
 import { uploadImageToAppwrite } from "@/utils/uploadFile";
 import { SIGNUP } from "@/modules/auth/actions";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import SocialLogin from "../../SocialLogin";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -50,11 +51,11 @@ const SignupModal = ({
     }
 
     notifySuccess(result.message);
-    handleModal('verify');
+    handleModal("verify");
   };
 
   return (
-    <ModalWrapper isOpen={isOpen} className="py-5 relative md:py-8 px-5 ">
+    <ModalWrapper isOpen={isOpen} className="py-5 relative md:py-8 px-5 lg:max-h-[700px] ">
       <span
         onClick={handleCloseModal}
         className="absolute cursor-pointer right-7 top-8"
@@ -128,6 +129,9 @@ const SignupModal = ({
             Login
           </span>
         </p>
+        <div className="flex justify-center gap-3 items-center mt-5">
+          <SocialLogin/>
+        </div>
       </div>
     </ModalWrapper>
   );

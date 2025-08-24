@@ -28,11 +28,11 @@ const HeaderNotifications = () => {
   };
 
   const updateStatus = async (id: string) => {
-    const result = await UPDATE_NOTIFICATION_STATUS({id});
-    if(!result.success) return;
+    const result = await UPDATE_NOTIFICATION_STATUS({ id });
+    if (!result.success) return;
 
     getNotifications();
-  }
+  };
 
   useEffect(() => {
     getNotifications();
@@ -58,15 +58,18 @@ const HeaderNotifications = () => {
         </span>
       </span>
       {isOpen && notifications && notifications.length > 0 && (
-        <div className="absolute top-full right-[80%]  w-56 md:w-72 bg-bg/50 rounded-xl border border-primary space-y-2 h-[40vh] overflow-y-auto py-5 px-4">
+        <div className="absolute top-full right-[80%]  w-56 md:w-72 bg-bg rounded-xl border border-primary space-y-2 h-[40vh] overflow-y-auto py-5 px-4">
           {notifications.map(
             ({ title, description, is_read, created_at, id }, index) => (
-              <>
-                <div key={index}>
+              <div key={index}>
+                <div>
                   <div className="flex justify-between">
                     <Subtitle3 className="flex-1">{title}</Subtitle3>
 
-                    <span onClick={() => updateStatus(id)} className="text-xs border border-primary rounded p-px text-primary hover:bg-primary hover:text-white cursor-pointer">
+                    <span
+                      onClick={() => updateStatus(id)}
+                      className="text-xs border border-primary rounded p-px text-primary hover:bg-primary hover:text-white cursor-pointer"
+                    >
                       Mark as read
                     </span>
                   </div>
@@ -75,8 +78,8 @@ const HeaderNotifications = () => {
                     {formatNotificationTime(`${created_at}`)}
                   </p>
                 </div>
-                <div className="bg-light-gray/20 h-px w-full" />
-              </>
+                <div className="bg-light-gray/20 h-px w-full my-2" />
+              </div>
             )
           )}
         </div>

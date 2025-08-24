@@ -26,3 +26,21 @@ export interface FAQ {
   question: string;
   answer: string;
 }
+
+
+export interface IHomeCourse {
+  title: string;
+  slug: string;
+  price: number;
+  discount: number | null;
+  thumbnail: string;
+  level: any;
+  ratings: number | null;
+  reviews: {
+    rating: number;
+  }[];
+  _count: {
+    reviews: number;
+    course_data: number;
+  };
+}

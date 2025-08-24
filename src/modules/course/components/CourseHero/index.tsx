@@ -45,14 +45,12 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                 {course.title}
               </h1>
 
-              {/* Course Stats */}
               <div className="flex flex-wrap items-center gap-6 text-sm">
                 <div className="flex items-center space-x-2 text-light-gray">
                   <Users className="w-4 h-4" />
                   <span>{course.purchased || 0} students</span>
                 </div>
 
-                {/* Duration */}
                 <div className="flex items-center space-x-2 text-light-gray">
                   <Clock className="w-4 h-4" />
                   <span>
@@ -60,7 +58,6 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                   </span>
                 </div>
 
-                {/* Level */}
                 <div className="flex items-center space-x-2">
                   <Award className="w-4 h-4 text-light-gray" />
                   <span
@@ -70,7 +67,6 @@ const CourseHero = ({ course, isEnrolled }: CourseHeroProps) => {
                   </span>
                 </div>
 
-                {/* Sections */}
                 <div className="text-light-gray">{totalSections} sections</div>
               </div>
               <p className="text-light-gray text-lg leading-relaxed">

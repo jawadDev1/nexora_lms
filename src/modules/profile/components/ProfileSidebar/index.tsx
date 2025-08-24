@@ -10,6 +10,7 @@ import NextImage from "@/components/ui/common/NextImage";
 import Title from "@/components/ui/typography/Title";
 import { LogOut } from "lucide-react";
 import { GiOverlordHelm } from "react-icons/gi";
+import { SiCoursera } from "react-icons/si";
 
 const ProfileSidebar = () => {
   const pathname = usePathname();
@@ -19,7 +20,7 @@ const ProfileSidebar = () => {
 
   useEffect(() => {
     if (status === "loading") return;
-    if (!user ) {
+    if (!user) {
       router.push("/");
     }
   }, [user]);
@@ -54,13 +55,23 @@ const ProfileSidebar = () => {
               <Subtitle2>{item.title}</Subtitle2>
             </Link>
           ))}
-          {user && user.role === "Admin" && (
+          {user && user.role !== "Admin" && (
             <Link
-              href={"/hokage"}
+              href={"/profile/courses"}
               className={cn("py-1 px-3 hover:bg-gold-fade  inline-block")}
             >
-              <Subtitle2>Hokage Panel</Subtitle2>
+              <Subtitle2>Courses</Subtitle2>
             </Link>
+          )}
+          {user && user.role === "Admin" && (
+            <>
+              <Link
+                href={"/hokage"}
+                className={cn("py-1 px-3 hover:bg-gold-fade  inline-block")}
+              >
+                <Subtitle2>Hokage Panel</Subtitle2>
+              </Link>
+            </>
           )}
           <div
             onClick={handleLogout}
@@ -85,13 +96,23 @@ const ProfileSidebar = () => {
               <Icon size={20} />
             </Link>
           ))}
-          {user && user.role === "Admin" && (
+          {user && user.role !== "Admin" && (
             <Link
-              href={"/hokage"}
+              href={"/profile/courses"}
               className={cn("py-1 px-3 hover:bg-gold-fade  inline-block")}
             >
-              <GiOverlordHelm size={20} />
+              <SiCoursera size={20} />
             </Link>
+          )}
+          {user && user.role === "Admin" && (
+            <>
+              <Link
+                href={"/hokage"}
+                className={cn("py-1 px-3 hover:bg-gold-fade  inline-block")}
+              >
+                <GiOverlordHelm size={20} />
+              </Link>
+            </>
           )}
           <div
             onClick={handleLogout}

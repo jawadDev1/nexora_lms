@@ -29,7 +29,6 @@ export const authOptions: AuthOptions = {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       async profile(profile) {
-        console.log("runned ======> ", profile);
         try {
           const response = await getLoginUser({ email: profile.email });
           const user = response.data;
@@ -37,7 +36,7 @@ export const authOptions: AuthOptions = {
             name: user.name,
             email: user.email,
             avatar: user.avatar,
-            role: "USER",
+            role: "User",
             id: user.id,
             joined_at: user.created_at.toISOString(),
           };
@@ -53,7 +52,7 @@ export const authOptions: AuthOptions = {
             name: updatedUser.name,
             email: updatedUser.email,
             avatar: updatedUser.avatar,
-            role: "USER",
+            role: "User",
             id: updatedUser.id,
             joined_at: updatedUser.created_at.toISOString(),
           };
@@ -71,7 +70,7 @@ export const authOptions: AuthOptions = {
             name: user.name,
             email: user.email,
             avatar: user.avatar,
-            role: "USER",
+            role: "User",
             id: user.id,
             joined_at: user.created_at.toISOString(),
           };
@@ -87,7 +86,7 @@ export const authOptions: AuthOptions = {
             name: updatedUser.name,
             email: updatedUser.email,
             avatar: updatedUser.avatar,
-            role: "USER",
+            role: "User",
             id: updatedUser.id,
             joined_at: updatedUser.created_at.toISOString(),
           };

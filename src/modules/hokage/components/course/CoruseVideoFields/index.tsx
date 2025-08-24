@@ -162,7 +162,7 @@ const CourseVideoFields = ({
               <InputWithLabel
                 type="number"
                 name={`contents.${sectionIndex}.videos.${videoIndex}.video_length`}
-                label="Video Length (minutes)"
+                label="Video Length (seconds)"
                 register={register}
                 error={
                   errors?.contents?.[sectionIndex]?.videos?.[videoIndex]

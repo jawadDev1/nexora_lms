@@ -47,7 +47,7 @@ const VideoPlayer = ({ videoUrl, className }: VideoPlayerProps) => {
           allowFullScreen={true}
           allow="encrypted-media"
         ></iframe>
-      )}{" "}
+      )}
     </div>
   );
 };

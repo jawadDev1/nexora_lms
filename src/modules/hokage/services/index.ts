@@ -12,6 +12,7 @@ import { db } from "@/lib/db";
 import redis from "@/lib/redis";
 import { Session } from "next-auth";
 import server_pusher from "@/lib/server-pusher";
+import { processRevenueByMonth } from "@/utils/stats";
 
 export const createCourse = authAsyncHandler(
   "Admin",
@@ -41,7 +42,7 @@ export const createCourse = authAsyncHandler(
       })),
     });
 
-    await redis.del("hokage_courses", "hokage_table_categories");
+    await redis.del("hokage_courses", "hokage_table_categories", "home_courses");
 
     return {
       success: true,
@@ -104,7 +105,7 @@ export const updateCourse = authAsyncHandler(
 
     await db.$transaction(courseDataUpdates); // safely run all updates together
 
-    await redis.del("hokage_courses");
+    await redis.del("hokage_courses", "home_courses");
 
     return {
       success: true,
@@ -236,6 +237,7 @@ export const getHokageCourses = authAsyncHandler(
         id: true,
         title: true,
         ratings: true,
+        slug: true,
         purchased: true,
         created_at: true,
       },
@@ -305,21 +307,19 @@ export const getHokageCourseDetails = authAsyncHandler(
 
 export const getCourseAnalytics = authAsyncHandler(
   "Admin",
-  async (): Promise<ICourseAnalyticsReturn> => {
-    const coursesByMonth = await db.$queryRaw<
-      { month: string; count: number }[]
-    >`
-SELECT 
-  TO_CHAR("created_at", 'Mon YYYY') AS month,
-  COUNT(*) AS count
-FROM "Course"
-GROUP BY month
-ORDER BY MIN("created_at");
-`;
+  async (): Promise<{
+    success: boolean;
+    message: string;
+    data: { level: string; count: number }[];
+  }> => {
+    const coursesByLevel = await db.course.groupBy({
+      by: ["level"],
+      _count: { id: true },
+    });
 
-    const formatted = coursesByMonth.map((row) => ({
-      month: row.month,
-      count: Number(row.count),
+    const formatted = coursesByLevel.map((item) => ({
+      level: item.level,
+      count: item._count.id,
     }));
 
     return {
@@ -333,27 +333,28 @@ ORDER BY MIN("created_at");
 // ====== Orders =======================
 export const getOrdersAnalytics = authAsyncHandler(
   "Admin",
-  async (): Promise<ICourseAnalyticsReturn> => {
-    const coursesByMonth = await db.$queryRaw<
-      { month: string; count: number }[]
-    >`
-SELECT 
-  TO_CHAR("created_at", 'Mon YYYY') AS month,
-  COUNT(*) AS count
-FROM "Course"
-GROUP BY month
-ORDER BY MIN("created_at");
-`;
+  async (): Promise<{
+    success: boolean;
+    message: string;
+    data: { month: string; revenue: number }[];
+  }> => {
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-    const formatted = coursesByMonth.map((row) => ({
-      month: row.month,
-      count: Number(row.count),
-    }));
+    const ordersByMonth = await db.order.findMany({
+      where: {
+        payment_status: "PAID",
+        created_at: { gte: sixMonthsAgo },
+      },
+      include: { Course: true },
+    });
+
+    const revenueByMonth = processRevenueByMonth(ordersByMonth);
 
     return {
       success: true,
       message: "course analytics fetched successfully",
-      data: formatted,
+      data: revenueByMonth,
     };
   }
 );

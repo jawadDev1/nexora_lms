@@ -3,6 +3,7 @@ import { authAsyncHandler } from "@/utils/asyncHandler";
 import { ICourseAnalyticsReturn, IHokageCourseReturn } from "../types";
 import { IHokageUserTable, IHokageUserTableReturn } from "../types/users";
 import redis from "@/lib/redis";
+import { processMonthlyData } from "@/utils/stats";
 
 export const getHokageUsers = authAsyncHandler(
   "Admin",
@@ -35,7 +36,7 @@ export const getHokageUsers = authAsyncHandler(
       enrollments: user._count.enrollments,
     }));
 
-    await redis.set("hokage_table_users", modifiedUsers)
+    await redis.set("hokage_table_users", modifiedUsers);
 
     return {
       success: true,
@@ -45,44 +46,45 @@ export const getHokageUsers = authAsyncHandler(
   }
 );
 
+export const deleteUser = authAsyncHandler(
+  "Admin",
+  async ({ userId }: { userId: string }) => {
+    if (!userId) {
+      throw new Error("User id is required");
+    }
 
-export const deleteUser = authAsyncHandler('Admin', async({userId}: {userId: string}) => {
-    if(!userId) {
-        throw new Error("User id is required");
-    };
+    await db.user.delete({ where: { id: userId } });
 
-    const user = await db.user.delete({where: {id: userId}});
+    await redis.del("hokage_table_users");
 
-    await redis.del("hokage_table_users")
-
-    return {success: true, message: "user deleted successfully"};
-})
-
+    return { success: true, message: "user deleted successfully" };
+  }
+);
 
 export const getUsersAnalytics = authAsyncHandler(
   "Admin",
-  async (): Promise<ICourseAnalyticsReturn> => {
-    const usersByMonth = await db.$queryRaw<
-      { month: string; count: number }[]
-    >`
-SELECT 
-  TO_CHAR("created_at", 'Mon YYYY') AS month,
-  COUNT(*) AS count
-FROM "User"
-GROUP BY month
-ORDER BY MIN("created_at");
-`;
+  async (): Promise<{
+    success: boolean;
+    message: string;
+    data: { month: string; users: number }[];
+  }> => {
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
+    const usersByMonth = await db.user.groupBy({
+      by: ["created_at"],
+      where: {
+        created_at: { gte: sixMonthsAgo },
+      },
+      _count: { id: true },
+    });
 
-    const formatted = usersByMonth.map((row) => ({
-      month: row.month,
-      count: Number(row.count),
-    }));
+    const userGrowth = processMonthlyData(usersByMonth, "_count");
 
     return {
       success: true,
       message: "course analytics fetched successfully",
-      data: formatted,
+      data: userGrowth,
     };
   }
 );

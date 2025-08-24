@@ -33,8 +33,10 @@ export function authAsyncHandler<TArgs extends any[], TResult>(
     try {
       const session = await getServerSession(authOptions);
 
-      if (!session || session.user.role !== role) {
-        throw new Error("Unauthorized");
+      if (session?.user.role !== "Admin") {
+        if (!session || session.user.role !== role) {
+          throw new Error("Unauthorized");
+        }
       }
 
       // Inject `user` into the args object

@@ -128,6 +128,54 @@ export const getUserCourseDetails = authAsyncHandler(
   }
 );
 
+export const getAdminCourseDetails = authAsyncHandler(
+  "Admin",
+  async ({ slug, user }: { slug: string; user: Session["user"] }) => {
+    const courseDetails = await db.course.findFirst({
+      where: { slug },
+      include: {
+        course_data: {
+          select: {
+            id: true,
+            video_length: true,
+            video_section: true,
+            video_title: true,
+            video_description: true,
+            video_url: true,
+            video_link_title: true,
+            video_link_url: true,
+          },
+        },
+        Category: { select: { title: true } },
+        reviews: {
+          select: {
+            rating: true,
+            comment: true,
+            created_at: true,
+            User: { select: { name: true, avatar: true } },
+          },
+        },
+      },
+      omit: { updated_at: true },
+    });
+
+    if (!courseDetails) {
+      return { success: false, message: "course not found", data: null };
+    }
+
+    const isReviewed = true;
+
+    return {
+      success: true,
+      message: "course details fetched successfully",
+      data: {
+        course: courseDetails,
+        isReviewed: !!isReviewed,
+      },
+    };
+  }
+);
+
 export const processPayment = authAsyncHandler(
   "User",
   async ({ amount }: { amount: number }) => {
@@ -238,7 +286,22 @@ export const createQuestion = authAsyncHandler(
     const newQuestion = await db.question.create({
       data: { question, userId: user.id, courseDataId: content_id },
       omit: { id: true },
+      include: {
+        CourseData: {
+          select: {
+            Course: { select: { title: true, slug: true } },
+            video_title: true,
+          },
+        },
+      },
     });
+
+    if (user?.role !== "Admin") {
+      await pushNotification({
+        title: "New Question",
+        description: `${newQuestion.CourseData?.Course?.title}, video ${newQuestion.CourseData?.video_title} has a new question`,
+      });
+    }
 
     return {
       success: true,

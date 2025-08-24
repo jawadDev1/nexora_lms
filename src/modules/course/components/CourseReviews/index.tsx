@@ -9,16 +9,13 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { IReview } from "../../types";
+import { formatNotificationTime } from "@/utils";
 
 interface CourseReviewsProps {
   reviews: IReview[];
 }
 
 const CourseReviews: React.FC<CourseReviewsProps> = ({ reviews }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const reviewsPerPage = 6;
-  const totalPages = Math.ceil(reviews.length / reviewsPerPage);
-
   const averageRating =
     reviews.length > 0
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
@@ -35,19 +32,6 @@ const CourseReviews: React.FC<CourseReviewsProps> = ({ reviews }) => {
         : 0,
   }));
 
-  const getCurrentPageReviews = () => {
-    const startIndex = (currentPage - 1) * reviewsPerPage;
-    const endIndex = startIndex + reviewsPerPage;
-    return reviews.slice(startIndex, endIndex);
-  };
-
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }).format(new Date(date));
-  };
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
@@ -125,10 +109,10 @@ const CourseReviews: React.FC<CourseReviewsProps> = ({ reviews }) => {
           {/* Reviews List */}
           <div className="lg:col-span-2">
             <div className="space-y-6">
-              {getCurrentPageReviews().map((review, index) => (
+              {reviews.map((review, index) => (
                 <div key={index} className="bg-card rounded-lg p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 size-14 overflow-hidden ">
                       {review.User.avatar ? (
                         <Image
                           src={review.User.avatar}
@@ -157,7 +141,7 @@ const CourseReviews: React.FC<CourseReviewsProps> = ({ reviews }) => {
                               {renderStars(review.rating)}
                             </div>
                             <span className="text-light-gray text-sm">
-                              {formatDate(review.created_at)}
+                              {formatNotificationTime(`${review.created_at}`)}
                             </span>
                           </div>
                         </div>

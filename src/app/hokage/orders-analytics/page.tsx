@@ -1,10 +1,9 @@
-import CourseAnalyticsPage from "@/modules/hokage/pages/CourseAnalyticsPage";
 import OrdersAnalyticsPage from "@/modules/hokage/pages/OrdersAnalyticsPage";
-import { getCourseAnalytics } from "@/modules/hokage/services";
+import { getOrdersAnalytics } from "@/modules/hokage/services";
 import React from "react";
 
 const CourseAnalytics = async () => {
-  const result = await getCourseAnalytics("");
+  const result = await getOrdersAnalytics("");
 
   return <OrdersAnalyticsPage data={result?.data ?? []} />;
 };

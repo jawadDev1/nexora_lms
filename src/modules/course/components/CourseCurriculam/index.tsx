@@ -12,18 +12,11 @@ const CourseCurriculum = ({
   courseData,
   isEnrolled,
 }: CourseCurriculumProps) => {
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set()
-  );
+  const [expandedSection, setExpandedSection] = useState<string>("");
 
   const toggleSection = (sectionTitle: string) => {
-    const newExpanded = new Set(expandedSections);
-    if (newExpanded.has(sectionTitle)) {
-      newExpanded.delete(sectionTitle);
-    } else {
-      newExpanded.add(sectionTitle);
-    }
-    setExpandedSections(newExpanded);
+    if (sectionTitle == expandedSection) return setExpandedSection("");
+    setExpandedSection(sectionTitle);
   };
 
   const formatDuration = (duration: number) => {
@@ -78,7 +71,7 @@ const CourseCurriculum = ({
         <div className="space-y-4">
           {sectionTitles.map((sectionTitle, sectionIndex) => {
             const videos = groupedSections[sectionTitle];
-            const isExpanded = expandedSections.has(sectionTitle);
+            const isExpanded = expandedSection === sectionTitle;
             const sectionDuration = getSectionDuration(videos);
 
             return (
@@ -124,11 +117,8 @@ const CourseCurriculum = ({
                   <div className="px-4 pb-4 pt-3">
                     <div className="space-y-3">
                       {videos.map((video, videoIndex) => {
-                        const accessible = isVideoAccessible(
-                          sectionIndex,
-                          videoIndex
-                        );
-
+                        const accessible =
+                          sectionIndex === 0 && videoIndex == 0;
                         return (
                           <div
                             key={`${sectionTitle}-${videoIndex}`}
@@ -160,20 +150,6 @@ const CourseCurriculum = ({
                                     {video.video_description}
                                   </p>
                                 )}
-
-                                {/* External Link */}
-                                {video.video_link_url &&
-                                  video.video_link_title && (
-                                    <a
-                                      href={video.video_link_url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="inline-flex items-center space-x-1 text-primary hover:text-yellow-400 text-sm mt-2 transition-colors"
-                                    >
-                                      <ExternalLink className="w-3 h-3" />
-                                      <span>{video.video_link_title}</span>
-                                    </a>
-                                  )}
                               </div>
                             </div>
 
@@ -184,26 +160,11 @@ const CourseCurriculum = ({
                                   {formatDuration(video.video_length!)}
                                 </span>
                               </div>
-
-                              
                             </div>
                           </div>
                         );
                       })}
                     </div>
-
-                    {/* Section Lock Message */}
-                    {!isEnrolled && sectionIndex > 0 && (
-                      <div className="mt-4 ml-8 bg-dark-brown p-3 rounded-lg border border-gray-700">
-                        <p className="text-light-gray text-sm flex items-center space-x-2">
-                          <Lock className="w-4 h-4" />
-                          <span>
-                            Enroll in this course to access all videos in this
-                            section.
-                          </span>
-                        </p>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>

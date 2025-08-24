@@ -19,11 +19,11 @@ export const PROFILE_SIDEBAR_MENU = [
     Icon: BsShieldLock,
     slug: "/profile/change-password",
   },
-  {
-    title: "Courses",
-    Icon: SiCoursera, 
-    slug: "/profile/courses",
-  },
+  // {
+  //   title: "Courses",
+  //   Icon: SiCoursera, 
+  //   slug: "/profile/courses",
+  // },
 ];
 
 export const HOKAGE_SIBAR_MENU = [
@@ -77,16 +77,16 @@ export const HOKAGE_SIBAR_MENU = [
       },
     ],
   },
-  {
-    group: "Controllers",
-    children: [
-      {
-        title: "Manage Team",
-        href: "/hokage/manage-team",
-        Icon: AiOutlineTeam,
-      },
-    ],
-  },
+  // {
+  //   group: "Controllers",
+  //   children: [
+  //     {
+  //       title: "Manage Team",
+  //       href: "/hokage/manage-team",
+  //       Icon: AiOutlineTeam,
+  //     },
+  //   ],
+  // },
   {
     group: "Analytics",
     children: [
@@ -96,7 +96,7 @@ export const HOKAGE_SIBAR_MENU = [
         Icon: RiBarChart2Fill,
       },
       {
-        title: "Orders Analytics",
+        title: "Revenue Analytics",
         href: "/hokage/orders-analytics",
         Icon: GiChart,
       },
@@ -107,16 +107,16 @@ export const HOKAGE_SIBAR_MENU = [
       },
     ],
   },
-  {
-    group: "Extras",
-    children: [
-      {
-        title: "Settings",
-        href: "/hokage/settings",
-        Icon: AiFillSetting,
-      },
-    ],
-  },
+  // {
+  //   group: "Extras",
+  //   children: [
+  //     {
+  //       title: "Settings",
+  //       href: "/hokage/settings",
+  //       Icon: AiFillSetting,
+  //     },
+  //   ],
+  // },
 ];
 
 export const USER_COURSE_DETAIL_TABS = [

@@ -98,19 +98,6 @@ const OTPVerificationModal = ({
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData
-      .getData("text")
-      .replace(/\D/g, "")
-      .slice(0, 6);
-    setValue("otp", pastedData);
-
-    // Focus the next empty input or the last input
-    const nextIndex = Math.min(pastedData.length, 5);
-    inputRefs.current[nextIndex]?.focus();
-  };
-
   return (
     <ModalWrapper
       isOpen={isOpen}
@@ -155,7 +142,6 @@ const OTPVerificationModal = ({
                       value={otpValue[index] || ""}
                       onChange={(e) => handleOTPChange(e.target.value, index)}
                       onKeyDown={(e) => handleKeyDown(e, index)}
-                      onPaste={handlePaste}
                       className={`w-12 h-12 text-center text-xl font-bold rounded-lg border-2 transition-all duration-200 focus:outline-none ${
                         errors.otp
                           ? "border-red-500 bg-red-500/10"
@@ -177,7 +163,7 @@ const OTPVerificationModal = ({
           )}
         </div>
 
-        {/* Timer and Resend */}
+        {/* Timer   */}
         <div className="text-center space-y-3">
           <p className="text-light-gray text-sm">
             Code expires in{" "}
@@ -210,12 +196,7 @@ const OTPVerificationModal = ({
         </p>
       </div>
 
-      {/* Security Notice */}
-      <div className="mt-4 p-3 bg-card/50 rounded-lg border border-light-gray/20">
-        <p className="text-xs text-light-gray text-center">
-          🔒 For your security, never share this code with anyone
-        </p>
-      </div>
+      
     </ModalWrapper>
   );
 };

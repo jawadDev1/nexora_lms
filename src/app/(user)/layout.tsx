@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/common/Footer";
 import Header from "@/components/ui/common/Header";
 import { unstable_noStore as noStore } from "next/cache";
 import React from "react";
@@ -13,6 +14,7 @@ const UserLayout = ({
     <>
       <Header />
       {children}
+      {/* <Footer /> */}
     </>
   );
 };

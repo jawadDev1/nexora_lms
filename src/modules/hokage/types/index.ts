@@ -20,6 +20,7 @@ export interface ICachedCourse {
   id: string;
   created_at: Date;
   title: string;
+  slug: string;
   purchased: number;
   ratings: number;
 }
@@ -73,6 +74,7 @@ export type IHokageCourseReturn = Promise<{
     | {
         title: string;
         id: string;
+        slug: string;
         ratings: number | null;
         purchased: number | null;
         created_at: Date;
